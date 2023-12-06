@@ -54,24 +54,5 @@
                 </table>
             </div>
         </div>
-
-        <hr>
-
-        <?= view("_components/LinesFieldGroup",
-            [
-                "fields" => [
-                    [
-                        "type" => "LinesField",
-                        "label" => "Judul For More Information",
-                        "id" => "FMI_TITLE",
-                    ],
-                    [
-                        "type" => "CKEDITOR",
-                        "label" => "Konten For More Information",
-                        "id" => "FMI_CONTENT",
-                    ],
-                ]
-            ]
-        ) ?>
     </div>
 <?= $this->endSection(); ?>
