@@ -10,7 +10,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" href="/css/backend.css">
-    <title>Panel Admin | Yayasan Pulih</title>
+    <title>Panel Admin | Hotel Ebony</title>
 
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
 
@@ -185,6 +185,7 @@
         DecoupledDocumentEditor
             .create(document.querySelector(`.editor${id}`), {
                 language: 'en',
+                extraPlugins: [MyCustomUploadAdapterPlugin],
             })
             .then(editor => {
                 window.editor = editor;
