@@ -70,7 +70,7 @@ class Lines extends Model
     {
         $target = $this->find($key);
         if (!$target) {
-            return 'https://via.placeholder.com/500';
+            return 'https://placehold.co/500?text=1920x1080';
         }
         return $target->value;
     }
