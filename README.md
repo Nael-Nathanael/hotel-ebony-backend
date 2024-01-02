@@ -1,3 +1,3 @@
-# Backend for Altha.co.id
+# Backend for panel hotel ebony
 
-APIs for Altha.co.id, created using CodeIgniter 4
+APIs for panel hotel ebony, created using CodeIgniter 4

@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bs5.css">
 
-    <title>Backend side for altha.co.id</title>
+    <title>Admin Panel | Hotel Ebony Batulicin</title>
 </head>
 <body>
 
