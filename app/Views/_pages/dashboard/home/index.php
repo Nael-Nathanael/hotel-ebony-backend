@@ -30,6 +30,33 @@
             </div>
         </div>
     </div>
+    <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <?= view("_components/LinesFieldGroup",
+                        [
+                            "fields" => [
+                                [
+                                    "type" => "LinesField",
+                                    "label" => "Judul",
+                                    "id" => "HOME_HEADER_TITLE",
+                                ],
+                                [
+                                    "type" => "CKEDITOR",
+                                    "label" => "Deskripsi",
+                                    "id" => "HOME_HEADER_SUBTITLE",
+                                ],
+                            ]
+                        ]
+                    ) ?>
+                </div>
+                <div class="col-6">
+                    <?= summon_image_field("HOME", "HOME_HEADER_IMG") ?>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <?= $this->endSection(); ?>
 
