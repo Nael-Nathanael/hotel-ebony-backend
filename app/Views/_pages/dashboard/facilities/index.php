@@ -33,6 +33,7 @@
                                 <td style="vertical-align: center">
                                     <?php if ($facility->isShownOnHomepage): ?>
                                         <img width="150" height="150" alt="thumbnail"
+                                             style="object-position: center; object-fit: cover;"
                                              src="<?= $facility->thumbnailUrl ?>"/>
                                         <p class="text-danger mb-0 mt-1 marcellus"><?= $facility->label ?></p>
                                         <p class="text-decoration-underline lh-2 fs-5 marcellus"><?= $facility->title ?></p>
@@ -41,7 +42,8 @@
                                     <?php endif ?>
                                 </td>
                                 <td style="vertical-align: center">
-                                    <div class="position-relative bg-primary" style="width: 600px; height: 300px">
+                                    <div class="position-relative bg-primary w-100"
+                                         style="max-width: 600px; aspect-ratio: 2 / 1">
                                         <img alt="cover" class="w-100 h-100"
                                              style="object-fit: cover; object-position: center"
                                              src="<?= $facility->imgUrl ?>"/>
@@ -60,7 +62,11 @@
                                 <td style="vertical-align: center" class="text-center">
                                     <form action="<?= route_to("object.facilities.delete", $facility->id) ?>"
                                           method="post">
-                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmBeforeSubmit(
+                                            this,
+                                            'Hapus Fasilitas?',
+                                            'Fasilitas yang telah dihapus tidak dapat dikembalikan'
+                                        )">
                                             Delete
                                         </button>
                                     </form>

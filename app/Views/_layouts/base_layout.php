@@ -227,6 +227,31 @@
             reader.readAsDataURL(file);
         });
     }
+
+    function confirmBeforeSubmit(element, title = 'Konfirmasi?', subtitle) {
+        function findFormParent(element) {
+            if (element.tagName === 'FORM') {
+                return element; // If the current element is a form, return it
+            } else if (element.parentElement) {
+                // If the current element has a parent, recursively check the parent
+                return findFormParent(element.parentElement);
+            } else {
+                return null; // If there's no parent or form found, return null
+            }
+        }
+
+        Swal.fire({
+            title: title,
+            text: subtitle,
+            showCancelButton: true,
+            confirmButtonText: "Konfirmasi",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = findFormParent(element);
+                form.submit();
+            }
+        });
+    }
 </script>
 <?= $this->renderSection("javascript") ?>
 

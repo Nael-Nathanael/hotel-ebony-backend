@@ -45,8 +45,7 @@ class Facilities extends BaseController
             ]
         );
 
-        $data = [];
-        sendCalmSuccessMessage("Fasilitas berhasil didaftarkan!", $data);
+        sendCalmSuccessMessage("Fasilitas berhasil didaftarkan!");
         return redirect()->route("dashboard.facilities.index");
     }
 
@@ -79,7 +78,8 @@ class Facilities extends BaseController
 
         $model->save($data);
 
-        return redirect()->to(previous_url());
+        sendCalmSuccessMessage("Fasilitas berhasil diperbarui!");
+        return redirect()->route("dashboard.facilities.index");
     }
 
 
@@ -89,7 +89,8 @@ class Facilities extends BaseController
 
         $model->delete($id);
 
-        return redirect()->to(previous_url());
+        sendCalmSuccessMessage("Fasilitas berhasil dihapus!");
+        return redirect()->route("dashboard.facilities.index");
     }
 
     public function get(): ResponseInterface
