@@ -57,6 +57,110 @@
             </div>
         </div>
     </div>
+    <div class="mb-3">
+        <div class="card-body text-center">
+            <?= view("_components/LinesFieldGroup",
+                [
+                    "fields" => [
+                        [
+                            "type" => "LinesField",
+                            "label" => "Facility Section",
+                            "id" => "HOME_FACILITY_TITLE",
+                        ],
+                    ]
+                ]
+            ) ?>
+        </div>
+    </div>
+    <div class="card shadow-sm mb-3">
+        <div class="card-header">
+            Carousel
+        </div>
+        <div class="card-body text-center">
+            <div class="row">
+                <div class="col-6">
+                    <?= summon_image_field("HOME", "HOME_CAROUSEL_IMG_1") ?>
+                    <?= view("_components/LinesFieldGroup",
+                        [
+                            "fields" => [
+                                [
+                                    "type" => "LinesField",
+                                    "label" => "Judul",
+                                    "id" => "HOME_CAROUSEL_TITLE_1",
+                                ],
+                                [
+                                    "type" => "LinesField",
+                                    "label" => "Deskripsi",
+                                    "id" => "HOME_CAROUSEL_DESCRIPTION_1",
+                                ],
+                                [
+                                    "type" => "LinesField",
+                                    "label" => "Teks Tombol",
+                                    "id" => "HOME_CAROUSEL_BUTTON_TEXT_1",
+                                ],
+                                [
+                                    "type" => "LinesField",
+                                    "label" => "URL Tombol",
+                                    "id" => "HOME_CAROUSEL_BUTTON_TEXT_1",
+                                ],
+                            ]
+                        ]
+                    ) ?>
+                </div>
+                <div class="col-6">
+                    <?= summon_image_field("HOME", "HOME_CAROUSEL_IMG_2") ?>
+                    <?= view("_components/LinesFieldGroup",
+                        [
+                            "fields" => [
+                                [
+                                    "type" => "LinesField",
+                                    "label" => "Judul",
+                                    "id" => "HOME_CAROUSEL_TITLE_2",
+                                ],
+                                [
+                                    "type" => "LinesField",
+                                    "label" => "Deskripsi",
+                                    "id" => "HOME_CAROUSEL_DESCRIPTION_2",
+                                ],
+                                [
+                                    "type" => "LinesField",
+                                    "label" => "Teks Tombol",
+                                    "id" => "HOME_CAROUSEL_BUTTON_TEXT_2",
+                                ],
+                                [
+                                    "type" => "LinesField",
+                                    "label" => "URL Tombol",
+                                    "id" => "HOME_CAROUSEL_BUTTON_TEXT_2",
+                                ],
+                            ]
+                        ]
+                    ) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-3">
+        <div class="card-body text-center">
+            <?= view("_components/LinesFieldGroup",
+                [
+                    "fields" => [
+                        [
+                            "type" => "LinesField",
+                            "label" => "Rooms & Suites Section",
+                            "id" => "HOME_ROOMS_TITLE",
+                        ],
+                        [
+                            "type" => "LinesField",
+                            "label" => "View All Rooms",
+                            "id" => "HOME_ROOMS_ALL",
+                        ],
+                    ]
+                ]
+            ) ?>
+        </div>
+    </div>
+
 </div>
 <?= $this->endSection(); ?>
 
