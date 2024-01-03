@@ -101,7 +101,7 @@
                                 [
                                     "type" => "LinesField",
                                     "label" => "URL Tombol",
-                                    "id" => "HOME_CAROUSEL_BUTTON_TEXT_1",
+                                    "id" => "HOME_CAROUSEL_BUTTON_URL   _1",
                                 ],
                             ]
                         ]
@@ -130,7 +130,7 @@
                                 [
                                     "type" => "LinesField",
                                     "label" => "URL Tombol",
-                                    "id" => "HOME_CAROUSEL_BUTTON_TEXT_2",
+                                    "id" => "HOME_CAROUSEL_BUTTON_URL_2",
                                 ],
                             ]
                         ]
