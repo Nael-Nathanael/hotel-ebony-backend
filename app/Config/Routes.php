@@ -52,6 +52,12 @@ $routes->group('dashboard', function ($routes) {
         $routes->get("create", "Dashboard\Facilities::create", ["as" => "dashboard.facilities.create"]);
         $routes->get("update/(:segment)", "Dashboard\Facilities::update/$1", ["as" => "dashboard.facilities.update"]);
     });
+
+    $routes->group('rooms', function ($routes) {
+        $routes->get("", "Dashboard\Rooms::index", ["as" => "dashboard.rooms.index"]);
+        $routes->get("create", "Dashboard\Rooms::create", ["as" => "dashboard.rooms.create"]);
+        $routes->get("update/(:segment)", "Dashboard\Rooms::update/$1", ["as" => "dashboard.rooms.update"]);
+    });
 });
 
 $routes->group("object", function ($routes) {
@@ -69,6 +75,13 @@ $routes->group("object", function ($routes) {
         $routes->post('delete/(:segment)', "Object\Facilities::delete/$1", ["as" => "object.facilities.delete"]);
         $routes->post('update/(:segment)', "Object\Facilities::update/$1", ["as" => "object.facilities.update"]);
         $routes->get('get', "Object\Facilities::get", ["as" => "object.facilities.get"]);
+    });
+
+    $routes->group('rooms', function ($routes) {
+        $routes->post('create', "Object\Rooms::create", ["as" => "object.rooms.create"]);
+        $routes->post('delete/(:segment)', "Object\Rooms::delete/$1", ["as" => "object.rooms.delete"]);
+        $routes->post('update/(:segment)', "Object\Rooms::update/$1", ["as" => "object.rooms.update"]);
+        $routes->get('get', "Object\Rooms::get", ["as" => "object.rooms.get"]);
     });
 
     $routes->group('lines', function ($routes) {
