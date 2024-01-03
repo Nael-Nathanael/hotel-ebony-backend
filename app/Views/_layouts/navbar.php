@@ -22,9 +22,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= route_to("dashboard.facilities.index") ?>">Facilities</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= route_to("dashboard.faq.index") ?>">F.A.Q</a>
-                </li>
             </ul>
             <div class="d-flex align-items-center gap-2 flex-nowrap">
                 <form action="<?= route_to("session.lang") ?>" method="post" id="langsel">

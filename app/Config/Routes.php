@@ -52,12 +52,6 @@ $routes->group('dashboard', function ($routes) {
         $routes->get("create", "Dashboard\Facilities::create", ["as" => "dashboard.facilities.create"]);
         $routes->get("update/(:segment)", "Dashboard\Facilities::update/$1", ["as" => "dashboard.facilities.update"]);
     });
-
-    $routes->group('faq', function ($routes) {
-        $routes->get("", "Dashboard\Faq::index", ["as" => "dashboard.faq.index"]);
-        $routes->get("create", "Dashboard\Faq::create", ["as" => "dashboard.faq.create"]);
-        $routes->get("update/(:segment)", "Dashboard\Faq::update/$1", ["as" => "dashboard.faq.update"]);
-    });
 });
 
 $routes->group("object", function ($routes) {
@@ -75,13 +69,6 @@ $routes->group("object", function ($routes) {
         $routes->post('delete/(:segment)', "Object\Facilities::delete/$1", ["as" => "object.facilities.delete"]);
         $routes->post('update/(:segment)', "Object\Facilities::update/$1", ["as" => "object.facilities.update"]);
         $routes->get('get', "Object\Facilities::get", ["as" => "object.facilities.get"]);
-    });
-
-    $routes->group('faq', function ($routes) {
-        $routes->post('create', "Object\Faq::create", ["as" => "object.faq.create"]);
-        $routes->post('delete/(:segment)', "Object\Faq::delete/$1", ["as" => "object.faq.delete"]);
-        $routes->post('update/(:segment)', "Object\Faq::update/$1", ["as" => "object.faq.update"]);
-        $routes->get('', "Object\Faq::get_all", ["as" => "object.faq.index"]);
     });
 
     $routes->group('lines', function ($routes) {
