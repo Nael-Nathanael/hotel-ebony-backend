@@ -10,18 +10,22 @@ class Articles extends BaseController
     {
         $articles = model("ArticlesModel");
         $data['articles'] = $articles->orderBy("created_at DESC")->findAll();
+        bindFlashdata($data);
         return view("_pages/dashboard/articles/index", $data);
     }
 
     public function create(): string
     {
-        return view("_pages/dashboard/articles/create");
+        $data = [];
+        bindFlashdata($data);
+        return view("_pages/dashboard/articles/create", $data);
     }
 
     public function update($slug): string
     {
         $articles = model("ArticlesModel");
         $data['article'] = $articles->find($slug);
+        bindFlashdata($data);
         return view("_pages/dashboard/articles/update", $data);
     }
 }

@@ -8,6 +8,8 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view("_pages/dashboard/home/index");
+        $data = [];
+        bindFlashdata($data);
+        return view("_pages/dashboard/home/index", $data);
     }
 }

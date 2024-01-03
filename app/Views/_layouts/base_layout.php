@@ -15,6 +15,8 @@
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
 
     <?= $this->renderSection("head") ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
@@ -31,8 +33,8 @@
         crossorigin="anonymous"></script>
 
 <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
-<script>
 
+<script>
     async function triggerSave(element) {
         const group_name = element.name.split("_")[0]
         const apiUrl = '/object/lines/update/<?= session()->get("LANG") ?>/' + group_name;
@@ -195,7 +197,48 @@
             })
     }
 </script>
+
+<script>
+    function bindSelectToPreview(id, callback) {
+        document.getElementById(id).addEventListener('change', (event) => {
+            callback(event.target.value)
+        })
+    }
+
+    function bindInputToPreview(id) {
+        document.getElementById(id).addEventListener('keyup', (event) => {
+            for (let element of document.getElementsByClassName('preview_' + id)) {
+                element.innerText = event.target.value
+            }
+        })
+    }
+
+    function bindInputImageToPreview(id) {
+        document.getElementById(id).addEventListener('change', function () {
+            const file = this.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                for (let element of document.getElementsByClassName('preview_' + id)) {
+                    element.src = e.target.result;
+                }
+            };
+
+            reader.readAsDataURL(file);
+        });
+    }
+</script>
 <?= $this->renderSection("javascript") ?>
+
+<?php if (isset($flashdata['success'])): ?>
+    <script>
+        Swal.fire({
+            title: "Berhasil!",
+            text: "<?= $flashdata['success'] ?>",
+            icon: "success"
+        });
+    </script>
+<?php endif ?>
 
 </body>
 </html>

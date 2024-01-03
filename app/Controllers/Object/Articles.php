@@ -21,7 +21,7 @@ class Articles extends BaseController
         }
 
         // upload image
-        $imgUrl = '/img/BannerBG_LandingPage.jpg';
+        $imgUrl = PLACEHOLDER_IMG;
         if ($_FILES["coverImage"]["name"]) {
             $path = $this->request->getFile("coverImage");
             $path->move(UPLOAD_FOLDER_URL);

@@ -14,7 +14,7 @@ class Facilities extends BaseController
         $model = model("FacilitiesModel");
 
         // upload thumbnail image
-        $thumbnailUrl = '/img/BannerBG_LandingPage.jpg';
+        $thumbnailUrl = PLACEHOLDER_IMG;
         if ($_FILES["thumbnailImg"]["name"]) {
             $path = $this->request->getFile("thumbnailImg");
             $path->move(UPLOAD_FOLDER_URL);
@@ -22,7 +22,7 @@ class Facilities extends BaseController
         }
 
         // upload image
-        $imgUrl = '/img/BannerBG_LandingPage.jpg';
+        $imgUrl = PLACEHOLDER_IMG;
         if ($_FILES["img"]["name"]) {
             $path = $this->request->getFile("img");
             $path->move(UPLOAD_FOLDER_URL);
@@ -37,13 +37,17 @@ class Facilities extends BaseController
                 "number" => $number,
                 "label" => $this->request->getPost("label"),
                 "title" => $this->request->getPost("title"),
+                "description" => $this->request->getPost("description"),
                 "thumbnailUrl" => $thumbnailUrl,
                 "imgUrl" => $imgUrl,
                 "isShownOnHomepage" => $this->request->getPost("isShownOnHomepage"),
+                "isWhiteText" => $this->request->getPost("isWhiteText")
             ]
         );
 
-        return redirect()->to(previous_url());
+        $data = [];
+        sendCalmSuccessMessage("Fasilitas berhasil didaftarkan!", $data);
+        return redirect()->route("dashboard.facilities.index");
     }
 
     public function update($id): RedirectResponse
@@ -51,9 +55,12 @@ class Facilities extends BaseController
         $model = model("FacilitiesModel");
 
         $data = [
+            "id" => $id,
             "label" => $this->request->getPost("label"),
             "title" => $this->request->getPost("title"),
             "isShownOnHomepage" => $this->request->getPost("isShownOnHomepage"),
+            "description" => $this->request->getPost("description"),
+            "isWhiteText" => $this->request->getPost("isWhiteText")
         ];
 
         // upload thumbnail image

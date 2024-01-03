@@ -10,18 +10,22 @@ class Facilities extends BaseController
     {
         $model = model("FacilitiesModel");
         $data['facilities'] = $model->findAll();
+        bindFlashdata($data);
         return view("_pages/dashboard/facilities/index", $data);
     }
 
     public function create(): string
     {
-        return view("_pages/dashboard/facilities/create");
+        $data = [];
+        bindFlashdata($data);
+        return view("_pages/dashboard/facilities/create", $data);
     }
 
     public function update($slug): string
     {
         $model = model("FacilitiesModel");
         $data['facility'] = $model->find($slug);
+        bindFlashdata($data);
         return view("_pages/dashboard/facilities/update", $data);
     }
 }

@@ -91,7 +91,6 @@
                                            placeholder="Keywords" required>
                                 </div>
 
-
                                 <div class="form-group mb-3">
                                     <label for="meta_title">Meta Title</label>
                                     <input type="text" name="meta_title" id="meta_title" class="form-control"
