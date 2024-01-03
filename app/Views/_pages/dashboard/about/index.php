@@ -97,7 +97,17 @@
     </div>
     <div class="card shadow-sm mb-3">
         <div class="card-header">
-            Explore Ebony Hotel
+            <?= view("_components/LinesFieldGroup",
+                [
+                    "fields" => [
+                        [
+                            "type" => "LinesField",
+                            "label" => "Explore Ebony Hotel",
+                            "id" => "EXPLORE_TITLE",
+                        ],
+                    ]
+                ]
+            ) ?>
         </div>
         <div class="card-body text-center">
             <div class="row g-3">
