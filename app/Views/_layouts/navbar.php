@@ -11,6 +11,9 @@
                     <a class="nav-link" href="<?= route_to("dashboard.home.index") ?>">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="<?= route_to("dashboard.about.index") ?>">About</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Booking Engine</a>
                 </li>
                 <li class="nav-item">

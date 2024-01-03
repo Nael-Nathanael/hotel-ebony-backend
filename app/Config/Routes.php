@@ -39,6 +39,7 @@ $routes->group('dashboard', function ($routes) {
     $routes->get("", "Dashboard::index", ["as" => "dashboard.landing"]);
 
     $routes->get('home', "Dashboard\Home::index", ["as" => "dashboard.home.index"]);
+    $routes->get('about-us', "Dashboard\About::index", ["as" => "dashboard.about.index"]);
 
     $routes->group('articles', function ($routes) {
         $routes->get("", "Dashboard\Articles::index", ["as" => "dashboard.articles.index"]);
