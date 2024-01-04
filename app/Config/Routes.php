@@ -40,6 +40,7 @@ $routes->group('dashboard', function ($routes) {
 
     $routes->get('home', "Dashboard\Home::index", ["as" => "dashboard.home.index"]);
     $routes->get('about-us', "Dashboard\About::index", ["as" => "dashboard.about.index"]);
+    $routes->get('room-facilities', "Dashboard\RoomFacilityOptions::index", ["as" => "dashboard.room-facilities.index"]);
 
     $routes->group('articles', function ($routes) {
         $routes->get("", "Dashboard\Articles::index", ["as" => "dashboard.articles.index"]);
@@ -82,6 +83,14 @@ $routes->group("object", function ($routes) {
         $routes->post('delete/(:segment)', "Object\Rooms::delete/$1", ["as" => "object.rooms.delete"]);
         $routes->post('update/(:segment)', "Object\Rooms::update/$1", ["as" => "object.rooms.update"]);
         $routes->get('get', "Object\Rooms::get", ["as" => "object.rooms.get"]);
+    });
+
+    $routes->group('room-facilities', function ($routes) {
+        $routes->post('create', "Object\RoomFacilityOptions::create", ["as" => "object.room-facilities.create"]);
+        $routes->post('delete/(:segment)', "Object\RoomFacilityOptions::delete/$1", ["as" => "object.room-facilities.delete"]);
+        $routes->post('update', "Object\RoomFacilityOptions::update", ["as" => "object.room-facilities.update"]);
+        $routes->post('updateImg/(:segment)', "Object\RoomFacilityOptions::updateImg/$1", ["as" => "object.room-facilities.updateImg"]);
+        $routes->get('get', "Object\Rooms::get", ["as" => "object.room-facilities.get"]);
     });
 
     $routes->group('lines', function ($routes) {

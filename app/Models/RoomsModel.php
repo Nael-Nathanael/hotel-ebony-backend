@@ -31,17 +31,25 @@ class RoomsModel extends Model
         return parent::findAll($limit, $offset);
     }
 
-    public function findComplete()
+    public function findComplete($slug = false)
     {
         $imageModel = model("RoomImagesModel");
         $bedModel = model("RoomBedsModel");
         $facilityModel = model("RoomFacilitiesModel");
-        $rooms = $this->findAll();
+
+        if ($slug) {
+            $rooms = $this->where("slug", $slug)->findAll();
+        } else {
+            $rooms = $this->findAll();
+        }
+
         foreach ($rooms as $room) {
             $room->images = $imageModel->where("room_slug", $room->slug)->findAll();
             $room->beds = $bedModel->where("room_slug", $room->slug)->findAll();
             $room->facilities = $facilityModel->findByRoomSlug($room->slug);
         }
+
+        if ($slug) return $rooms[0];
 
         return $rooms;
     }

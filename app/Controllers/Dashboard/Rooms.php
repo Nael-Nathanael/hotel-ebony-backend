@@ -8,24 +8,26 @@ class Rooms extends BaseController
 {
     public function index(): string
     {
-        $model = model("FacilitiesModel");
-        $data['facilities'] = $model->findAll();
+        $model = model("RoomsModel");
+        $data['rooms'] = $model->findComplete();
         bindFlashdata($data);
-        return view("_pages/dashboard/facilities/index", $data);
+        return view("_pages/dashboard/rooms/index", $data);
     }
 
     public function create(): string
     {
         $data = [];
+        $model = model("RoomFacilitiesOptionModel");
+        $data['facility_options'] = $model->findAll();
         bindFlashdata($data);
-        return view("_pages/dashboard/facilities/create", $data);
+        return view("_pages/dashboard/rooms/create", $data);
     }
 
     public function update($slug): string
     {
-        $model = model("FacilitiesModel");
-        $data['facility'] = $model->find($slug);
+        $model = model("RoomsModel");
+        $data['room'] = $model->findComplete($slug);
         bindFlashdata($data);
-        return view("_pages/dashboard/facilities/update", $data);
+        return view("_pages/dashboard/rooms/update", $data);
     }
 }

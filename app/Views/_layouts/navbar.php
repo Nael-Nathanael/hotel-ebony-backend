@@ -25,10 +25,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= route_to("dashboard.rooms.index") ?>">Rooms</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= route_to("dashboard.room-facilities.index") ?>">Room Facility
+                        Options</a>
+                </li>
             </ul>
             <div class="d-flex align-items-center gap-2 flex-nowrap">
                 <form action="<?= route_to("session.lang") ?>" method="post" id="langsel">
-                    <select name="lang" id="lang" class="form-select form-select-sm" onchange="document.getElementById('langsel').submit()">
+                    <select name="lang" id="lang" class="form-select form-select-sm"
+                            onchange="document.getElementById('langsel').submit()">
                         <option value="" <?= session()->get("LANG") != "EN_" ? 'selected' : '' ?>>ID</option>
                         <option value="EN_" <?= session()->get("LANG") == "EN_" ? 'selected' : '' ?>>EN</option>
                     </select>

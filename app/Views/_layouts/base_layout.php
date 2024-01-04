@@ -17,6 +17,8 @@
     <?= $this->renderSection("head") ?>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
 
@@ -33,7 +35,6 @@
         crossorigin="anonymous"></script>
 
 <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
-
 <script>
     async function triggerSave(element) {
         const group_name = element.name.split("_")[0]
