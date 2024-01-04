@@ -71,37 +71,63 @@ class Rooms extends BaseController
         return redirect()->route("dashboard.rooms.index");
     }
 
-    public function update($id): RedirectResponse
+    public function update($slug): RedirectResponse
     {
-        $model = model("FacilitiesModel");
+        $model = model("RoomsModel");
 
         $data = [
-            "id" => $id,
-            "label" => $this->request->getPost("label"),
-            "title" => $this->request->getPost("title"),
-            "isShownOnHomepage" => $this->request->getPost("isShownOnHomepage"),
+            "slug" => $slug,
+            "name" => $this->request->getPost("name"),
+            "type" => $this->request->getPost("type"),
             "description" => $this->request->getPost("description"),
-            "isWhiteText" => $this->request->getPost("isWhiteText")
+            "price" => $this->request->getPost("price"),
+            "capacity" => $this->request->getPost("capacity"),
+            "size" => $this->request->getPost("size"),
         ];
 
-        // upload thumbnail image
-        if ($_FILES["thumbnailImg"]["name"]) {
-            $path = $this->request->getFile("thumbnailImg");
-            $path->move(UPLOAD_FOLDER_URL);
-            $data['thumbnailUrl'] = base_url("/uploads/" . $path->getName());
+        $model->save(
+            $data
+        );
+
+        $room_bed_model = model("RoomBedsModel");
+        $room_bed_model->where(["room_slug" => $slug])->delete();
+
+        if ($this->request->getPost("king_bed_count") != "0") {
+            $room_bed_model->insert([
+                "room_slug" => $slug,
+                "bed_type" => "KING",
+                "bed_count" => $this->request->getPost("king_bed_count")
+            ]);
         }
 
-        // upload image
-        if ($_FILES["img"]["name"]) {
-            $path = $this->request->getFile("img");
-            $path->move(UPLOAD_FOLDER_URL);
-            $data['imgUrl'] = base_url("/uploads/" . $path->getName());
+        if ($this->request->getPost("queen_bed_count") != "0") {
+            $room_bed_model->insert([
+                "room_slug" => $slug,
+                "bed_type" => "QUEEN",
+                "bed_count" => $this->request->getPost("queen_bed_count")
+            ]);
         }
 
-        $model->save($data);
+        if ($this->request->getPost("twin_bed_count") != "0") {
+            $room_bed_model->insert([
+                "room_slug" => $slug,
+                "bed_type" => "TWIN",
+                "bed_count" => $this->request->getPost("twin_bed_count")
+            ]);
+        }
 
-        sendCalmSuccessMessage("Fasilitas berhasil diperbarui!");
-        return redirect()->route("dashboard.facilities.index");
+        $room_facility_model = model("RoomFacilitiesModel");
+        $room_facility_model->where(["room_slug" => $slug])->delete();
+
+        foreach ($this->request->getPost("facility_option") as $fa) {
+            $room_facility_model->insert([
+                "room_slug" => $slug,
+                "room_facility_slug" => $fa
+            ]);
+        }
+
+        sendCalmSuccessMessage("Room berhasil diperbarui!");
+        return redirect()->route("dashboard.rooms.index");
     }
 
 

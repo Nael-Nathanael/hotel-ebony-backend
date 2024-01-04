@@ -27,6 +27,8 @@ class Rooms extends BaseController
     {
         $model = model("RoomsModel");
         $data['room'] = $model->findComplete($slug);
+        $modelFacility = model("RoomFacilitiesOptionModel");
+        $data['facility_options'] = $modelFacility->findAll();
         bindFlashdata($data);
         return view("_pages/dashboard/rooms/update", $data);
     }

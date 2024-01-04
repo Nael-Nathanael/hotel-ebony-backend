@@ -106,7 +106,7 @@
                 </div>
             </div>
             <div class="card-footer border-0">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-sm btn-primary">
                     Simpan
                 </button>
             </div>

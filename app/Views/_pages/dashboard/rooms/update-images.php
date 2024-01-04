@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                                 <img src="<?= $image->imgUrl ?>" alt="<?= $image->imgUrl ?>" class="w-100"
-                                     style="aspect-ratio: 2 / 1"/>
+                                     style="aspect-ratio: 2 / 1; object-fit: cover; object-position: center"/>
                             </div>
 
                         <?php endif ?>
