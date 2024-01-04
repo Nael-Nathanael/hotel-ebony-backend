@@ -11,42 +11,64 @@ class Rooms extends BaseController
 {
     public function create(): RedirectResponse
     {
-        $model = model("FacilitiesModel");
+        $model = model("RoomsModel");
 
-        // upload thumbnail image
-        $thumbnailUrl = PLACEHOLDER_IMG;
-        if ($_FILES["thumbnailImg"]["name"]) {
-            $path = $this->request->getFile("thumbnailImg");
-            $path->move(UPLOAD_FOLDER_URL);
-            $thumbnailUrl = base_url("/uploads/" . $path->getName());
+        $slug = url_title($this->request->getPost("name"));
+        $finalSlug = $slug;
+        $counter = 1;
+        while ($model->find($finalSlug)) {
+            $finalSlug = $slug . "-" . $counter++;
         }
-
-        // upload image
-        $imgUrl = PLACEHOLDER_IMG;
-        if ($_FILES["img"]["name"]) {
-            $path = $this->request->getFile("img");
-            $path->move(UPLOAD_FOLDER_URL);
-            $imgUrl = base_url("/uploads/" . $path->getName());
-        }
-
-        // get count
-        $number = $model->countAll();
 
         $model->insert(
             [
-                "number" => $number,
-                "label" => $this->request->getPost("label"),
-                "title" => $this->request->getPost("title"),
+                "slug" => $slug,
+                "name" => $this->request->getPost("name"),
+                "type" => $this->request->getPost("type"),
                 "description" => $this->request->getPost("description"),
-                "thumbnailUrl" => $thumbnailUrl,
-                "imgUrl" => $imgUrl,
-                "isShownOnHomepage" => $this->request->getPost("isShownOnHomepage"),
-                "isWhiteText" => $this->request->getPost("isWhiteText")
+                "price" => $this->request->getPost("price"),
+                "capacity" => $this->request->getPost("capacity"),
+                "size" => $this->request->getPost("size"),
             ]
         );
 
-        sendCalmSuccessMessage("Fasilitas berhasil didaftarkan!");
-        return redirect()->route("dashboard.facilities.index");
+        $room_bed_model = model("RoomBedsModel");
+
+        if ($this->request->getPost("king_bed_count") != "0") {
+            $room_bed_model->insert([
+                "room_slug" => $slug,
+                "bed_type" => "KING",
+                "bed_count" => $this->request->getPost("king_bed_count")
+            ]);
+        }
+
+        if ($this->request->getPost("queen_bed_count") != "0") {
+            $room_bed_model->insert([
+                "room_slug" => $slug,
+                "bed_type" => "QUEEN",
+                "bed_count" => $this->request->getPost("queen_bed_count")
+            ]);
+        }
+
+        if ($this->request->getPost("twin_bed_count") != "0") {
+            $room_bed_model->insert([
+                "room_slug" => $slug,
+                "bed_type" => "TWIN",
+                "bed_count" => $this->request->getPost("twin_bed_count")
+            ]);
+        }
+
+        $room_facility_model = model("RoomFacilitiesModel");
+
+        foreach ($this->request->getPost("facility_option") as $fa) {
+            $room_facility_model->insert([
+                "room_slug" => $slug,
+                "room_facility_slug" => $fa
+            ]);
+        }
+
+        sendCalmSuccessMessage("Room berhasil didaftarkan!");
+        return redirect()->route("dashboard.rooms.index");
     }
 
     public function update($id): RedirectResponse

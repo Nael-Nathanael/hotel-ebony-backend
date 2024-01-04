@@ -45,6 +45,16 @@ class RoomsModel extends Model
 
         foreach ($rooms as $room) {
             $room->images = $imageModel->where("room_slug", $room->slug)->findAll();
+
+            if (count($room->images) == 0) {
+                $room->images = [
+                    (object)[
+                        "id" => 0,
+                        "room_slug" => $room->slug,
+                        "imgUrl" => PLACEHOLDER_IMG
+                    ]
+                ];
+            }
             $room->beds = $bedModel->where("room_slug", $room->slug)->findAll();
             $room->facilities = $facilityModel->findByRoomSlug($room->slug);
         }
