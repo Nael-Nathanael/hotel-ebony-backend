@@ -30,4 +30,12 @@ class Rooms extends BaseController
         bindFlashdata($data);
         return view("_pages/dashboard/rooms/update", $data);
     }
+
+    public function updateImages($slug): string
+    {
+        $model = model("RoomsModel");
+        $data['room'] = $model->findComplete($slug);
+        bindFlashdata($data);
+        return view("_pages/dashboard/rooms/update-images", $data);
+    }
 }

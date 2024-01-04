@@ -109,13 +109,8 @@
                                 <div class="d-flex gap-2">
 
                                     <a class="btn btn-primary btn-sm text-white fw-bold"
-                                       href="<?= route_to("dashboard.rooms.update", $room->slug) ?>">
+                                       href="<?= route_to("dashboard.rooms.update-images", $room->slug) ?>">
                                         Edit Images
-                                    </a>
-
-                                    <a class="btn btn-info btn-sm text-white fw-bold"
-                                       href="<?= route_to("dashboard.rooms.update", $room->slug) ?>">
-                                        Edit Facilities
                                     </a>
 
                                     <a class="btn btn-warning btn-sm text-white fw-bold"

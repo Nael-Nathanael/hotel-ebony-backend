@@ -107,17 +107,44 @@ class Rooms extends BaseController
 
     public function delete($id): RedirectResponse
     {
-        $model = model("FacilitiesModel");
+        $model = model("RoomsModel");
 
         $model->delete($id);
 
-        sendCalmSuccessMessage("Fasilitas berhasil dihapus!");
-        return redirect()->route("dashboard.facilities.index");
+        sendCalmSuccessMessage("Ruangan berhasil dihapus!");
+        return redirect()->route("dashboard.rooms.index");
     }
 
     public function get(): ResponseInterface
     {
         $model = model("RoomsModel");
         return $this->response->setJSON($model->findComplete());
+    }
+
+    public function addImage($room_slug)
+    {
+        $model = model("RoomImagesModel");
+
+        $path = $this->request->getFile("img");
+        $path->move(UPLOAD_FOLDER_URL);
+        $imgUrl = base_url("/uploads/" . $path->getName());
+
+        $model->insert([
+            "room_slug" => $room_slug,
+            "imgUrl" => $imgUrl
+        ]);
+
+        sendCalmSuccessMessage("Gambar berhasil ditambahkan!");
+        return redirect()->back();
+    }
+
+    public function deleteImg($imgId)
+    {
+        $model = model("RoomImagesModel");
+
+        $model->delete($imgId);
+
+        sendCalmSuccessMessage("Gambar berhasil dihapus!");
+        return redirect()->back();
     }
 }

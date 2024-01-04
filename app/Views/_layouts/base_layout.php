@@ -229,7 +229,7 @@
         });
     }
 
-    function confirmBeforeSubmit(element, title = 'Konfirmasi?', subtitle) {
+    function confirmBeforeSubmit(element, title = 'Konfirmasi?', subtitle, route = false) {
         function findFormParent(element) {
             if (element.tagName === 'FORM') {
                 return element; // If the current element is a form, return it
@@ -248,8 +248,16 @@
             confirmButtonText: "Konfirmasi",
         }).then((result) => {
             if (result.isConfirmed) {
-                const form = findFormParent(element);
-                form.submit();
+                if (!route) {
+                    const form = findFormParent(element);
+                    form.submit();
+                } else {
+                    const el = document.createElement("form")
+                    el.action = route;
+                    el.method = "POST";
+                    document.body.appendChild(el);
+                    el.submit();
+                }
             }
         });
     }
