@@ -173,4 +173,38 @@ class Rooms extends BaseController
         sendCalmSuccessMessage("Gambar berhasil dihapus!");
         return redirect()->back();
     }
+
+    public function syncAvailabilities()
+    {
+        $data = $this->request->getJSON();
+
+        $model = model("RoomAvailabilitiesModel");
+
+        foreach ($data as $datum) {
+            $date = $datum->date;
+            foreach ($datum->availabilities as $availability) {
+                $existing_instance = $model
+                    ->where("date", $date)
+                    ->where("room_slug", $availability->id)
+                    ->findAll();
+
+                if ($existing_instance) {
+                    $model->update(
+                        $existing_instance[0]->id,
+                        ["count" => $availability->count]
+                    );
+                } else {
+                    $model->insert([
+                        "date" => $date,
+                        "room_slug" => $availability->id,
+                        "count" => $availability->count
+                    ]);
+                }
+            }
+        }
+
+        return $this->response->setJSON([
+            "msg" => "ok"
+        ]);
+    }
 }

@@ -84,6 +84,7 @@ $routes->group("object", function ($routes) {
         $routes->post('update/(:segment)', "Object\Rooms::update/$1", ["as" => "object.rooms.update"]);
         $routes->post('add-image/(:segment)', "Object\Rooms::addImage/$1", ["as" => "object.rooms.add-image"]);
         $routes->post('delete-image/(:segment)', "Object\Rooms::deleteImg/$1", ["as" => "object.rooms.delete-image"]);
+        $routes->post('sync-availabilities', "Object\Rooms::syncAvailabilities", ["as" => "object.rooms.sync-availabilities"]);
         $routes->get('get', "Object\Rooms::get", ["as" => "object.rooms.get"]);
     });
 
