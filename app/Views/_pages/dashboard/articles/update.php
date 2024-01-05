@@ -33,7 +33,7 @@
 <?= $this->section("content"); ?>
 <div class="container-fluid">
     <section>
-        <form action="<?= route_to("object.articles.update", $event->slug) ?>" method="post" id="articleForm"
+        <form action="<?= route_to("object.articles.update", $article->slug) ?>" method="post" id="articleForm"
               enctype="multipart/form-data">
             <input type="hidden" name="content" id="content">
 
@@ -41,7 +41,7 @@
                 <div class="col-lg-9 border-end">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control material-form-control" id="title" name="title"
-                               placeholder="title" value="<?= $event->title ?>" required>
+                               placeholder="title" value="<?= $article->title ?>" required>
                         <label for="title">Title</label>
                     </div>
                     <div class="row mb-3">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="container bg-light py-4">
                         <div class="editor border shadow-none bg-white" style="min-height: 700px">
-                            <?= str_replace("{backend_url}", base_url(), $event->content) ?>
+                            <?= str_replace("{backend_url}", base_url(), $article->content) ?>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                                 Post Settings
                             </div>
                             <div class="card-body">
-                                <img src="<?= $event->imgUrl ?>" class="w-100 shadow-sm border" alt="oldCoverImage"
+                                <img src="<?= $article->imgUrl ?>" class="w-100 shadow-sm border" alt="oldCoverImage"
                                      style="height: 100px; object-fit: cover">
                                 <div class="form-group mb-3">
                                     <label for="coverImage">Cover Image</label>
@@ -77,7 +77,7 @@
                                     <label for="short_description">Short Description</label>
                                     <textarea required id="short_description" name="short_description"
                                               class="form-control"
-                                              rows="5"><?= $event->short_description ?></textarea>
+                                              rows="5"><?= $article->short_description ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -90,20 +90,20 @@
                                 <div class="form-group mb-3">
                                     <label for="keywords">Keywords</label>
                                     <input type="text" name="keywords" id="keywords" class="form-control"
-                                           placeholder="Keywords" value="<?= $event->keywords ?>" required>
+                                           placeholder="Keywords" value="<?= $article->keywords ?>" required>
                                 </div>
 
 
                                 <div class="form-group mb-3">
                                     <label for="meta_title">Meta Title</label>
                                     <input type="text" name="meta_title" id="meta_title" class="form-control"
-                                           placeholder="Meta Title" value="<?= $event->meta_title ?>" required>
+                                           placeholder="Meta Title" value="<?= $article->meta_title ?>" required>
                                 </div>
 
                                 <div class="form-group mb-3">
                                     <label for="meta_description">Meta Description</label>
                                     <textarea required id="meta_description" name="meta_description"
-                                              class="form-control" rows="5"><?= $event->meta_description ?></textarea>
+                                              class="form-control" rows="5"><?= $article->meta_description ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -188,7 +188,7 @@
             document.querySelector('.ck-toolbar').classList.add('ck-reset_all');
         })
 
-    document.getElementById("content").value = `<?= str_replace("{backend_url}", base_url(), $event->content) ?>`
+    document.getElementById("content").value = `<?= str_replace("{backend_url}", base_url(), $article->content) ?>`
 
     function changeCarousel() {
         document.getElementById("existing-carousel").classList.add("d-none")
