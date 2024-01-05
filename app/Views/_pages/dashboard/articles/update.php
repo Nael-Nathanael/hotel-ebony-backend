@@ -49,7 +49,7 @@
                     </div>
                     <div class="container bg-light py-4">
                         <div class="editor border shadow-none bg-white" style="min-height: 700px">
-                            <?= str_replace("{backend_url}", base_url(), $article->content) ?>
+                            <?= $article->content ?>
                         </div>
                     </div>
                 </div>
@@ -188,7 +188,7 @@
             document.querySelector('.ck-toolbar').classList.add('ck-reset_all');
         })
 
-    document.getElementById("content").value = `<?= str_replace("{backend_url}", base_url(), $article->content) ?>`
+    document.getElementById("content").value = `<?= $article->content ?>`
 
     function changeCarousel() {
         document.getElementById("existing-carousel").classList.add("d-none")
