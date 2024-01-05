@@ -90,16 +90,6 @@ class Articles extends BaseController
     {
         $articles = model("ArticlesModel");
         if (!$slug) {
-            $lines = model("Lines");
-            $recommendation = [];
-
-            for ($i = 1; $i <= 5; $i++) {
-                $lookupRecom = $articles->find($lines->findOrEmptyString("ARTICLE_RECOM_$i" . "_SLUG"));
-                if ($lookupRecom) {
-                    $recommendation[] = $lookupRecom;
-                }
-            }
-
             $articles_all = $articles
                 ->orderBy("created_at DESC")
                 ->findAll();
@@ -108,26 +98,8 @@ class Articles extends BaseController
             foreach ($articles_all as &$article) {
                 unset($article->$excluded_field);
             }
-            return $this->response->setJSON([
-                "articles" => $articles_all,
-                "recommendation" => $recommendation,
-            ]);
+            return $this->response->setJSON($articles_all);
         }
         return $this->response->setJSON($articles->find($slug));
-    }
-
-    public function getFeatured(): ResponseInterface
-    {
-        $articles = model("ArticlesModel");
-        $lines = model("Lines");
-        $recommendation = [];
-
-        for ($i = 1; $i <= 5; $i++) {
-            $lookupRecom = $articles->find($lines->findOrEmptyString("ARTICLE_RECOM_$i" . "_SLUG"));
-            if ($lookupRecom) {
-                $recommendation[] = $lookupRecom;
-            }
-        }
-        return $this->response->setJSON($recommendation);
     }
 }
