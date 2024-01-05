@@ -10,7 +10,7 @@ class RoomsModel extends Model
     protected $primaryKey = 'slug';
     protected $useAutoIncrement = false;
     protected $returnType = 'object';
-    protected $useSoftDeletes = false;
+    protected $useSoftDeletes = true;
     protected $allowedFields = [
         'slug',
         'name',
@@ -20,10 +20,15 @@ class RoomsModel extends Model
         'order_number',
         'capacity',
         'size',
+        'deleted_at'
     ];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
+
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
+    protected $deletedField = 'deleted_at';
 
     public function findAll(int $limit = 0, int $offset = 0)
     {

@@ -50,6 +50,8 @@ class BaseController extends Controller
         // E.g.: $this->session = \Config\Services::session();
         define("UPLOAD_FOLDER_URL", ROOTPATH . 'public' . DIRECTORY_SEPARATOR . 'uploads');
         define("PLACEHOLDER_IMG", base_url('/img/hotel_front_sunset.png'));
+        define("EBONY_INTEGRATION_KEY", "50ac19d2-7715-42cd-93dd-838a1045b91f");
+        define("EBONY_INTEGRATION_KEY_KEY", "X-Eb0ny-Key");
 
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Requested-Method, Authorization");

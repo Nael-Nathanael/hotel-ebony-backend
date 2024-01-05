@@ -174,8 +174,76 @@ class Rooms extends BaseController
         return redirect()->back();
     }
 
+    public function sync()
+    {
+        $model = model("RoomsModel");
+        $bedModel = model("RoomBedsModel");
+
+        // Authorize integration key
+        $header = $this->request->headers();
+        if (!array_key_exists(EBONY_INTEGRATION_KEY_KEY, $header)) {
+            return $this->response->setStatusCode(409)->setJSON("Please provide integration key");
+        }
+
+        if ($header[EBONY_INTEGRATION_KEY_KEY]->getValue() != EBONY_INTEGRATION_KEY) {
+            return $this->response->setStatusCode(409)->setJSON("Wrong integration key");
+        }
+
+        // get json body
+        $data = $this->request->getJSON();
+
+        // container for sent ids
+        $ids = [];
+
+        foreach ($data as $datum) {
+
+            // update rooms data
+            $datum->slug = $datum->id;
+            $model->withDeleted()->save($datum);
+
+            $bedModel->where("room_slug", $datum->id)->delete();
+            foreach ($datum->beds as $bedding) {
+                $bedModel->insert([
+                    "room_slug" => $datum->id,
+                    "bed_type" => $bedding->bed_type,
+                    "bed_count" => $bedding->bed_count,
+                ]);
+            }
+
+            // push ids to array
+            $ids[] = $datum->id;
+        }
+
+        // delete all room where id does not get sent from server
+        $model
+            ->whereNotIn("slug", $ids)
+            ->delete();
+
+        // restore all room where id is sent from server
+        $model
+            ->withDeleted()
+            ->whereIn("slug", $ids)
+            ->set("deleted_at", null)
+            ->update();
+
+        return $this->response->setJSON([
+            "msg" => "ok"
+        ]);
+    }
+
     public function syncAvailabilities()
     {
+        // Authorize integration key
+        $header = $this->request->headers();
+        if (!array_key_exists(EBONY_INTEGRATION_KEY_KEY, $header)) {
+            return $this->response->setStatusCode(409)->setJSON("Please provide integration key");
+        }
+
+        if ($header[EBONY_INTEGRATION_KEY_KEY]->getValue() != EBONY_INTEGRATION_KEY) {
+            return $this->response->setStatusCode(409)->setJSON("Wrong integration key");
+        }
+
+
         $data = $this->request->getJSON();
 
         $model = model("RoomAvailabilitiesModel");
