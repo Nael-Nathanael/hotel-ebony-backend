@@ -18,17 +18,17 @@ class Reservations extends BaseController
         $model = model("ReservationsModel");
 
         $data = [
-                "guest_name" => $this->request->getPost("guest_name"),
-                "guest_phone" => $this->request->getPost("guest_phone"),
-                "guest_email" => $this->request->getPost("guest_email"),
-                "check_in_date" => $this->request->getPost("check_in_date"),
-                "check_out_date" => $this->request->getPost("check_out_date"),
-                "total_guest" => $this->request->getPost("total_guest"),
-                "total_guest_child" => $this->request->getPost("total_guest_child"),
-                "special_request" => $this->request->getPost("special_request"),
-                "room_slug" => $this->request->getPost("room_slug"),
+            "guest_name" => $this->request->getPost("guest_name"),
+            "guest_phone" => $this->request->getPost("guest_phone"),
+            "guest_email" => $this->request->getPost("guest_email"),
+            "check_in_date" => $this->request->getPost("check_in_date"),
+            "check_out_date" => $this->request->getPost("check_out_date"),
+            "total_guest" => $this->request->getPost("total_guest"),
+            "total_guest_child" => $this->request->getPost("total_guest_child"),
+            "special_request" => $this->request->getPost("special_request"),
+            "room_slug" => $this->request->getPost("room_slug"),
 
-                "status" => "CREATED",
+            "status" => "CREATED",
         ];
 
         $roomModel = model("RoomsModel");
@@ -70,24 +70,55 @@ class Reservations extends BaseController
         ]);
     }
 
-    public function getUnsynced(): ResponseInterface
+    public function get(): ResponseInterface
     {
-        // TODO: verify request header
+        // Authorize integration key
+        $header = $this->request->headers();
+        if (!array_key_exists(EBONY_INTEGRATION_KEY_KEY, $header)) {
+            return $this->response->setStatusCode(409)->setJSON("Please provide integration key");
+        }
+
+        if ($header[EBONY_INTEGRATION_KEY_KEY]->getValue() != EBONY_INTEGRATION_KEY) {
+            return $this->response->setStatusCode(409)->setJSON("Wrong integration key");
+        }
+
+        $model = model("ReservationsModel");
+        return $this->response->setJSON($model->findAll());
+    }
+
+    public function getNew(): ResponseInterface
+    {
+        // Authorize integration key
+        $header = $this->request->headers();
+        if (!array_key_exists(EBONY_INTEGRATION_KEY_KEY, $header)) {
+            return $this->response->setStatusCode(409)->setJSON("Please provide integration key");
+        }
+
+        if ($header[EBONY_INTEGRATION_KEY_KEY]->getValue() != EBONY_INTEGRATION_KEY) {
+            return $this->response->setStatusCode(409)->setJSON("Wrong integration key");
+        }
+
         $model = model("ReservationsModel");
         return $this->response->setJSON($model->findUnsynced());
     }
 
-    public function markSynced(): ResponseInterface
+    public function ack(): ResponseInterface
     {
-        // TODO: verify request header
+        // Authorize integration key
+        $header = $this->request->headers();
+        if (!array_key_exists(EBONY_INTEGRATION_KEY_KEY, $header)) {
+            return $this->response->setStatusCode(409)->setJSON("Please provide integration key");
+        }
+
+        if ($header[EBONY_INTEGRATION_KEY_KEY]->getValue() != EBONY_INTEGRATION_KEY) {
+            return $this->response->setStatusCode(409)->setJSON("Wrong integration key");
+        }
+
         $model = model("ReservationsModel");
 
         $arr = $this->request->getJSON();
-        if (!array_key_exists("ids", $arr)) {
-            $arr = $this->request->getPost();
-        }
 
-        $model->markAcked($arr['ids']);
+        $model->markAcked($arr);
 
         return $this->response->setJSON([
             "msg" => "ok"

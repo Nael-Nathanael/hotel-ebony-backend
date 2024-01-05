@@ -89,6 +89,13 @@ $routes->group("object", function ($routes) {
         $routes->get('get', "Object\Rooms::get", ["as" => "object.rooms.get"]);
     });
 
+    $routes->group('reservations', function ($routes) {
+        $routes->post('create', "Object\Reservations::create", ["as" => "object.reservations.create"]);
+        $routes->get('get', "Object\Reservations::get", ["as" => "object.reservations.get"]);
+        $routes->get('get-new', "Object\Reservations::getNew", ["as" => "object.reservations.get-new"]);
+        $routes->post('ack', "Object\Reservations::ack", ["as" => "object.reservations.ack"]);
+    });
+
     $routes->group('room-facilities', function ($routes) {
         $routes->post('create', "Object\RoomFacilityOptions::create", ["as" => "object.room-facilities.create"]);
         $routes->post('delete/(:segment)', "Object\RoomFacilityOptions::delete/$1", ["as" => "object.room-facilities.delete"]);
