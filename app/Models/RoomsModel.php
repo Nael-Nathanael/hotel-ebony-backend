@@ -41,6 +41,7 @@ class RoomsModel extends Model
         $imageModel = model("RoomImagesModel");
         $bedModel = model("RoomBedsModel");
         $facilityModel = model("RoomFacilitiesModel");
+        $availabilityModel = model("RoomAvailabilitiesModel");
 
         if ($slug) {
             $rooms = $this->where("slug", $slug)->findAll();
@@ -62,6 +63,10 @@ class RoomsModel extends Model
             }
             $room->beds = $bedModel->where("room_slug", $room->slug)->findAll();
             $room->facilities = $facilityModel->findByRoomSlug($room->slug);
+            $availabilities = $availabilityModel
+                ->where("date", date("Y-m-d"))
+                ->where("room_slug", $room->slug)->findAll();
+            $room->avalability = count($availabilities) > 0 ? $availabilities[0] : null;
         }
 
         if ($slug) return $rooms[0];
