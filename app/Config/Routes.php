@@ -54,6 +54,12 @@ $routes->group('dashboard', function ($routes) {
         $routes->get("update/(:segment)", "Dashboard\Facilities::update/$1", ["as" => "dashboard.facilities.update"]);
     });
 
+    $routes->group('vouchers', function ($routes) {
+        $routes->get("", "Dashboard\Vouchers::index", ["as" => "dashboard.vouchers.index"]);
+        $routes->get("create", "Dashboard\Vouchers::create", ["as" => "dashboard.vouchers.create"]);
+        $routes->get("update/(:segment)", "Dashboard\Vouchers::update/$1", ["as" => "dashboard.vouchers.update"]);
+    });
+
     $routes->group('rooms', function ($routes) {
         $routes->get("", "Dashboard\Rooms::index", ["as" => "dashboard.rooms.index"]);
         $routes->get("create", "Dashboard\Rooms::create", ["as" => "dashboard.rooms.create"]);
@@ -102,6 +108,15 @@ $routes->group("object", function ($routes) {
         $routes->post('update', "Object\RoomFacilityOptions::update", ["as" => "object.room-facilities.update"]);
         $routes->post('updateImg/(:segment)', "Object\RoomFacilityOptions::updateImg/$1", ["as" => "object.room-facilities.updateImg"]);
         $routes->get('get', "Object\Rooms::get", ["as" => "object.room-facilities.get"]);
+    });
+
+    $routes->group('vouchers', function ($routes) {
+        $routes->post('create', "Object\Vouchers::create", ["as" => "object.vouchers.create"]);
+        $routes->post('delete/(:segment)', "Object\Vouchers::delete/$1", ["as" => "object.vouchers.delete"]);
+        $routes->post('update/(:segment)', "Object\Vouchers::update/$1", ["as" => "object.vouchers.update"]);
+        $routes->post('sync', "Object\Vouchers::sync", ["as" => "object.vouchers.sync"]);
+        $routes->get('get', "Object\Vouchers::get_all", ["as" => "object.vouchers.get"]);
+        $routes->get('get/(:segment)', "Object\Vouchers::get/$1", ["as" => "object.vouchers.get_single"]);
     });
 
     $routes->group('lines', function ($routes) {

@@ -16,6 +16,7 @@ class RoomAvailabilitiesModel extends Model
         'room_slug',
         'date',
         'count',
+        'price',
         'created_at',
         'updated_at',
     ];

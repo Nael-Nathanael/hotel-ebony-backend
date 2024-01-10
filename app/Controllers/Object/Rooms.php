@@ -243,7 +243,6 @@ class Rooms extends BaseController
             return $this->response->setStatusCode(409)->setJSON("Wrong integration key");
         }
 
-
         $data = $this->request->getJSON();
 
         $model = model("RoomAvailabilitiesModel");
@@ -256,16 +255,24 @@ class Rooms extends BaseController
                     ->where("room_slug", $availability->id)
                     ->findAll();
 
+                if (!isset($availability->price)) {
+                    $availability->price = null;
+                }
+
                 if ($existing_instance) {
                     $model->update(
                         $existing_instance[0]->id,
-                        ["count" => $availability->count]
+                        [
+                            "count" => $availability->count,
+                            "price" => $availability->price
+                        ]
                     );
                 } else {
                     $model->insert([
                         "date" => $date,
                         "room_slug" => $availability->id,
-                        "count" => $availability->count
+                        "count" => $availability->count,
+                        "price" => $availability->price
                     ]);
                 }
             }
