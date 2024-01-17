@@ -11,7 +11,7 @@
 <?= $this->section("content"); ?>
     <div class="container my-4">
         <form enctype="multipart/form-data" method="post"
-              action="<?= route_to("object.facilities.update", $voucher->id) ?>"
+              action="<?= route_to("object.facilities.update", $facility->id) ?>"
               class="card">
             <div class="card-header">
                 Edit Fasilitas
@@ -25,8 +25,8 @@
                             <label for="isWhiteText">Tampilkan di Homepage</label>
                             <select name="isShownOnHomepage" id="isShownOnHomepage" required
                                     class="form-select-sm form-select">
-                                <option value="1" <?= $voucher->isShownOnHomepage ? 'selected' : '' ?>>Tampil</option>
-                                <option value="0" <?= $voucher->isShownOnHomepage ? '' : 'selected' ?>>Tidak Tampil
+                                <option value="1" <?= $facility->isShownOnHomepage ? 'selected' : '' ?>>Tampil</option>
+                                <option value="0" <?= $facility->isShownOnHomepage ? '' : 'selected' ?>>Tidak Tampil
                                 </option>
                             </select>
                         </div>
@@ -45,27 +45,27 @@
                         <div class="form-group mb-3">
                             <label for="label">Label</label>
                             <input type="text" name="label" id="label" class="form-control form-control-sm"
-                                   placeholder="Label" required value="<?= $voucher->label ?>">
+                                   placeholder="Label" required value="<?= $facility->label ?>">
                         </div>
 
                         <div class="form-group mb-3 preview_isShownOnHomepage">
                             <label for="title">Judul</label>
                             <input type="text" name="title" id="title" class="form-control form-control-sm"
-                                   placeholder="Judul" value="<?= $voucher->title ?>">
+                                   placeholder="Judul" value="<?= $facility->title ?>">
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="description">Deskripsi</label>
                             <textarea type="text" name="description" id="description"
                                       class="form-control form-control-sm"
-                                      placeholder="Deskripsi" rows="3"><?= $voucher->description ?></textarea>
+                                      placeholder="Deskripsi" rows="3"><?= $facility->description ?></textarea>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="isWhiteText">Warna Teks</label>
                             <select name="isWhiteText" id="isWhiteText" required class="form-select-sm form-select">
-                                <option value="1" <?= $voucher->isWhiteText ? 'selected' : '' ?>>Putih</option>
-                                <option value="0" <?= $voucher->isWhiteText ? '' : 'selected' ?>>Hitam</option>
+                                <option value="1" <?= $facility->isWhiteText ? 'selected' : '' ?>>Putih</option>
+                                <option value="0" <?= $facility->isWhiteText ? '' : 'selected' ?>>Hitam</option>
                             </select>
                         </div>
 
@@ -80,7 +80,7 @@
                                 <img width="150" height="150" alt="thumbnail"
                                      class="preview_isShownOnHomepage preview_thumbnailImg"
                                      style="object-fit: cover; object-position: center"
-                                     src="<?= $voucher->thumbnailUrl ?>"/>
+                                     src="<?= $facility->thumbnailUrl ?>"/>
                                 <p class="text-danger mb-0 mt-1 marcellus preview_isShownOnHomepage preview_label">
                                     Label</p>
                                 <p class="mb-0 text-decoration-underline lh-2 fs-5 marcellus preview_isShownOnHomepage preview_title">
@@ -96,7 +96,7 @@
                                  style="max-width: 600px;aspect-ratio: 2 / 1">
                                 <img alt="cover" class="w-100 h-100 preview_img"
                                      style="object-fit: cover; object-position: center"
-                                     src="<?= $voucher->imgUrl ?>"
+                                     src="<?= $facility->imgUrl ?>"
                                 />
                                 <div class="position-absolute marcellus top-50 start-50 translate-middle text-center lh-sm preview_isWhiteText text-white">
                                     <p class="mb-0 text-uppercase h1 preview_label">Label</p>
