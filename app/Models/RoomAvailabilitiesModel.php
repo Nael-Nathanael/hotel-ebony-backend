@@ -17,6 +17,7 @@ class RoomAvailabilitiesModel extends Model
         'date',
         'count',
         'price',
+        'rate_code',
         'created_at',
         'updated_at',
     ];

@@ -17,6 +17,7 @@ class RoomsModel extends Model
         'type',
         'description',
         'price',
+        'rate_code',
         'order_number',
         'capacity',
         'size',

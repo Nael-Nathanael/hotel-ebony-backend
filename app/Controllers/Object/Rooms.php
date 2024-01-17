@@ -264,7 +264,8 @@ class Rooms extends BaseController
                         $existing_instance[0]->id,
                         [
                             "count" => $availability->count,
-                            "price" => $availability->price
+                            "price" => $availability->price,
+                            "rate_code" => $availability->rate_code
                         ]
                     );
                 } else {
@@ -272,7 +273,8 @@ class Rooms extends BaseController
                         "date" => $date,
                         "room_slug" => $availability->id,
                         "count" => $availability->count,
-                        "price" => $availability->price
+                        "price" => $availability->price,
+                        "rate_code" => $availability->rate_code
                     ]);
                 }
             }
