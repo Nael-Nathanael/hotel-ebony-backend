@@ -27,6 +27,8 @@ class Reservations extends BaseController
             "total_guest_child" => $this->request->getPost("total_guest_child"),
             "special_request" => $this->request->getPost("special_request"),
             "room_slug" => $this->request->getPost("room_slug"),
+            "bed_type" => $this->request->getPost("bed_type"),
+            "rate_code" => $this->request->getPost("rate_code"),
 
             "status" => "CREATED",
         ];

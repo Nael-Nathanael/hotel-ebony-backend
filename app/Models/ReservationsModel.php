@@ -30,6 +30,8 @@ class ReservationsModel extends Model
         'voucher_no',
         'total_fee',
         'paid_at',
+        'bed_type',
+        'rate_code'
     ];
 
     // Dates
