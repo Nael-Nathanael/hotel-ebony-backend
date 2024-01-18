@@ -66,9 +66,23 @@ class Articles extends BaseController
 
         // upload image
         if ($_FILES["coverImage"]["name"]) {
-            $path = $this->request->getFile("coverImage");
-            $path->move(UPLOAD_FOLDER_URL);
-            $data['imgUrl'] = base_url("/uploads/" . $path->getName());
+            $isUploaded = false;
+            $try_count = 1;
+
+            while (!$isUploaded && $try_count < 3) {
+                try {
+                    $path = $this->request->getFile("coverImage");
+                    $path->move(UPLOAD_FOLDER_URL);
+                    $data['imgUrl'] = base_url("/uploads/" . $path->getName());
+                    $isUploaded = true;
+                } catch (Exception $e) {
+                    $try_count++;
+                }
+            }
+
+            if (!$isUploaded) {
+                sendCalmSuccessMessage("We update the article, but cover image failed to be uploaded");
+            }
         }
 
         $articles->save($data);
