@@ -55,6 +55,13 @@ $routes->group('dashboard', function ($routes) {
         $routes->get("update/(:segment)", "Dashboard\Facilities::update/$1", ["as" => "dashboard.facilities.update"]);
     });
 
+    $routes->group('galleries', function ($routes) {
+        $routes->get("", "Dashboard\Galleries::index", ["as" => "dashboard.galleries.index"]);
+        $routes->get("create", "Dashboard\Galleries::create", ["as" => "dashboard.galleries.create"]);
+        $routes->get("update/(:segment)", "Dashboard\Galleries::update/$1", ["as" => "dashboard.galleries.update"]);
+        $routes->get("photos/(:segment)", "Dashboard\Galleries::photos/$1", ["as" => "dashboard.galleries.photos"]);
+    });
+
     $routes->group('vouchers', function ($routes) {
         $routes->get("", "Dashboard\Vouchers::index", ["as" => "dashboard.vouchers.index"]);
         $routes->get("create", "Dashboard\Vouchers::create", ["as" => "dashboard.vouchers.create"]);
@@ -83,6 +90,15 @@ $routes->group("object", function ($routes) {
         $routes->post('delete/(:segment)', "Object\Facilities::delete/$1", ["as" => "object.facilities.delete"]);
         $routes->post('update/(:segment)', "Object\Facilities::update/$1", ["as" => "object.facilities.update"]);
         $routes->get('get', "Object\Facilities::get", ["as" => "object.facilities.get"]);
+    });
+
+    $routes->group('galleries', function ($routes) {
+        $routes->post('create', "Object\Galleries::create", ["as" => "object.galleries.create"]);
+        $routes->post('delete/(:segment)', "Object\Galleries::delete/$1", ["as" => "object.galleries.delete"]);
+        $routes->post('update/(:segment)', "Object\Galleries::update/$1", ["as" => "object.galleries.update"]);
+        $routes->get('get', "Object\Galleries::get", ["as" => "object.galleries.get"]);
+        $routes->post("photos/(:segment)", "Object\Galleries::photos/$1", ["as" => "object.galleries.photos"]);
+        $routes->post("photos/delete/(:segment)", "Object\Galleries::photoDelete/$1", ["as" => "object.galleries.photos.delete"]);
     });
 
     $routes->group('rooms', function ($routes) {
