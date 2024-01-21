@@ -14,23 +14,33 @@
                     <a class="nav-link" href="<?= route_to("dashboard.about.index") ?>">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Booking Engine</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= route_to("dashboard.articles.index") ?>">Articles</a>
+                    <a class="nav-link" href="<?= route_to("dashboard.rooms.index") ?>">Rooms & Suites</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= route_to("dashboard.facilities.index") ?>">Facilities</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= route_to("dashboard.rooms.index") ?>">Rooms</a>
+                    <a class="nav-link" href="#">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= route_to("dashboard.room-facilities.index") ?>">Room Facility
-                        Options</a>
+                    <a class="nav-link" href="<?= route_to("dashboard.articles.index") ?>">Articles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= route_to("dashboard.vouchers.index") ?>">Vouchers</a>
+                    <a class="nav-link" href="#">Reservations</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">More</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="<?= route_to("dashboard.navbar-footer.index") ?>">
+                                Navbar & Footer
+                            </a>
+                            <a class="dropdown-item" href="<?= route_to("dashboard.room-facilities.index") ?>">
+                                Room Facility Options
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <div class="d-flex align-items-center gap-2 flex-nowrap">
