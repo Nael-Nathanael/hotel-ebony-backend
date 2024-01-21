@@ -9,7 +9,7 @@ class Galleries extends BaseController
     public function index(): string
     {
         $model = model("GalleryAlbumModel");
-        $data['galleries'] = $model->findAll();
+        $data['galleries'] = $model->orderBy("createdAt", "ASC")->findAll();
         bindFlashdata($data);
         return view("_pages/dashboard/galleries/index", $data);
     }
@@ -34,7 +34,7 @@ class Galleries extends BaseController
         $model = model("GalleryAlbumModel");
         $data['gallery'] = $model->find($slug);
         $model = model("GalleryPhotoModel");
-        $data['photos'] = $model->where("album_slug", $slug)->findAll();
+        $data['photos'] = $model->orderBy("createdAt", "ASC")->where("album_slug", $slug)->findAll();
         bindFlashdata($data);
         return view("_pages/dashboard/galleries/photos", $data);
     }
