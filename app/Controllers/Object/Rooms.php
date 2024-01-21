@@ -144,6 +144,10 @@ class Rooms extends BaseController
     public function get(): ResponseInterface
     {
         $model = model("RoomsModel");
+
+        if (count($_GET) > 0) {
+            return $this->response->setJSON($model->findCompleteWithFilter($_GET));
+        }
         return $this->response->setJSON($model->findComplete());
     }
 
@@ -278,6 +282,39 @@ class Rooms extends BaseController
                     ]);
                 }
             }
+        }
+
+        return $this->response->setJSON([
+            "msg" => "ok"
+        ]);
+    }
+
+    public function syncSingleAvailabilities()
+    {
+        $data = $this->request->getJSON();
+
+        $model = model("RoomAvailabilitiesModel");
+
+        $existing_instance = $model
+            ->where("room_slug", $data->room_slug)
+            ->where("date", $data->date)->findAll();
+
+        if (count($existing_instance) > 0) {
+            $query = $model
+                ->where("room_slug", $data->room_slug)
+                ->where("date", $data->date);
+
+            $updatable_data = array_filter((array)$data, function ($key) {
+                return $key != "room_slug" || $key != "date";
+            }, ARRAY_FILTER_USE_KEY);
+
+            foreach ($updatable_data as $key => $value) {
+                $query->set($key, $value);
+            }
+
+            $query->update();
+        } else {
+            $model->insert($data);
         }
 
         return $this->response->setJSON([

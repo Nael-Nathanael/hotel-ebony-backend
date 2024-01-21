@@ -33,6 +33,9 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">More</a>
                     <ul class="dropdown-menu">
                         <li>
+                            <a class="dropdown-item" href="<?= route_to("dashboard.availabilities.index") ?>">
+                                Room Availabilities
+                            </a>
                             <a class="dropdown-item" href="<?= route_to("dashboard.navbar-footer.index") ?>">
                                 Navbar & Footer
                             </a>

@@ -42,6 +42,7 @@ $routes->group('dashboard', function ($routes) {
     $routes->get('about-us', "Dashboard\About::index", ["as" => "dashboard.about.index"]);
     $routes->get('room-facilities', "Dashboard\RoomFacilityOptions::index", ["as" => "dashboard.room-facilities.index"]);
     $routes->get('navbar-footer', "Dashboard\NavbarFooter::index", ["as" => "dashboard.navbar-footer.index"]);
+    $routes->get('availabilities', "Dashboard\Availabilities::index", ["as" => "dashboard.availabilities.index"]);
 
     $routes->group('articles', function ($routes) {
         $routes->get("", "Dashboard\Articles::index", ["as" => "dashboard.articles.index"]);
@@ -108,6 +109,7 @@ $routes->group("object", function ($routes) {
         $routes->post('add-image/(:segment)', "Object\Rooms::addImage/$1", ["as" => "object.rooms.add-image"]);
         $routes->post('delete-image/(:segment)', "Object\Rooms::deleteImg/$1", ["as" => "object.rooms.delete-image"]);
         $routes->post('sync-availabilities', "Object\Rooms::syncAvailabilities", ["as" => "object.rooms.sync-availabilities"]);
+        $routes->post('sync-availabilities-single', "Object\Rooms::syncSingleAvailabilities", ["as" => "object.rooms.sync-availabilities-single"]);
         $routes->post('sync', "Object\Rooms::sync", ["as" => "object.rooms.sync"]);
         $routes->get('get', "Object\Rooms::get", ["as" => "object.rooms.get"]);
     });
