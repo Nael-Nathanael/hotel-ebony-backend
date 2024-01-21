@@ -89,10 +89,10 @@ class Galleries extends BaseController
         $model = model("GalleryAlbumModel");
         $modelPhoto = model("GalleryPhotoModel");
 
-        $instances = $model->findAll();
+        $instances = $model->orderBy("createdAt", "ASC")->findAll();
 
         foreach ($instances as $instance) {
-            $instance->photos = $modelPhoto->where("album_slug", $instance->slug)->findAll();
+            $instance->photos = $modelPhoto->where("album_slug", $instance->slug)->orderBy("createdAt", "ASC")->findAll();
         }
 
         return $this->response->setJSON($instances);
