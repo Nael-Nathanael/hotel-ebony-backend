@@ -118,6 +118,7 @@ $routes->group("object", function ($routes) {
         $routes->post('create', "Object\Reservations::create", ["as" => "object.reservations.create"]);
         $routes->get('get', "Object\Reservations::get", ["as" => "object.reservations.get"]);
         $routes->get('get-new', "Object\Reservations::getNew", ["as" => "object.reservations.get-new"]);
+        $routes->get('get/(:segment)', "Object\Reservations::getById/$1", ["as" => "object.reservations.get-by-id"]);
         $routes->post('ack', "Object\Reservations::ack", ["as" => "object.reservations.ack"]);
     });
 

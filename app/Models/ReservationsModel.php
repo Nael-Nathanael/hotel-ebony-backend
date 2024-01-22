@@ -31,7 +31,8 @@ class ReservationsModel extends Model
         'total_fee',
         'paid_at',
         'bed_type',
-        'rate_code'
+        'rate_code',
+        'room_count',
     ];
 
     // Dates

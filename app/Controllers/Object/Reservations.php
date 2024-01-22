@@ -7,53 +7,152 @@ use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\ResponseInterface;
 use DateTime;
 use Exception;
+use Midtrans\Config;
+use Midtrans\Snap;
 
 class Reservations extends BaseController
 {
     /**
      * @throws \ReflectionException
      */
-    public function create(): RedirectResponse
+    public function create()
     {
         $model = model("ReservationsModel");
 
+        $request_body = $this->request->getJSON();
+
+        /* Base Data */
         $data = [
-            "guest_name" => $this->request->getPost("guest_name"),
-            "guest_phone" => $this->request->getPost("guest_phone"),
-            "guest_email" => $this->request->getPost("guest_email"),
-            "check_in_date" => $this->request->getPost("check_in_date"),
-            "check_out_date" => $this->request->getPost("check_out_date"),
-            "total_guest" => $this->request->getPost("total_guest"),
-            "total_guest_child" => $this->request->getPost("total_guest_child"),
-            "special_request" => $this->request->getPost("special_request"),
-            "room_slug" => $this->request->getPost("room_slug"),
-            "bed_type" => $this->request->getPost("bed_type"),
-            "rate_code" => $this->request->getPost("rate_code"),
+            "guest_name" => $request_body->guest_name,
+            "guest_phone" => $request_body->guest_phone,
+            "guest_email" => $request_body->guest_email,
+
+            "special_request" => $request_body->special_request,
+            "bed_type" => $request_body->bed_type,
+
+            "check_in_date" => $request_body->check_in_date,
+            "check_out_date" => $request_body->check_out_date,
+            "total_guest" => $request_body->total_guest,
+            "total_guest_child" => $request_body->total_guest_child,
+
+            "room_slug" => $request_body->room_slug,
+            "room_count" => intval($request_body->room_count),
+
+            "total_fee" => 0,
 
             "status" => "CREATED",
         ];
+        /* Base Data perlu dilengkapi dengan: reservation_id, invoice_url, total_fee, rate_code */
 
+        /* Get Instance */
         $roomModel = model("RoomsModel");
-        $room = $roomModel->find($this->request->getPost("room_slug"));
+        $room = $roomModel->findCompleteWithFilter([
+            "slug" => $request_body->room_slug,
+            "s" => $request_body->check_in_date,
+            "e" => $request_body->check_out_date,
+            "c" => $request_body->room_count,
+        ]);
 
-        $startDate = new DateTime($this->request->getPost("check_in_date"));
-        $endDate = new DateTime($this->request->getPost("check_out_date"));
+        /* If not found, return */
+        if (count($room) == 0) {
+            return $this->response->setJSON([
+                "msg" => "Room pilihan anda tidak ditemukan"
+            ]);
+        }
+        $room = $room[0];
 
-        $interval = $startDate->diff($endDate);
-        $totalDays = $interval->format('%a');
+        /* If not available, return */
+        if (count($room->availabilities) == 0) {
+            return $this->response->setJSON([
+                "msg" => "Room pilihan anda sudah tidak tersedia"
+            ]);
+        }
 
-        $platform_fee = 0;
-        $fee = ($room->price * $totalDays) + $platform_fee;
+        /* Generate reservation_id */
+        $data["reservation_id"] = "EBONY-" . time();
+        while ($model->find($data["reservation_id"])) {
+            sleep(.1);
+            $data["reservation_id"] = "EBONY-" . time();
+        }
 
-        $data["total_fee"] = $fee;
+        /* Generate total_fee and rate_code */
+        foreach ($room->availabilities as $availability) {
+            if ($availability->price && intval($availability->price) > 0) {
+                $data["total_fee"] += intval($availability->price);
+            } else {
+                $data["total_fee"] += intval($room->price);
+            }
+
+            if ($availability->rate_code) {
+                $data["rate_code"] = $availability->rate_code;
+            } else {
+                $data["rate_code"] = $room->rate_code;
+            }
+        }
+
+        $data["total_fee"] *= intval($data["room_count"]);
 
         $instance = $model->insert($data);
+        $instance = $model->find($instance);
 
-        // TODO: Create midtrans invoice
-        // TODO: Update reservation status to invoiced
-        // TODO: return invoice_url / invoice_data
+        // Access custom variable
+        $midtrans_production_mode = getenv('MIDTRANS_MODE') == "PRODUCTION";
+        $server_key = getenv('MIDTRANS_SERVER_KEY');
+        $afterpayment_redirect = getenv('AFTERPAYMENT_REDIRECT');
 
-        return $this->response->setJSON($instance);
+        Config::$serverKey = $server_key;
+        Config::$isProduction = $midtrans_production_mode;
+
+        // Generate params for transaction
+        $guest_name_exp = explode(" ", $instance->guest_name);
+        if (count($guest_name_exp) == 1) {
+            $first_name = $instance->guest_name;
+            $last_name = $instance->guest_name;
+        } else {
+            $first_name = implode(" ", array_slice($guest_name_exp, 0, count($guest_name_exp) - 1));
+            $last_name = end($guest_name_exp);
+        }
+
+        $params = [
+            "transaction_details" => [
+                "order_id" => $instance->reservation_id,
+                "gross_amount" => $instance->total_fee
+            ],
+            "customer_details" => [
+                "first_name" => $first_name,
+                "last_name" => $last_name,
+                "email" => $instance->guest_email
+            ],
+            "item_details" => [],
+            "callbacks" => [
+                "finish" => $afterpayment_redirect . "/$instance->reservation_id"
+            ]
+        ];
+
+        if ($instance->guest_phone) {
+            $params["customer_details"]["phone"] = $instance->guest_phone;
+        }
+
+        foreach ($room->availabilities as $availability) {
+            $startDate = $availability->date;
+            $endDate = date("Y-m-d", strtotime($startDate . " +1 days"));
+            $params["item_details"][] = [
+                "id" => $availability->id,
+                "price" => ($availability->price && intval($availability->price) > 0) ? $availability->price : $room->price,
+                "quantity" => $instance->room_count,
+                "name" => "Stay at $room->name ($startDate to $endDate)"
+            ];
+        }
+
+        $snapToken = Snap::getSnapToken($params);
+
+        $instance->invoice_url = $snapToken;
+        $instance->status = "INVOICED";
+        $model->save($instance);
+
+        return $this->response->setJSON(
+            $model->find($instance->reservation_id)
+        );
     }
 
     public function paymentCallback()
@@ -86,6 +185,29 @@ class Reservations extends BaseController
 
         $model = model("ReservationsModel");
         return $this->response->setJSON($model->findAll());
+    }
+
+    public function getById($id): ResponseInterface
+    {
+        $model = model("ReservationsModel");
+        $instance = $model->find($id);
+        $model = model("RoomsModel");
+
+        $instance->room = $model->findCompleteWithFilter([
+            "slug" => $instance->room_slug
+        ])[0];
+
+        $midtrans_production_mode = getenv('MIDTRANS_MODE') == "PRODUCTION";
+        $server_key = getenv('MIDTRANS_SERVER_KEY');
+
+        Config::$serverKey = $server_key;
+        Config::$isProduction = $midtrans_production_mode;
+
+
+        $transaction_status = \Midtrans\Transaction::status($id);
+        $instance->midtrans_status = $transaction_status;
+
+        return $this->response->setJSON($instance);
     }
 
     public function getNew(): ResponseInterface

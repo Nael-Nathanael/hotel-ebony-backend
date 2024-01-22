@@ -22,7 +22,7 @@ class RoomsModel extends Model
         'order_number',
         'capacity',
         'size',
-        'deleted_at'
+        'deleted_at',
     ];
 
     // Dates
@@ -83,6 +83,9 @@ class RoomsModel extends Model
         $facilityModel = model("RoomFacilitiesModel");
         $availabilityModel = model("RoomAvailabilitiesModel");
 
+        if (array_key_exists("slug", $filter)) {
+            $this->where("slug", $filter["slug"]);
+        }
         $rooms = $this->findAll();
 
         foreach ($rooms as $room) {
