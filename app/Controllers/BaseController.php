@@ -46,6 +46,7 @@ class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
+        $lines = model("Lines");
 
         // E.g.: $this->session = \Config\Services::session();
         define("UPLOAD_FOLDER_URL", ROOTPATH . 'public' . DIRECTORY_SEPARATOR . 'uploads');
@@ -60,5 +61,7 @@ class BaseController extends Controller
         if ($method == "OPTIONS") {
             die();
         }
+
+        $GLOBALS['lines'] = $lines;
     }
 }

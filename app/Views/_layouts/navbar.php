@@ -1,3 +1,12 @@
+<?php
+function call($id, $defaultValue): string
+{
+    $temp = $GLOBALS["lines"]->findOrEmptyString($id);
+    return $temp ?: $defaultValue;
+}
+
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Hotel Ebony - Admin</a>
@@ -8,29 +17,44 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= route_to("dashboard.home.index") ?>">Home</a>
+                    <a class="nav-link" href="<?= route_to("dashboard.home.index") ?>">
+                        <?= call("MENU_HOME", "Home") ?>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= route_to("dashboard.about.index") ?>">About</a>
+                    <a class="nav-link" href="<?= route_to("dashboard.about.index") ?>">
+                        <?= call("MENU_ABOUT", "About") ?>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= route_to("dashboard.rooms.index") ?>">Rooms & Suites</a>
+                    <a class="nav-link" href="<?= route_to("dashboard.rooms.index") ?>">
+                        <?= call("MENU_ROOM_SUITE", "Rooms & Suites") ?>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= route_to("dashboard.facilities.index") ?>">Facilities</a>
+                    <a class="nav-link" href="<?= route_to("dashboard.facilities.index") ?>">
+                        <?= call("MENU_FACILITY", "Facilities") ?>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= route_to("dashboard.galleries.index") ?>">Gallery</a>
+                    <a class="nav-link" href="<?= route_to("dashboard.galleries.index") ?>">
+                        <?= call("MENU_GALLERY", "Gallery") ?>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= route_to("dashboard.articles.index") ?>">Articles</a>
+                    <a class="nav-link" href="<?= route_to("dashboard.articles.index") ?>">
+                        <?= call("MENU_ARTICLE", "Articles") ?>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Reservations</a>
+                    <a class="nav-link" href="#">
+                        <?= call("MENU_RESERVE", "Reserve") ?>
+                    </a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">More</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-expanded="false">More</a>
                     <ul class="dropdown-menu">
                         <li>
                             <a class="dropdown-item" href="<?= route_to("dashboard.availabilities.index") ?>">
