@@ -1,4 +1,5 @@
 <?php
+
 function call($id, $defaultValue): string
 {
     $temp = $GLOBALS["lines"]->findOrEmptyString($id);
