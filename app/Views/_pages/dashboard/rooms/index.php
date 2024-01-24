@@ -1,7 +1,35 @@
 <?= $this->extend("_layouts/base_layout"); ?>
 
 <?= $this->section("content"); ?>
-    <div class="container">
+    <div class="container my-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <?= summon_image_field("ROOM", "ROOM_HERO_BG") ?>
+                    </div>
+                    <div class="col-6">
+                        <?= view("_components/LinesFieldGroup",
+                            [
+                                "fields" => [
+                                    [
+                                        "type" => "LinesField",
+                                        "label" => "Judul",
+                                        "id" => "ROOM_HERO_TITLE",
+                                    ],
+                                    [
+                                        "type" => "LinesField",
+                                        "label" => "Subjudul",
+                                        "id" => "ROOM_HERO_SUBTITLE",
+                                    ],
+                                ]
+                            ]
+                        ) ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <section>
             <div class="card">
                 <div class="card-header">
