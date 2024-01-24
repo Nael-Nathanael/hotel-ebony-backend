@@ -1,14 +1,3 @@
-<?php
-
-function call($id, $defaultValue): string
-{
-    $temp = $GLOBALS["lines"]->findOrEmptyString($id);
-    return $temp ?: $defaultValue;
-}
-
-?>
-
-
 <?= $this->extend("_layouts/base_layout"); ?>
 
 <?= $this->section("content"); ?>
