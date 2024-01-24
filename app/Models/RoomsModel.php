@@ -99,7 +99,7 @@ class RoomsModel extends Model
             }
 
             if (array_key_exists('e', $filter)) {
-                $availabilities->where("date <= '${filter['e']}'", null, false);
+                $availabilities->where("date < '${filter['e']}'", null, false);
             }
 
             if (array_key_exists('c', $filter)) {

@@ -9,6 +9,7 @@ use DateTime;
 use Exception;
 use Midtrans\Config;
 use Midtrans\Snap;
+use Midtrans\Transaction;
 
 class Reservations extends BaseController
 {
@@ -189,8 +190,8 @@ class Reservations extends BaseController
 
     public function getById($id): ResponseInterface
     {
-        $model = model("ReservationsModel");
-        $instance = $model->find($id);
+        $reservationModel = model("ReservationsModel");
+        $instance = $reservationModel->find($id);
         $model = model("RoomsModel");
 
         $instance->room = $model->findCompleteWithFilter([
@@ -203,9 +204,17 @@ class Reservations extends BaseController
         Config::$serverKey = $server_key;
         Config::$isProduction = $midtrans_production_mode;
 
-
-        $transaction_status = \Midtrans\Transaction::status($id);
+        $transaction_status = Transaction::status($id);
         $instance->midtrans_status = $transaction_status;
+
+        if ($instance->midtrans_status) {
+            if ($instance->midtrans_status["transaction_status"] == "settlement") {
+                $reservationModel->where("reservation_id", $id)
+                    ->set('paid_at', 'NOW()', false)
+                    ->set('status', 'PAID')
+                    ->update();
+            }
+        }
 
         return $this->response->setJSON($instance);
     }

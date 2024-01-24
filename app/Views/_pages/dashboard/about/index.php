@@ -1,6 +1,10 @@
 <?= $this->extend("_layouts/base_layout"); ?>
 
 <?= $this->section("content"); ?>
+<div class="w-100 mb-4 d-flex justify-content-center h2 text-white align-items-center"
+     style="height: 70vh; max-height: 400px; background: url('<?= PLACEHOLDER_IMG ?>')">
+    Kelola Buku
+</div>
 
 <div class="container py-2">
     <div class="card shadow-sm mb-3">

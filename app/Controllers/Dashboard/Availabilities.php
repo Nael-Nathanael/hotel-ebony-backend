@@ -17,7 +17,7 @@ class Availabilities extends BaseController
             $room->availabilities = $model
                 ->where("room_slug", $room->slug)
                 ->where("date >= '$start'", null, false)
-                ->where("date <= DATE_ADD('$start', INTERVAL 1 WEEK)", null, false)
+                ->where("date < DATE_ADD('$start', INTERVAL 1 WEEK)", null, false)
                 ->findAll();
         }
 
