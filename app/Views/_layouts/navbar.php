@@ -47,7 +47,8 @@ function call($id, $defaultValue): string
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="#"
+                       onclick="Swal.fire('Under Construction', 'Reserve page is still under construction, please wait :)', 'info')">
                         <?= call("MENU_RESERVE", "Reserve") ?>
                     </a>
                 </li>
@@ -57,6 +58,10 @@ function call($id, $defaultValue): string
                        aria-expanded="false">More</a>
                     <ul class="dropdown-menu">
                         <li>
+                            <a class="dropdown-item" href="#"
+                               onclick="Swal.fire('Under Construction', 'This page is still under construction, please wait :)', 'info')">
+                                Manage Reservations
+                            </a>
                             <a class="dropdown-item" href="<?= route_to("dashboard.availabilities.index") ?>">
                                 Room Availabilities
                             </a>
