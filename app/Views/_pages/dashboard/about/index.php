@@ -3,7 +3,7 @@
 <?= $this->section("content"); ?>
 <div class="w-100 mb-4 d-flex justify-content-center h2 text-white align-items-center"
      style="height: 70vh; max-height: 400px; background: url('<?= PLACEHOLDER_IMG ?>')">
-    <?= call("ABOUT_HERO_TITLE", "About Us") ?>
+    About Us
 </div>
 
 <div class="container py-2">

@@ -39,8 +39,8 @@
                             global $start;
                             return $availability->date == date("Y-m-d", strtotime($start . " +$i days"));
                         });
-                        if ($lookup) {
-                            $lookup = $lookup[0];
+                        if (count($lookup) > 0) {
+                            $lookup = reset($lookup);
                         } else {
                             $lookup = (object)[
                                 "count" => "",
@@ -72,8 +72,8 @@
                             global $start;
                             return $availability->date == date("Y-m-d", strtotime($start . " +$i days"));
                         });
-                        if ($lookup) {
-                            $lookup = $lookup[0];
+                        if (count($lookup) > 0) {
+                            $lookup = reset($lookup);
                         } else {
                             $lookup = (object)[
                                 "count" => "",
@@ -106,8 +106,8 @@
                             global $start;
                             return $availability->date == date("Y-m-d", strtotime($start . " +$i days"));
                         });
-                        if ($lookup) {
-                            $lookup = $lookup[0];
+                        if (count($lookup) > 0) {
+                            $lookup = reset($lookup);
                         } else {
                             $lookup = (object)[
                                 "count" => "",
