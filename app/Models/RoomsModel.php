@@ -99,7 +99,7 @@ class RoomsModel extends Model
             }
 
             if (array_key_exists('e', $filter)) {
-                $availabilities->where("date <= '${filter['e']}'", null, false);
+                $availabilities->where("date < '${filter['e']}'", null, false);
             }
 
             if (array_key_exists('c', $filter)) {
@@ -112,7 +112,7 @@ class RoomsModel extends Model
                 $date1 = new DateTime($filter['s']);
                 $date2 = new DateTime($filter['e']);
 
-                $interval = $date1->diff($date2)->days + 1;
+                $interval = $date1->diff($date2)->days;
 
                 if (count($room->availabilities) < $interval) {
                     $room->availabilities = [];

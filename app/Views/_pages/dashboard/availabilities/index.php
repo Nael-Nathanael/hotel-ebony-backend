@@ -4,6 +4,13 @@
 
 <?php $start = $_GET['s'] ?? date('Y-m-d'); ?>
 
+<?= view("_components/PageHero", [
+    "breadcrumbs" => [
+        "Room Availabilities"
+    ]
+]); ?>
+
+
 <div class="container-fluid py-2">
     <form class="pb-3" style="width: 300px" id="form">
         <input name="s" type="date"
