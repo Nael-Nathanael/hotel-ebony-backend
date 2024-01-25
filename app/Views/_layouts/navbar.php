@@ -38,8 +38,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"
-                       onclick="Swal.fire('Under Construction', 'Reserve page is still under construction, please wait :)', 'info')">
+                    <a class="nav-link" href="<?= route_to("dashboard.reserve.index") ?>">
                         <?= call("MENU_RESERVE", "Reserve") ?>
                     </a>
                 </li>
