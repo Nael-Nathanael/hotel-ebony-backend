@@ -7,7 +7,8 @@
 <?= view("_components/PageHero", [
     "breadcrumbs" => [
         "Room Availabilities"
-    ]
+    ],
+    "fluid" => true
 ]); ?>
 
 

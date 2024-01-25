@@ -31,84 +31,91 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section("content"); ?>
+<?= view("_components/PageHero", [
+    "breadcrumbs" => [
+        "Articles" => route_to("dashboard.articles.index"),
+        "Create New Article (English)"
+    ],
+    "fluid" => true,
+    "help" => "You can create indonesia version on 'edit' menu after publish this article"
+]); ?>
+
 <div class="container-fluid">
-    <section>
-        <form action="<?= route_to("object.articles.create") ?>" method="post" id="articleForm"
-              enctype="multipart/form-data">
-            <input type="hidden" name="content" id="content">
+    <form action="<?= route_to("object.articles.create") ?>" method="post" id="articleForm"
+          enctype="multipart/form-data">
+        <input type="hidden" name="content" id="content">
 
-            <div class="row" style="min-height: 600px">
-                <div class="col-lg-9 border-end">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control material-form-control" id="title" name="title"
-                               placeholder="title"
-                               required>
-                        <label for="title">Title</label>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="document-editor__toolbar border-0"></div>
-                    </div>
-                    <div class="container bg-light py-4">
-                        <div class="editor border shadow-none bg-white" style="min-height: 700px">
+        <div class="row" style="min-height: 600px">
+            <div class="col-lg-9 border-end">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control material-form-control" id="title" name="title"
+                           placeholder="title"
+                           required>
+                    <label for="title">Title</label>
+                </div>
+                <div class="row mb-3">
+                    <div class="document-editor__toolbar border-0"></div>
+                </div>
+                <div class="container bg-light py-4">
+                    <div class="editor border shadow-none bg-white" style="min-height: 700px">
 
-                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 d-flex align-items-end flex-column">
-                    <div class="my-2">
-                        <button type="submit" class="btn btn-outline-primary">
-                            Publish
-                        </button>
-                    </div>
-                    <hr/>
-                    <div class="w-100">
-                        <div class="card shadow-sm mb-2">
-                            <div class="card-header">
-                                Post Settings
+            </div>
+            <div class="col-lg-3 d-flex align-items-end flex-column">
+                <div class="my-2">
+                    <button type="submit" class="btn btn-outline-primary">
+                        Publish
+                    </button>
+                </div>
+                <hr/>
+                <div class="w-100">
+                    <div class="card shadow-sm mb-2">
+                        <div class="card-header">
+                            Post Settings
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label for="coverImage">Cover Image</label>
+                                <input type="file" name="coverImage" id="coverImage" class="form-control">
                             </div>
-                            <div class="card-body">
-                                <div class="form-group mb-3">
-                                    <label for="coverImage">Cover Image</label>
-                                    <input type="file" name="coverImage" id="coverImage" class="form-control">
-                                </div>
 
-                                <div class="form-group mb-3">
-                                    <label for="short_description">Short Description</label>
-                                    <textarea required id="short_description" name="short_description"
-                                              class="form-control"></textarea>
-                                </div>
+                            <div class="form-group mb-3">
+                                <label for="short_description">Short Description</label>
+                                <textarea required id="short_description" name="short_description"
+                                          class="form-control"></textarea>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="card shadow-sm mb-2">
-                            <div class="card-header">
-                                Advance Settings
+                    <div class="card shadow-sm mb-2">
+                        <div class="card-header">
+                            Advance Settings
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label for="keywords">Keywords</label>
+                                <input type="text" name="keywords" id="keywords" class="form-control"
+                                       placeholder="Keywords" required>
                             </div>
-                            <div class="card-body">
-                                <div class="form-group mb-3">
-                                    <label for="keywords">Keywords</label>
-                                    <input type="text" name="keywords" id="keywords" class="form-control"
-                                           placeholder="Keywords" required>
-                                </div>
 
-                                <div class="form-group mb-3">
-                                    <label for="meta_title">Meta Title</label>
-                                    <input type="text" name="meta_title" id="meta_title" class="form-control"
-                                           placeholder="Meta Title" required>
-                                </div>
+                            <div class="form-group mb-3">
+                                <label for="meta_title">Meta Title</label>
+                                <input type="text" name="meta_title" id="meta_title" class="form-control"
+                                       placeholder="Meta Title" required>
+                            </div>
 
-                                <div class="form-group mb-3">
-                                    <label for="meta_description">Meta Description</label>
-                                    <textarea required id="meta_description" name="meta_description"
-                                              class="form-control"></textarea>
-                                </div>
+                            <div class="form-group mb-3">
+                                <label for="meta_description">Meta Description</label>
+                                <textarea required id="meta_description" name="meta_description"
+                                          class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </section>
+        </div>
+    </form>
 </div>
 <?= $this->endSection(); ?>
 

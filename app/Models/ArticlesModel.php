@@ -21,6 +21,15 @@ class ArticlesModel extends Model
         "keywords",
         "meta_title",
         "meta_description",
+
+        'title_id',
+        'tag_id',
+        'short_description_id',
+        'content_id',
+        'imgUrl_id',
+        "keywords_id",
+        "meta_title_id",
+        "meta_description_id",
     ];
 
     // Dates

@@ -31,87 +31,106 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section("content"); ?>
-<div class="container-fluid">
-    <section>
-        <form action="<?= route_to("object.articles.update", $article->slug) ?>" method="post" id="articleForm"
-              enctype="multipart/form-data">
-            <input type="hidden" name="content" id="content">
+<?= view("_components/PageHero", [
+    "breadcrumbs" => [
+        "Articles" => route_to("dashboard.articles.index"),
+        "Update Article (" . ($_GET['lang'] == 'id' ? 'Bahasa Indonesia' : 'English Language') . ")"
+    ],
+    "fluid" => true,
+]); ?>
 
-            <div class="row" style="min-height: 600px">
-                <div class="col-lg-9 border-end">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control material-form-control" id="title" name="title"
-                               placeholder="title" value="<?= $article->title ?>" required>
-                        <label for="title">Title</label>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="document-editor__toolbar border-0"></div>
-                    </div>
-                    <div class="container bg-light py-4">
-                        <div class="editor border shadow-none bg-white" style="min-height: 700px">
-                            <?= $article->content ?>
-                        </div>
+<div class="container-fluid">
+    <form action="<?= route_to("object.articles.update", $article->slug) ?>?lang=<?= $_GET['lang'] ?>" method="post"
+          id="articleForm"
+          enctype="multipart/form-data">
+        <input type="hidden" name="content<?= $_GET['lang'] == 'id' ? '_id' : '' ?>" id="content">
+
+        <div class="row" style="min-height: 600px">
+            <div class="col-lg-9 border-end">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control material-form-control" id="title"
+                           name="title<?= $_GET['lang'] == 'id' ? '_id' : '' ?>"
+                           placeholder="title"
+                           value="<?= $_GET['lang'] == 'id' ? ($article->title_id ?: $article->title) : $article->title ?>"
+                           required>
+                    <label for="title"><?= $_GET['lang'] == 'id' ? 'Judul (ID)' : 'Title (EN)' ?></label>
+                </div>
+                <div class="row mb-3">
+                    <div class="document-editor__toolbar border-0"></div>
+                </div>
+                <div class="container bg-light py-4">
+                    <div class="editor border shadow-none bg-white" style="min-height: 700px">
+                        <?= $_GET['lang'] == 'id' ? ($article->content_id ?: $article->content) : $article->content ?>
                     </div>
                 </div>
-                <div class="col-lg-3 d-flex align-items-end flex-column">
-                    <div class="my-2">
-                        <button type="submit" class="btn btn-outline-primary">
-                            Publish
-                        </button>
-                    </div>
-                    <hr/>
-                    <div class="w-100">
-                        <div class="card shadow-sm mb-2">
-                            <div class="card-header">
-                                Post Settings
+            </div>
+            <div class="col-lg-3 d-flex align-items-end flex-column">
+                <div class="my-2">
+                    <button type="submit" class="btn btn-outline-primary">
+                        Publish
+                    </button>
+                </div>
+                <hr/>
+                <div class="w-100">
+                    <div class="card shadow-sm mb-2">
+                        <div class="card-header">
+                            Post Settings
+                        </div>
+                        <div class="card-body">
+                            <img src="<?= $article->imgUrl ?>" class="w-100 shadow-sm border" alt="oldCoverImage"
+                                 style="height: 100px; object-fit: cover">
+                            <div class="form-group mb-3">
+                                <label for="coverImage">Cover Image</label>
+                                <input type="file" name="coverImage" id="coverImage" class="form-control">
                             </div>
-                            <div class="card-body">
-                                <img src="<?= $article->imgUrl ?>" class="w-100 shadow-sm border" alt="oldCoverImage"
-                                     style="height: 100px; object-fit: cover">
-                                <div class="form-group mb-3">
-                                    <label for="coverImage">Cover Image</label>
-                                    <input type="file" name="coverImage" id="coverImage" class="form-control">
-                                </div>
 
-                                <div class="form-group mb-3">
-                                    <label for="short_description">Short Description</label>
-                                    <textarea required id="short_description" name="short_description"
-                                              class="form-control"
-                                              rows="5"><?= $article->short_description ?></textarea>
-                                </div>
+                            <div class="form-group mb-3">
+                                <label for="short_description"><?= $_GET['lang'] == 'id' ? 'Deskripsi Singkat (ID)' : 'Short Description (EN)' ?></label>
+                                <textarea required id="short_description"
+                                          name="short_description<?= $_GET['lang'] == 'id' ? '_id' : '' ?>"
+                                          class="form-control"
+                                          rows="5"><?= $_GET['lang'] == 'id' ? ($article->short_description_id ?: $article->short_description) : $article->short_description ?></textarea>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="card shadow-sm mb-2">
-                            <div class="card-header">
-                                Advance Settings
+                    <div class="card shadow-sm mb-2">
+                        <div class="card-header">
+                            Advance Settings
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group mb-3">
+                                <label for="keywords">Keywords <?= $_GET['lang'] == 'id' ? '(ID)' : '(EN)' ?></label>
+                                <input type="text" name="keywords<?= $_GET['lang'] == 'id' ? '_id' : '' ?>"
+                                       id="keywords" class="form-control"
+                                       placeholder="Keywords"
+                                       value="<?= $_GET['lang'] == 'id' ? ($article->keywords_id ?: $article->keywords) : $article->keywords ?>"
+                                       required>
                             </div>
-                            <div class="card-body">
-                                <div class="form-group mb-3">
-                                    <label for="keywords">Keywords</label>
-                                    <input type="text" name="keywords" id="keywords" class="form-control"
-                                           placeholder="Keywords" value="<?= $article->keywords ?>" required>
-                                </div>
 
 
-                                <div class="form-group mb-3">
-                                    <label for="meta_title">Meta Title</label>
-                                    <input type="text" name="meta_title" id="meta_title" class="form-control"
-                                           placeholder="Meta Title" value="<?= $article->meta_title ?>" required>
-                                </div>
+                            <div class="form-group mb-3">
+                                <label for="meta_title">Meta Title <?= $_GET['lang'] == 'id' ? '(ID)' : '(EN)' ?></label>
+                                <input type="text" name="meta_title<?= $_GET['lang'] == 'id' ? '_id' : '' ?>"
+                                       id="meta_title" class="form-control"
+                                       placeholder="Meta Title"
+                                       value="<?= $_GET['lang'] == 'id' ? ($article->meta_title_id ?: $article->meta_title) : $article->meta_title ?>"
+                                       required>
+                            </div>
 
-                                <div class="form-group mb-3">
-                                    <label for="meta_description">Meta Description</label>
-                                    <textarea required id="meta_description" name="meta_description"
-                                              class="form-control" rows="5"><?= $article->meta_description ?></textarea>
-                                </div>
+                            <div class="form-group mb-3">
+                                <label for="meta_description">Meta Description <?= $_GET['lang'] == 'id' ? '(ID)' : '(EN)' ?></label>
+                                <textarea required id="meta_description"
+                                          name="meta_description<?= $_GET['lang'] == 'id' ? '_id' : '' ?>"
+                                          class="form-control"
+                                          rows="5"><?= $_GET['lang'] == 'id' ? ($article->meta_description_id ?: $article->meta_description) : $article->meta_description ?></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </section>
+        </div>
+    </form>
 </div>
 <?= $this->endSection(); ?>
 

@@ -1,6 +1,6 @@
 <div class="w-100 mb-4 d-flex justify-content-center flex-column text-white align-items-center position-relative"
      style="
-             height: 70vh;
+             height: 35vh;
              max-height: 400px;
              background: url('<?= call($field_bg, PLACEHOLDER_IMG) ?>') center;
              background-size: cover;

@@ -53,16 +53,26 @@ class Articles extends BaseController
 
         $data = [
             "slug" => $slug,
-            "title" => $this->request->getPost("title"),
-            "topic" => $this->request->getPost("topic"),
-            "tag" => $this->request->getPost("tag"),
-            "short_description" => $this->request->getPost("short_description"),
-            "content" => $this->request->getPost("content"),
-            "service" => $this->request->getPost("service"),
-            "keywords" => $this->request->getPost("keywords"),
-            "meta_title" => $this->request->getPost("meta_title"),
-            "meta_description" => $this->request->getPost("meta_description"),
         ];
+
+        $arrs = [
+            "title",
+            "tag",
+            "short_description",
+            "content",
+            "keywords",
+            "meta_title",
+            "meta_description",
+        ];
+
+        foreach ($arrs as $arr) {
+            if ($this->request->getPost($arr)) {
+                $data[$arr] = $this->request->getPost($arr);
+            }
+            if ($this->request->getPost($arr . "_id")) {
+                $data[$arr . "_id"] = $this->request->getPost($arr . "_id");
+            }
+        }
 
         // upload image
         if ($_FILES["coverImage"]["name"]) {
