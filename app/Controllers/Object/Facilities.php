@@ -36,8 +36,11 @@ class Facilities extends BaseController
             [
                 "number" => $number,
                 "label" => $this->request->getPost("label"),
+                "label_id" => $this->request->getPost("label_id"),
                 "title" => $this->request->getPost("title"),
+                "title_id" => $this->request->getPost("title_id"),
                 "description" => $this->request->getPost("description"),
+                "description_id" => $this->request->getPost("description_id"),
                 "thumbnailUrl" => $thumbnailUrl,
                 "imgUrl" => $imgUrl,
                 "isShownOnHomepage" => $this->request->getPost("isShownOnHomepage"),
@@ -56,9 +59,12 @@ class Facilities extends BaseController
         $data = [
             "id" => $id,
             "label" => $this->request->getPost("label"),
+            "label_id" => $this->request->getPost("label_id"),
             "title" => $this->request->getPost("title"),
+            "title_id" => $this->request->getPost("title_id"),
             "isShownOnHomepage" => $this->request->getPost("isShownOnHomepage"),
             "description" => $this->request->getPost("description"),
+            "description_id" => $this->request->getPost("description_id"),
             "isWhiteText" => $this->request->getPost("isWhiteText")
         ];
 
@@ -81,7 +87,6 @@ class Facilities extends BaseController
         sendCalmSuccessMessage("Fasilitas berhasil diperbarui!");
         return redirect()->route("dashboard.facilities.index");
     }
-
 
     public function delete($id): RedirectResponse
     {
