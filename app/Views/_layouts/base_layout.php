@@ -22,11 +22,15 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Marcellus&display=swap" rel="stylesheet">
 
     <style>
         .font-marcellus {
             font-family: 'Marcellus', serif;
+        }
+
+        .font-josefin-sans {
+            font-family: 'Josefin Sans', sans-serif;
         }
     </style>
 </head>
@@ -336,7 +340,7 @@
         resetButton.classList.remove("d-none")
     }
 
-    function editableDiv__onSaveButtonClick(id) {
+    function editableDiv__onSaveButtonClick(id, isMultiple) {
         const editButton = document.getElementById(`editable_div__${id}_edit_button`)
         const saveButton = document.getElementById(`editable_div__${id}_save_button`)
         const resetButton = document.getElementById(`editable_div__${id}_reset_button`)
@@ -345,9 +349,11 @@
 
         divField.contentEditable = 'false';
 
-        triggerSaveByIdAndValue(id, divField.innerText)
+        const value = isMultiple ? divField.innerHTML : divField.innerText;
 
-        if (divField.innerText) {
+        triggerSaveByIdAndValue(id, value)
+
+        if (value) {
             pchField.classList.add("d-none")
         } else {
             pchField.classList.remove("d-none")
@@ -383,7 +389,7 @@
     function editableDiv__detectEnter(event) {
         if (event.key === 'Enter') {
             event.preventDefault()
-            editableDiv__onSaveButtonClick(event.target.getAttribute('data-id'));
+            editableDiv__onSaveButtonClick(event.target.getAttribute('data-id'), Boolean(event.target.getAttribute('data-multiple')));
         }
     }
 

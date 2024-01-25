@@ -8,138 +8,129 @@
     "field_subtitle" => "HOME_HERO_SUBTITLE",
 ]) ?>
 
-<div class="container py-2">
-    <div class="card shadow-sm mb-3">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-6">
+<div class="container py-4">
+    <section class="py-4">
+        <div class="row">
+            <div class="col">
+                <a
+                        href="<?= route_to("dashboard.articles.index") ?>"
+                        class="btn btn-outline-primary w-100 d-flex justify-content-center align-items-center"
+                        style="min-height: 125px">
+                    Manage Articles
+                </a>
+            </div>
+            <div class="col">
+                <a
+                        href="<?= route_to("dashboard.articles.index") ?>"
+                        class="btn btn-outline-primary w-100 d-flex justify-content-center align-items-center"
+                        style="min-height: 125px">
+                    Manage Articles
+                </a>
+            </div>
+            <div class="col">
+                <a
+                        href="<?= route_to("dashboard.articles.index") ?>"
+                        class="btn btn-outline-primary w-100 d-flex justify-content-center align-items-center"
+                        style="min-height: 125px">
+                    Manage Articles
+                </a>
+            </div>
+        </div>
+
+    </section>
+    <section class="py-4">
+        <div class="row g-5 align-items-center">
+            <div class="col-6">
+                <div class="h2 font-marcellus mb-4">
+                    <?= summon_editable_div("(Judul)", "HOME_HEADER_TITLE") ?>
+                </div>
+                <div>
                     <?= view("_components/LinesFieldGroup",
                         [
                             "fields" => [
                                 [
-                                    "type" => "LinesField",
-                                    "label" => "Judul",
-                                    "id" => "HOME_HEADER_TITLE",
-                                ],
-                                [
                                     "type" => "CKEDITOR",
-                                    "label" => "Deskripsi",
+                                    "label" => "",
                                     "id" => "HOME_HEADER_SUBTITLE",
                                 ],
                             ]
                         ]
                     ) ?>
                 </div>
-                <div class="col-6">
-                    <?= summon_image_field("HOME", "HOME_HEADER_IMG") ?>
-                </div>
+            </div>
+            <div class="col-6">
+                <?= summon_image_field("HOME", "HOME_HEADER_IMG") ?>
             </div>
         </div>
-    </div>
-    <div class="mb-3">
-        <div class="card-body text-center">
-            <?= view("_components/LinesFieldGroup",
-                [
-                    "fields" => [
-                        [
-                            "type" => "LinesField",
-                            "label" => "Facility Section",
-                            "id" => "HOME_FACILITY_TITLE",
-                        ],
-                    ]
-                ]
-            ) ?>
+    </section>
+
+    <section class="py-4">
+        <div class="h2 font-marcellus mb-4 d-flex justify-content-center align-items-center">
+            <?= summon_editable_div("(Our Facility)", "HOME_FACILITY_TITLE") ?>
         </div>
-    </div>
-    <div class="card shadow-sm mb-3">
-        <div class="card-header">
-            Carousel
-        </div>
-        <div class="card-body text-center">
-            <div class="row">
+
+        <div class="row">
+            <?php for ($i = 1; $i <= 2; $i++): ?>
                 <div class="col-6">
-                    <?= summon_image_field("HOME", "HOME_CAROUSEL_IMG_1") ?>
+                    <div class="position-relative">
+                        <img alt="HOME_CAROUSEL_IMG_<?= $i ?>"
+                             src="<?= call("HOME_CAROUSEL_IMG_$i", PLACEHOLDER_IMG) ?>"
+                             class="w-100" style="aspect-ratio: 16 / 9"/>
+
+                        <div class="position-absolute top-0 end-0 m-2">
+                            <?= summon_image_button("HOME_CAROUSEL_IMG_$i") ?>
+                        </div>
+
+                        <div class="position-absolute top-0 start-0 w-100 h-100 p-2 d-flex flex-column justify-content-between">
+                            <div>
+                                <div class="h3 font-marcellus mb-4">
+                                    <?= summon_editable_div("(Title)", "HOME_CAROUSEL_TITLE_$i") ?>
+                                </div>
+                                <div style="text-align: justify" class="w-50 font-josefin-sans">
+                                    <?= summon_editable_div("(Description)", "HOME_CAROUSEL_DESCRIPTION_$i") ?>
+                                </div>
+                            </div>
+
+                            <div style="text-align: justify; width: fit-content"
+                                 class="font-josefin-sans mt-auto border px-3 py-1 pt-2 border-dark">
+                                <?= summon_editable_div("(Button Text)", "HOME_CAROUSEL_BUTTON_TEXT_$i") ?>
+                            </div>
+                        </div>
+                    </div>
                     <?= view("_components/LinesFieldGroup",
                         [
                             "fields" => [
                                 [
                                     "type" => "LinesField",
-                                    "label" => "Judul",
-                                    "id" => "HOME_CAROUSEL_TITLE_1",
-                                ],
-                                [
-                                    "type" => "LinesField",
-                                    "label" => "Deskripsi",
-                                    "id" => "HOME_CAROUSEL_DESCRIPTION_1",
-                                ],
-                                [
-                                    "type" => "LinesField",
-                                    "label" => "Teks Tombol",
-                                    "id" => "HOME_CAROUSEL_BUTTON_TEXT_1",
-                                ],
-                                [
-                                    "type" => "LinesField",
                                     "label" => "URL Tombol",
-                                    "id" => "HOME_CAROUSEL_BUTTON_URL_1",
+                                    "id" => "HOME_CAROUSEL_BUTTON_URL_$i",
                                 ],
                             ]
                         ]
                     ) ?>
                 </div>
-                <div class="col-6">
-                    <?= summon_image_field("HOME", "HOME_CAROUSEL_IMG_2") ?>
-                    <?= view("_components/LinesFieldGroup",
-                        [
-                            "fields" => [
-                                [
-                                    "type" => "LinesField",
-                                    "label" => "Judul",
-                                    "id" => "HOME_CAROUSEL_TITLE_2",
-                                ],
-                                [
-                                    "type" => "LinesField",
-                                    "label" => "Deskripsi",
-                                    "id" => "HOME_CAROUSEL_DESCRIPTION_2",
-                                ],
-                                [
-                                    "type" => "LinesField",
-                                    "label" => "Teks Tombol",
-                                    "id" => "HOME_CAROUSEL_BUTTON_TEXT_2",
-                                ],
-                                [
-                                    "type" => "LinesField",
-                                    "label" => "URL Tombol",
-                                    "id" => "HOME_CAROUSEL_BUTTON_URL_2",
-                                ],
-                            ]
-                        ]
-                    ) ?>
-                </div>
-            </div>
+            <?php endfor ?>
         </div>
-    </div>
+    </section>
 
-    <div class="card shadow-sm mb-3">
-        <div class="card-body text-center">
-            <?= view("_components/LinesFieldGroup",
-                [
-                    "fields" => [
-                        [
-                            "type" => "LinesField",
-                            "label" => "Rooms & Suites Section",
-                            "id" => "HOME_ROOMS_TITLE",
-                        ],
-                        [
-                            "type" => "LinesField",
-                            "label" => "View All Rooms",
-                            "id" => "HOME_ROOMS_ALL",
-                        ],
-                    ]
-                ]
-            ) ?>
+
+    <section class="py-4">
+        <div class="h2 font-marcellus mb-4 d-flex justify-content-center align-items-center">
+            <?= summon_editable_div("(Rooms & Suites)", "HOME_ROOMS_TITLE") ?>
         </div>
-    </div>
 
+        <a
+                href="<?= route_to("dashboard.rooms.index") ?>"
+                class="btn btn-outline-primary w-100 d-flex justify-content-center align-items-center"
+                style="min-height: 200px">
+            Manage Rooms & Suites
+        </a>
+
+        <div class="h6 font-josefin-sans mt-4 text-decoration-underline d-flex justify-content-center align-items-center">
+            <?= summon_editable_div("(View All Rooms)", "HOME_ROOMS_ALL") ?>
+        </div>
+    </section>
 </div>
+
 <?= $this->endSection(); ?>
 

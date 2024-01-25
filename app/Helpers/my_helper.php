@@ -1,4 +1,14 @@
 <?php
+if (!function_exists('summon_editable_div')) {
+    function summon_editable_div(string $label, string $id, bool $multiple = false): string
+    {
+        return view("_components/EditableDiv", [
+            "field_id" => $id,
+            "field_label" => $label,
+            "field_multiple" => $multiple,
+        ]);
+    }
+}
 if (!function_exists('summon_image_field')) {
     function summon_image_field(string $field_group_name, string $field_id): string
     {

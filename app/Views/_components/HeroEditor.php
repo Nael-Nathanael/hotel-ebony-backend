@@ -9,28 +9,12 @@
          style="opacity: .45; z-index: 100; background-color: black"></div>
     <div style="z-index: 101" class="text-center">
         <div class="font-marcellus h1">
-            <?= view("_components/LinesFieldGroup", [
-                "fields" => [
-                    [
-                        "type" => "EditableDiv",
-                        "label" => "(Page Title)",
-                        "id" => $field_title
-                    ]
-                ]
-            ]) ?>
+            <?= summon_editable_div("(Page Title)", $field_title) ?>
         </div>
     </div>
 
     <div style="z-index: 101" class="text-center mt-2 font-marcellus h5">
-        <?= view("_components/LinesFieldGroup", [
-            "fields" => [
-                [
-                    "type" => "EditableDiv",
-                    "label" => "(Page Subtitle)",
-                    "id" => $field_subtitle
-                ]
-            ]
-        ]) ?>
+        <?= summon_editable_div("(Page Subtitle)", $field_subtitle) ?>
     </div>
 
     <div class="position-absolute top-0 end-0 m-2" style="z-index: 101">
