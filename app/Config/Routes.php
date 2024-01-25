@@ -43,6 +43,7 @@ $routes->group('dashboard', function ($routes) {
     $routes->get('room-facilities', "Dashboard\RoomFacilityOptions::index", ["as" => "dashboard.room-facilities.index"]);
     $routes->get('navbar-footer', "Dashboard\NavbarFooter::index", ["as" => "dashboard.navbar-footer.index"]);
     $routes->get('availabilities', "Dashboard\Availabilities::index", ["as" => "dashboard.availabilities.index"]);
+    $routes->get('tnc', "Dashboard\Tnc::index", ["as" => "dashboard.tnc.index"]);
 
     $routes->group('articles', function ($routes) {
         $routes->get("", "Dashboard\Articles::index", ["as" => "dashboard.articles.index"]);

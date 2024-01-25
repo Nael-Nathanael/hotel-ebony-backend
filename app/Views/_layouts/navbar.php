@@ -62,6 +62,9 @@
                             <a class="dropdown-item" href="<?= route_to("dashboard.room-facilities.index") ?>">
                                 Room Facility Options
                             </a>
+                            <a class="dropdown-item" href="<?= route_to("dashboard.tnc.index") ?>">
+                                Website Terms and Conditions
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -70,8 +73,8 @@
                 <form action="<?= route_to("session.lang") ?>" method="post" id="langsel">
                     <select name="lang" id="lang" class="form-select form-select-sm"
                             onchange="document.getElementById('langsel').submit()">
-                        <option value="" <?= session()->get("LANG") != "EN_" ? 'selected' : '' ?>>ID</option>
                         <option value="EN_" <?= session()->get("LANG") == "EN_" ? 'selected' : '' ?>>EN</option>
+                        <option value="" <?= session()->get("LANG") != "EN_" ? 'selected' : '' ?>>ID</option>
                     </select>
                 </form>
                 <a href="<?= route_to("auth.logout") ?>" class="flex-shrink-0 btn btn-outline-danger btn-sm">
