@@ -8,16 +8,18 @@
          style="opacity: .45; z-index: 100; background-color: black"></div>
     <div style="z-index: 101">
         <div class="container">
-            <div class="small">
-                <?php foreach (array_slice($breadcrumbs, 0, -1) as $breadcrumb => $link): ?>
-                    <a class="text-light fw-lighter text-decoration-none"
-                       href="<?= $link ?>">
-                        <?= $breadcrumb ?>
-                    </a>
-                    /
-                <?php endforeach; ?>
-                <a class="text-light fw-lighter text-decoration-none" href="#"><?= end($breadcrumbs) ?></a>
-            </div>
+            <?php if (count($breadcrumbs) > 1): ?>
+                <div class="small">
+                    <?php foreach (array_slice($breadcrumbs, 0, -1) as $breadcrumb => $link): ?>
+                        <a class="text-light fw-lighter text-decoration-none"
+                           href="<?= $link ?>">
+                            <?= $breadcrumb ?>
+                        </a>
+                        /
+                    <?php endforeach; ?>
+                    <a class="text-light fw-lighter text-decoration-none" href="#"><?= end($breadcrumbs) ?></a>
+                </div>
+            <?php endif; ?>
             <div class="font-marcellus h3 mb-0">
                 <?= end($breadcrumbs) ?>
             </div>

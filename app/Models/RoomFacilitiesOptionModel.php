@@ -14,6 +14,7 @@ class RoomFacilitiesOptionModel extends Model
     protected $allowedFields = [
         'slug',
         'name',
+        'name_id',
         'icon',
         'order_number',
     ];

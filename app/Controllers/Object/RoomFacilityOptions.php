@@ -45,12 +45,20 @@ class RoomFacilityOptions extends BaseController
     {
         $model = model("RoomFacilitiesOptionModel");
 
-        $data = [
-            "slug" => $this->request->getJSON()->slug,
-            "name" => $this->request->getJSON()->name,
-        ];
+        $slug = $this->request->getJSON()->slug;
+        $name = $this->request->getJSON()->name;
 
-        $model->save($data);
+        if (strpos($slug, "_lang_id") !== false) {
+            $model->save([
+                "slug" => str_replace("_lang_id", "", $slug),
+                "name_id" => $name
+            ]);
+        } else {
+            $model->save([
+                "slug" => $slug,
+                "name" => $name
+            ]);
+        }
 
         return $this->response->setJSON([
             "msg" => "ok"
