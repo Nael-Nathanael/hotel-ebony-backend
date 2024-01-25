@@ -14,6 +14,7 @@ class GalleryAlbumModel extends Model
     protected $allowedFields = [
         'slug',
         'title',
+        'title_id',
     ];
 
     // Dates

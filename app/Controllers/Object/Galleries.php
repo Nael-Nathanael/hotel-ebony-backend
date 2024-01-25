@@ -22,7 +22,8 @@ class Galleries extends BaseController
 
         $data = [
             "slug" => $finalSlug,
-            "title" => $this->request->getPost("title")
+            "title" => $this->request->getPost("title"),
+            "title_id" => $this->request->getPost("title_id")
         ];
 
         $model->save($data);
