@@ -1,13 +1,3 @@
-<?php
-
-function call($id, $defaultValue): string
-{
-    $temp = $GLOBALS["lines"]->findOrEmptyString($id);
-    return $temp ?: $defaultValue;
-}
-
-?>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Hotel Ebony - Admin</a>

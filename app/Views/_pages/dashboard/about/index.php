@@ -1,34 +1,14 @@
 <?= $this->extend("_layouts/base_layout"); ?>
 
 <?= $this->section("content"); ?>
-<div class="w-100 mb-4 d-flex justify-content-center h2 text-white align-items-center"
-     style="height: 70vh; max-height: 400px; background: url('<?= PLACEHOLDER_IMG ?>')">
-    About Us
-</div>
+
+<?= view("_components/HeroEditor", [
+    "field_bg" => "ABOUT_HERO_BG",
+    "field_title" => "ABOUT_HERO_TITLE",
+    "field_subtitle" => "ABOUT_HERO_SUBTITLE",
+]) ?>
 
 <div class="container py-2">
-    <div class="card shadow-sm mb-3">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-6">
-                    <?= summon_image_field("HOME", "ABOUT_HERO_BG") ?>
-                </div>
-                <div class="col-6">
-                    <?= view("_components/LinesFieldGroup",
-                        [
-                            "fields" => [
-                                [
-                                    "type" => "LinesField",
-                                    "label" => "Judul",
-                                    "id" => "ABOUT_HERO_TITLE",
-                                ]
-                            ]
-                        ]
-                    ) ?>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="card shadow-sm mb-3">
         <div class="card-body">
             <div class="row">

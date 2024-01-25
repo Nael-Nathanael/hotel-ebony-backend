@@ -10,6 +10,16 @@ if (!function_exists('summon_image_field')) {
         );
     }
 }
+if (!function_exists('summon_image_button')) {
+    function summon_image_button(string $field_id): string
+    {
+        return view("_components/ButtonToChangeImage",
+            [
+                "field_id" => $field_id,
+            ]
+        );
+    }
+}
 
 if (!function_exists('sendCalmSuccessMessage')) {
     function sendCalmSuccessMessage(string $message)
@@ -32,5 +42,13 @@ if (!function_exists('bindFlashdata')) {
     {
         $session = session();
         $data['flashdata'] = $session->getFlashdata();
+    }
+}
+
+if (!function_exists('call')) {
+    function call($id, $defaultValue): string
+    {
+        $temp = $GLOBALS["lines"]->findOrEmptyString($id);
+        return $temp ?: $defaultValue;
     }
 }

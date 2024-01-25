@@ -19,6 +19,16 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+
+    <style>
+        .font-marcellus {
+            font-family: 'Marcellus', serif;
+        }
+    </style>
 </head>
 <body>
 
@@ -36,6 +46,37 @@
 
 <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
 <script>
+    async function triggerSaveByIdAndValue(id, value) {
+        const group_name = id.split("_")[0]
+        const apiUrl = '/object/lines/update/<?= session()->get("LANG") ?>/' + group_name;
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                [id]: value,
+            })
+        };
+
+        fetch(apiUrl, requestOptions)
+            .then(_ => {
+                if (!value) return;
+
+                const saved_indicator_element = document.getElementById(`${id}__saved_indicator`);
+                if (!saved_indicator_element) return;
+
+                saved_indicator_element.classList.remove("d-none")
+                setTimeout(function () {
+                    saved_indicator_element.classList.add("d-none")
+                }, 2000);
+            })
+            .catch(error => {
+                console.error(error)
+            });
+    }
+
     async function triggerSave(element) {
         const group_name = element.name.split("_")[0]
         const apiUrl = '/object/lines/update/<?= session()->get("LANG") ?>/' + group_name;
@@ -261,6 +302,98 @@
             }
         });
     }
+</script>
+
+
+<script>
+    const previous_value = {}
+
+    function editableDiv__onEditButtonClick(id) {
+        const editButton = document.getElementById(`editable_div__${id}_edit_button`)
+        const saveButton = document.getElementById(`editable_div__${id}_save_button`)
+        const resetButton = document.getElementById(`editable_div__${id}_reset_button`)
+        const divField = document.getElementById(`editable_div__${id}`)
+        const pchField = document.getElementById(`editable_div__${id}_placeholder`)
+
+        if (divField.contentEditable === "true") return;
+
+        previous_value[id] = divField.innerText;
+
+        divField.contentEditable = 'true';
+        divField.focus()
+
+        const range = document.createRange();
+        range.selectNodeContents(divField);
+        range.collapse(false);
+
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        editButton.classList.add("d-none")
+        pchField.classList.add("d-none")
+        saveButton.classList.remove("d-none")
+        resetButton.classList.remove("d-none")
+    }
+
+    function editableDiv__onSaveButtonClick(id) {
+        const editButton = document.getElementById(`editable_div__${id}_edit_button`)
+        const saveButton = document.getElementById(`editable_div__${id}_save_button`)
+        const resetButton = document.getElementById(`editable_div__${id}_reset_button`)
+        const divField = document.getElementById(`editable_div__${id}`)
+        const pchField = document.getElementById(`editable_div__${id}_placeholder`)
+
+        divField.contentEditable = 'false';
+
+        triggerSaveByIdAndValue(id, divField.innerText)
+
+        if (divField.innerText) {
+            pchField.classList.add("d-none")
+        } else {
+            pchField.classList.remove("d-none")
+        }
+        saveButton.classList.add("d-none")
+        resetButton.classList.add("d-none")
+        editButton.classList.remove("d-none")
+    }
+
+    function editableDiv__onResetButtonClick(id) {
+        const editButton = document.getElementById(`editable_div__${id}_edit_button`)
+        const saveButton = document.getElementById(`editable_div__${id}_save_button`)
+        const resetButton = document.getElementById(`editable_div__${id}_reset_button`)
+        const divField = document.getElementById(`editable_div__${id}`)
+        const pchField = document.getElementById(`editable_div__${id}_placeholder`)
+
+        divField.contentEditable = 'false';
+
+        divField.innerText = previous_value[id]
+
+        triggerSaveByIdAndValue(id, divField.innerText)
+
+        if (divField.innerText) {
+            pchField.classList.add("d-none")
+        } else {
+            pchField.classList.remove("d-none")
+        }
+        saveButton.classList.add("d-none")
+        resetButton.classList.add("d-none")
+        editButton.classList.remove("d-none")
+    }
+
+    function editableDiv__detectEnter(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault()
+            editableDiv__onSaveButtonClick(event.target.getAttribute('data-id'));
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const fields = document.getElementsByClassName("editable_div")
+
+        for (const field of fields) {
+            field.onkeydown = editableDiv__detectEnter;
+        }
+    })
 </script>
 <?= $this->renderSection("javascript") ?>
 
