@@ -94,7 +94,14 @@
             <?= summon_editable_div("(Our Facility)", "HOME_FACILITY_TITLE") ?>
         </div>
 
-        <div class="row">
+        <a
+                href="<?= route_to("dashboard.facilities.index") ?>"
+                class="btn btn-outline-primary w-100 d-flex justify-content-center align-items-center"
+                style="min-height: 200px">
+            This section takes data from "Facilities" Menu
+        </a>
+
+        <div class="row mt-4">
             <?php for ($i = 1; $i <= 2; $i++): ?>
                 <div class="col-6">
                     <div class="position-relative">
@@ -148,7 +155,7 @@
                 href="<?= route_to("dashboard.rooms.index") ?>"
                 class="btn btn-outline-primary w-100 d-flex justify-content-center align-items-center"
                 style="min-height: 200px">
-            Manage Rooms & Suites
+            This section takes data from "Rooms & Suites" Menu
         </a>
 
         <div class="h6 font-josefin-sans mt-4 text-decoration-underline d-flex justify-content-center align-items-center">
