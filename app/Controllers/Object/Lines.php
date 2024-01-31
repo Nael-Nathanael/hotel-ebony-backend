@@ -68,7 +68,6 @@ class Lines extends BaseController
 
         $json = $this->request->getJSON();
         if ($json) {
-
             foreach ($json as $key => $value) {
                 $lines->save(
                     [

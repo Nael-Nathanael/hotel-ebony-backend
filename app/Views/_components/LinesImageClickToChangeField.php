@@ -7,24 +7,11 @@
 $lines = model("Lines");
 ?>
 
-<div class="position-relative imagePreview rounded cursor-pointer text-center"
-     onclick="document.getElementById('<?= $field_id ?>').click()">
+<div class="position-relative">
     <img src="<?= $lines->findOrPlaceholderImage($field_id) ?>" class="w-100 rounded" alt=""
          style="aspect-ratio: 16 / 9; object-fit: cover;">
-    <div class="position-absolute top-50 start-50 translate-middle h3 mb-0 text-warning d-none">
-        Click to Change
+    <div class="position-absolute top-0 end-0 m-2">
+        <?= summon_image_button($field_id) ?>
     </div>
-    <div class="text-end small text-danger">
-        <label for="">*recommended 1,280px x 720px (16 : 9 ratio)</label>
-    </div>
+    <div class="text-end small text-danger">*recommended 1,280px x 720px (16 : 9 ratio)</div>
 </div>
-
-<form action="<?= route_to('object.lines.upload') ?>" method="post"
-      id="<?= $field_id . "_form" ?>" enctype="multipart/form-data">
-    <input type="hidden" name="key" value="<?= $field_id ?>">
-    <input type="hidden" name="group_name" value="<?= $field_group_name ?>">
-    <input class="d-none" id="<?= $field_id ?>"
-           name="<?= $field_id ?>"
-           onchange="document.getElementById('<?= $field_id . "_form" ?>').submit()"
-           type="file">
-</form>

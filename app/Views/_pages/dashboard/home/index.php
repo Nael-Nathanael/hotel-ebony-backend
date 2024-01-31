@@ -11,32 +11,57 @@
 <div class="container py-4">
     <section class="py-4">
         <div class="row">
-            <div class="col">
-                <a
-                        href="<?= route_to("dashboard.articles.index") ?>"
-                        class="btn btn-outline-primary w-100 d-flex justify-content-center align-items-center"
-                        style="min-height: 125px">
-                    Manage Articles
-                </a>
-            </div>
-            <div class="col">
-                <a
-                        href="<?= route_to("dashboard.articles.index") ?>"
-                        class="btn btn-outline-primary w-100 d-flex justify-content-center align-items-center"
-                        style="min-height: 125px">
-                    Manage Articles
-                </a>
-            </div>
-            <div class="col">
-                <a
-                        href="<?= route_to("dashboard.articles.index") ?>"
-                        class="btn btn-outline-primary w-100 d-flex justify-content-center align-items-center"
-                        style="min-height: 125px">
-                    Manage Articles
-                </a>
-            </div>
-        </div>
+            <?php for ($i = 1; $i <= 3; $i++): ?>
+                <div class="col">
+                    <?php $highlight = call("HOME_ARTICLE_HIGHLIGHT_$i", False) ?>
+                    <?php if ($highlight): ?>
+                        <?php
+                        $article_candidates = array_filter($articles, function ($e) use ($highlight) {
+                            return $e->slug == $highlight;
+                        });
+                        $article = reset($article_candidates)
+                        ?>
+                        <div
+                                class="p-2 position-relative text-center w-100 d-flex justify-content-center align-items-end font-josefin-sans h4 mb-0 text-white"
+                                style="aspect-ratio: 16 / 9; background-size: contain; background-image: url('<?= $article->imgUrl ?>');"
+                        >
+                            <div class="w-100 h-100 top-0 start-0 position-absolute"
+                                 style="background-image: linear-gradient(to top, #000 0%, transparent 80%)"></div>
 
+                            <button
+                                    type="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#selectArticleModal"
+                                    class="top-0 end-0 m-2 btn btn-sm btn-primary position-absolute"
+                                    onclick="
+                                            for (let element of document.getElementsByClassName('changeArticleHighlightButton')) {
+                                            element.setAttribute('name', '<?= "HOME_ARTICLE_HIGHLIGHT_$i" ?>')
+                                            }"
+                            >
+                                <i class="bi bi-pen"></i> Edit
+                            </button>
+
+                            <span class="position-relative">
+                                <?= session()->get("LANG") ? $article->title : $article->title_id ?: $article->title ?>
+                            </span>
+                        </div>
+                    <?php else: ?>
+                        <button
+                                type="button"
+                                class="btn btn-outline-primary w-100 d-flex justify-content-center align-items-center"
+                                style="aspect-ratio: 16 / 9;"
+                                data-bs-toggle="modal"
+                                data-bs-target="#selectArticleModal"
+                                onclick="for (let element of document.getElementsByClassName('changeArticleHighlightButton')) {
+                                        element.setAttribute('name', '<?= "HOME_ARTICLE_HIGHLIGHT_$i" ?>')
+                                        }"
+                        >
+                            Select Article Highlight <?= $i ?>
+                        </button>
+                    <?php endif ?>
+                </div>
+            <?php endfor ?>
+        </div>
     </section>
     <section class="py-4">
         <div class="row g-5 align-items-center">
@@ -130,6 +155,49 @@
             <?= summon_editable_div("(View All Rooms)", "HOME_ROOMS_ALL") ?>
         </div>
     </section>
+</div>
+
+
+<div class="modal fade" id="selectArticleModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg small">
+        <div class="modal-content">
+            <div class="modal-header">
+                Choose Article
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tbody>
+                    <?php foreach ($articles as $article): ?>
+                        <tr>
+                            <td>
+                                <div>
+                                    <b class="me-2">EN: </b><?= $article->title ?>
+                                </div>
+                                <div>
+                                    <b class="me-2">ID: </b><?= $article->title_id ?>
+                                </div>
+                            </td>
+                            <td width="1" style="vertical-align: middle">
+                                <form action="<?= route_to("object.lines.update", "HOME") ?>" method="post">
+                                    <button name="" value="<?= $article->slug ?>"
+                                            class="btn btn-sm btn-outline-primary changeArticleHighlightButton"
+                                            type="submit">
+                                        Choose
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer border-0 text-center">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close
+                </button>
+                <button type="submit" class="btn btn-primary btn-sm">Save</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?= $this->endSection(); ?>

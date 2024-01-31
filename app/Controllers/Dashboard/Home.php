@@ -8,7 +8,10 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        $data = [];
+        $model = model("ArticlesModel");
+        $data = [
+            "articles" => $model->orderBy('created_at DESC')->findAll()
+        ];
         bindFlashdata($data);
         return view("_pages/dashboard/home/index", $data);
     }

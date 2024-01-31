@@ -2,7 +2,7 @@
         type="button"
         onclick="document.getElementById('button_change_img__<?= $field_id ?>').click()"
         class="btn btn-sm btn-primary">
-    <i class="bi bi-pen"></i> Background
+    <i class="bi bi-pen"></i> Edit
 </button>
 
 <form action="<?= route_to('object.lines.upload') ?>" method="post"
