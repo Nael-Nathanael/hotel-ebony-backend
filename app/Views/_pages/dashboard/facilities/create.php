@@ -131,7 +131,7 @@
                                 <h6>Facility Menu View (EN)</h6>
 
                                 <div class="position-relative w-100"
-                                     style="max-width: 600px;aspect-ratio: 2 / 1">
+                                     style="max-width: 600px;aspect-ratio: 16 / 9">
                                     <img alt="cover" class="w-100 h-100 preview_img"
                                          style="object-fit: cover; object-position: center"
                                          src="<?= PLACEHOLDER_IMG ?>"
@@ -148,7 +148,7 @@
                                 <h6>Facility Menu View (ID)</h6>
 
                                 <div class="position-relative w-100"
-                                     style="max-width: 600px;aspect-ratio: 2 / 1">
+                                     style="max-width: 600px;aspect-ratio: 16 / 9">
                                     <img alt="cover" class="w-100 h-100 preview_img"
                                          style="object-fit: cover; object-position: center"
                                          src="<?= PLACEHOLDER_IMG ?>"

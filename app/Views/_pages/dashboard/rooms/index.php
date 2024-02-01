@@ -8,18 +8,73 @@
 ]) ?>
 
     <div class="container my-3">
-        <section>
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        Rooms and Suites
-                    </div>
-                    <div class="card-toolkit">
-                        <a class="btn btn-outline-success btn-sm" href="<?= route_to("dashboard.rooms.create") ?>">
-                            Create New
-                        </a>
+
+        <section class="p-4 shadow position-relative">
+            <div class="bg-white border border-dark rounded px-2 py-1 shadow position-absolute top-0 start-0" style="transform: translate(-30%, -50%)">Template Room</div>
+            <div class="row g-5">
+                <div class="col-6">
+                    <div class="w-100 border d-flex justify-content-center align-items-center"
+                         style="aspect-ratio: 16 / 9">
+                        {{ Room Photo }}
                     </div>
                 </div>
+                <div class="col-6 justify-content-between d-flex flex-column">
+                    <div>
+                        <p class="fs-3 text-uppercase mb-0 font-josefin-sans">{{ Room Name }}</p>
+                        <p class="font-josefin-sans">{{ Room Description }}</p>
+
+                        <table class="small">
+                            <tr>
+                                <th>Price</th>
+                                <td>
+                                    <div class="ms-4 me-1">:</div>
+                                </td>
+                                <td>{{ Room Price }}</td>
+                            </tr>
+                            <tr>
+                                <th>Capacity</th>
+                                <td>
+                                    <div class="ms-4 me-1">:</div>
+                                </td>
+                                <td>{{ Room Capacity }}</td>
+                            </tr>
+                            <tr>
+                                <th>Room Size</th>
+                                <td>
+                                    <div class="ms-4 me-1">:</div>
+                                </td>
+                                <td>{{ Room Size }}</td>
+                            </tr>
+                            <tr>
+                                <th>Bed Options</th>
+                                <td>
+                                    <div class="ms-4 me-1">:</div>
+                                </td>
+                                <td>
+                                    {{ Bed Options }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="d-flex gap-4 align-items-baseline">
+                        <div class="px-2 py-1 text-white text-uppercase" style="background-color: #6e5e5e">
+                            <?= summon_editable_div("(RESERVE)", "ROOM_RESERVE_BUTTON") ?>
+                        </div>
+                        <div class="px-2 text-decoration-underline fw-bold font-josefin-sans text-uppercase" style="color: #6e5e5e">
+                            <?= summon_editable_div("(Learn More)", "ROOM_LEARN_MORE_BUTTON") ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="my-5"></div>
+
+        <section class="p-4">
+            <div class="w-100 text-end">
+                <a class="btn btn-outline-success btn-sm" href="<?= route_to("dashboard.rooms.create") ?>">
+                    <i class="bi bi-plus"></i> <?= session()->get("LANG") ? "Tambahkan Rooms & Suites" : "Create Rooms & Suites" ?>
+                </a>
             </div>
             <div class="mt-4">
                 <div>
@@ -43,7 +98,7 @@
                                             <div class="carousel-item <?= $imgIdx == 0 ? 'active' : '' ?>">
                                                 <img src="<?= $img->imgUrl ?>" class="d-block w-100"
                                                      alt="<?= $room->name ?>"
-                                                     style="aspect-ratio: 2 / 1; object-fit: cover; object-position: center;">
+                                                     style="aspect-ratio: 16 / 9; object-fit: cover; object-position: center;">
                                             </div>
                                         <?php endforeach; ?>
                                     </div>
@@ -61,17 +116,10 @@
                             </div>
                             <div class="col-6 justify-content-between d-flex flex-column">
                                 <div>
-                                    <p class="fs-5"><?= $room->name ?></p>
-                                    <p><?= $room->description ?></p>
+                                    <p class="fs-3 text-uppercase mb-0 font-josefin-sans"><?= $room->name ?></p>
+                                    <p class="font-josefin-sans"><?= $room->description ?></p>
 
-                                    <table>
-                                        <tr>
-                                            <th>Type</th>
-                                            <td>
-                                                <div class="ms-4 me-1">:</div>
-                                            </td>
-                                            <td><?= $room->type ?></td>
-                                        </tr>
+                                    <table class="small">
                                         <tr>
                                             <th>Price</th>
                                             <td>
@@ -139,6 +187,37 @@
                         </div>
 
                     <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+
+        <div class="my-5"></div>
+
+        <section class="py-4">
+            <div class="h2 font-marcellus mb-4 d-flex justify-content-center align-items-center">
+                <?= summon_editable_div("(Featured Offers)", "ROOM_FEATURED_OFFER_TITLE") ?>
+            </div>
+
+            <div class="row g-3">
+                <?php for ($i = 0; $i < 5; $i++): ?>
+                    <div class="col-4">
+                        <div style="aspect-ratio: 16 / 9"
+                             class="card w-100 card-body bg-light text-secondary fs-4 d-flex justify-content-center align-items-center">
+                            Facility
+                            <small style="font-size: 14px">(Edit via <a class="text-decoration-none"
+                                                                        href="<?= route_to("dashboard.facilities.index") ?>">Facilities
+                                    Menu</a>)</small>
+                        </div>
+                    </div>
+                <?php endfor ?>
+                <div class="col-4">
+                    <?= summon_image_field("ABOUT", "EXPLORE_ROOMS_AND_SUITES_IMG") ?>
+
+                    <div class="my-2 fs-4 font-josefin-sans">
+                        <?= summon_editable_div("(Rooms & Suites)", "EXPLORE_ROOMS_AND_SUITES") ?>
+                    </div>
+
+                    <?= summon_editable_div("(Rooms & Suites)", "EXPLORE_ROOMS_AND_SUITES_DESCRIPTION") ?>
                 </div>
             </div>
         </section>

@@ -8,119 +8,103 @@
     "field_subtitle" => "FACILITY_HERO_SUBTITLE",
 ]) ?>
 
+
 <div class="container mb-5">
-    <div class="w-100 text-end mb-4">
-        <a class="btn btn-outline-success btn-sm" href="<?= route_to("dashboard.facilities.create") ?>">
-            Create New
+    <div class="w-100 text-end mb-5">
+        <a class="btn btn-primary btn-sm" href="<?= route_to("dashboard.facilities.create") ?>">
+            <i class="bi bi-plus"></i> <?= session()->get("LANG") ? 'Add New Hotel Facility' : 'Tambahkan Fasilitas Hotel' ?>
         </a>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-hover" id="article_table" data-ordering="false">
-            <thead>
-            <tr>
-                <th style="width: 1px">No</th>
-                <th class="text-nowrap">
+    <?php foreach ($facilities as $index => $facility): ?>
+        <?php
+        $facility->images = [
+            (object)[
+                "imgUrl" => $facility->imgUrl
+            ]
+        ];
+        ?>
+        <div class="position-relative border py-4 mt-3 mb-5">
+            <div class="row align-items-center gx-3 position-relative">
+                <div class="col-3 text-end font-marcellus fs-4 text-uppercase text-secondary">
                     <?php if (session()->get("LANG") == "EN_"): ?>
-                        Homepage View
+                        <?= $facility->label ?>
                     <?php else: ?>
-                        Tampilan Beranda
+                        <?= $facility->label_id ?: $facility->label ?>
                     <?php endif ?>
-                </th>
-                <th class="text-nowrap">
-                    <?php if (session()->get("LANG") == "EN_"): ?>
-                        Facility Menu View
-                    <?php else: ?>
-                        Tampilan Menu Fasilitas
-                    <?php endif ?>
-                </th>
-                <th class="text-center" width="1">Edit</th>
-                <th class="text-center" width="1">Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($facilities as $index => $facility): ?>
-                <tr>
-                    <td style="vertical-align: center"><?= $index + 1 ?></td>
-                    <td style="vertical-align: center">
-                        <?php if ($facility->isShownOnHomepage): ?>
-                            <img width="150" height="150" alt="thumbnail"
-                                 style="object-position: center; object-fit: cover;"
-                                 src="<?= $facility->thumbnailUrl ?>"/>
-                            <p class="text-danger mb-0 mt-1 marcellus">
-                                <?php if (session()->get("LANG") == "EN_"): ?>
-                                    <?= $facility->label ?>
-                                <?php else: ?>
-                                    <?= $facility->label_id ?: $facility->label ?>
-                                <?php endif ?>
-                            </p>
-                            <p class="text-decoration-underline lh-2 fs-5 marcellus">
-                                <?php if (session()->get("LANG") == "EN_"): ?>
-                                    <?= $facility->title ?>
-                                <?php else: ?>
-                                    <?= $facility->title_id ?: $facility->title ?>
-                                <?php endif ?>
-                            </p>
-                        <?php else: ?>
-                            <?php if (session()->get("LANG") == "EN_"): ?>
-                                Not shown in homepage
-                            <?php else: ?>
-                                Tidak tampil di homepage
-                            <?php endif ?>
-                        <?php endif ?>
-                    </td>
-                    <td style="vertical-align: center">
-                        <div class="position-relative bg-primary w-100"
-                             style="max-width: 600px; aspect-ratio: 2 / 1">
-                            <img alt="cover" class="w-100 h-100"
-                                 style="object-fit: cover; object-position: center"
-                                 src="<?= $facility->imgUrl ?>"/>
-                            <div class="position-absolute marcellus top-50 start-50 translate-middle text-center lh-sm <?= $facility->isWhiteText ? 'text-white' : '' ?>">
-                                <p class="mb-0 text-uppercase h1">
-                                    <?php if (session()->get("LANG") == "EN_"): ?>
-                                        <?= $facility->label ?>
-                                    <?php else: ?>
-                                        <?= $facility->label_id ?: $facility->label ?>
-                                    <?php endif ?>
-                                </p>
-                                <small>
-                                    <?php if (session()->get("LANG") == "EN_"): ?>
-                                        <?= $facility->description ?>
-                                    <?php else: ?>
-                                        <?= $facility->description_id ?: $facility->description ?>
-                                    <?php endif ?>
-                                </small>
-                            </div>
+                </div>
+                <div class="col-6">
+                    <div id="carousel<?= $index ?>" class="carousel slide">
+                        <div class="carousel-indicators">
+                            <?php foreach ($facility->images as $imgIdx => $img): ?>
+                                <button type="button" data-bs-target="#carousel<?= $index ?>"
+                                        data-bs-slide-to="<?= $imgIdx ?>"
+                                    <?php if ($imgIdx == 0): ?>
+                                        class="active" aria-current="true"
+                                    <?php endif; ?>
+                                        aria-label="Slide <?= $imgIdx + 1 ?>"></button>
+                            <?php endforeach; ?>
                         </div>
-                    </td>
-                    <td style="vertical-align: center" class="text-center">
-                        <a class="btn btn-outline-warning btn-sm"
-                           href="<?= route_to("dashboard.facilities.update", $facility->id) ?>">
-                            Edit
-                        </a>
-                    </td>
-                    <td style="vertical-align: center" class="text-center">
-                        <form action="<?= route_to("object.facilities.delete", $facility->id) ?>"
-                              method="post">
-                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmBeforeSubmit(
+                        <div class="carousel-inner">
+                            <?php foreach ($facility->images as $imgIdx => $img): ?>
+                                <div class="carousel-item <?= $imgIdx == 0 ? 'active' : '' ?>">
+                                    <img src="<?= $img->imgUrl ?>" class="d-block w-100"
+                                         alt="<?= $facility->label ?>"
+                                         style="aspect-ratio: 16 / 9; object-fit: cover; object-position: center;">
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carousel<?= $index ?>" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                                data-bs-target="#carousel<?= $index ?>" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-3 font-marcellus">
+                    <div class="d-flex flex-column gap-4">
+                        <h3>
+                            <?php if (session()->get("LANG") == "EN_"): ?>
+                                <?= $facility->label ?>
+                            <?php else: ?>
+                                <?= $facility->label_id ?: $facility->label ?>
+                            <?php endif ?>
+                        </h3>
+                        <p>
+                            <?php if (session()->get("LANG") == "EN_"): ?>
+                                <?= $facility->description ?>
+                            <?php else: ?>
+                                <?= $facility->description_id ?: $facility->description ?>
+                            <?php endif ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 position-absolute top-0 start-100 translate-middle p-2 bg-white"
+                 style="width: fit-content">
+                <a class="btn btn-warning btn-sm text-nowrap text-white"
+                   href="<?= route_to("dashboard.facilities.update", $facility->id) ?>">
+                    <i class="bi bi-pen"></i>
+                </a>
+
+                <form action="<?= route_to("object.facilities.delete", $facility->id) ?>"
+                      method="post">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmBeforeSubmit(
                                             this,
                                             'Hapus Fasilitas?',
                                             'Fasilitas yang telah dihapus tidak dapat dikembalikan'
                                         )">
-                                Delete
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    <?php endforeach; ?>
 </div>
-<?= $this->endSection(); ?>
-
-<?= $this->section("javascript") ?>
-<script>
-    new DataTable('#article_table');
-</script>
 <?= $this->endSection(); ?>

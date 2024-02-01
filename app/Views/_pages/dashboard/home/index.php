@@ -109,10 +109,6 @@
                              src="<?= call("HOME_CAROUSEL_IMG_$i", PLACEHOLDER_IMG) ?>"
                              class="w-100" style="aspect-ratio: 16 / 9"/>
 
-                        <div class="position-absolute top-0 end-0 m-2">
-                            <?= summon_image_button("HOME_CAROUSEL_IMG_$i") ?>
-                        </div>
-
                         <div class="position-absolute top-0 start-0 w-100 h-100 p-2 d-flex flex-column justify-content-between">
                             <div>
                                 <div class="h3 font-marcellus mb-4">
@@ -127,6 +123,10 @@
                                  class="font-josefin-sans mt-auto border px-3 py-1 pt-2 border-dark">
                                 <?= summon_editable_div("(Button Text)", "HOME_CAROUSEL_BUTTON_TEXT_$i") ?>
                             </div>
+                        </div>
+
+                        <div class="position-absolute top-0 end-0 m-2">
+                            <?= summon_image_button("HOME_CAROUSEL_IMG_$i") ?>
                         </div>
                     </div>
                     <?= view("_components/LinesFieldGroup",

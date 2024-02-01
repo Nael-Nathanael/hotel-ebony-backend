@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                                 <img src="<?= $image->imgUrl ?>" alt="<?= $image->imgUrl ?>" class="w-100"
-                                     style="aspect-ratio: 2 / 1; object-fit: cover; object-position: center"/>
+                                     style="aspect-ratio: 16 / 9; object-fit: cover; object-position: center"/>
                             </div>
 
                         <?php endif ?>
@@ -49,7 +49,7 @@
 
                     <div class="col-12">
                         <div class="w-100 mx-auto border border-primary d-flex justify-content-center align-items-center rounded cursor-pointer"
-                             style="max-width: 300px; aspect-ratio: 2 / 1"
+                             style="max-width: 300px; aspect-ratio: 16 / 9"
                              onclick="document.getElementById('<?= $room->slug . "new" ?>').click()">
                             <i class="bi bi-plus fs-2 text-primary"></i>
                         </div>
