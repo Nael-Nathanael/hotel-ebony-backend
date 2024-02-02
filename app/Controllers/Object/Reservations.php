@@ -208,7 +208,7 @@ class Reservations extends BaseController
         $instance->midtrans_status = $transaction_status;
 
         if ($instance->midtrans_status) {
-            if ($instance->midtrans_status["transaction_status"] == "settlement") {
+            if ($instance->midtrans_status->transaction_status == "settlement") {
                 $reservationModel->where("reservation_id", $id)
                     ->set('paid_at', 'NOW()', false)
                     ->set('status', 'PAID')
