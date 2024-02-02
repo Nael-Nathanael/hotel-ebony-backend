@@ -38,8 +38,15 @@
                 {{ Room Facility 3 }}<br>
                 {{ Room Facility 4 }}
             </div>
-            <div class="col-6 text-end">
-                
+            <div class="col-6 text-end font-josefin-sans d-flex flex-column align-items-end">
+                <span class="fw-bold fs-4 lh-1">
+                    IDR {{ Room Price }}
+                </span>
+                <?= summon_editable_div("per night", "RESERVE_PER_NIGHT_INFO") ?>
+                <?= summon_editable_div("Including Taxes and Fees", "RESERVE_INCLUDE_TAXES") ?>
+                <div class="px-3 py-1 pt-2 text-white font-josefin-sans" style="background-color: #6e5e5e;">
+                    <?= summon_editable_div("Book Now", "RESERVE_BOOK_NOW") ?>
+                </div>
             </div>
         </div>
     </section>

@@ -45,6 +45,7 @@ $routes->group('dashboard', function ($routes) {
     $routes->get('availabilities', "Dashboard\Availabilities::index", ["as" => "dashboard.availabilities.index"]);
     $routes->get('tnc', "Dashboard\Tnc::index", ["as" => "dashboard.tnc.index"]);
     $routes->get('reserve', "Dashboard\Reserve::index", ["as" => "dashboard.reserve.index"]);
+    $routes->get('checkout', "Dashboard\Checkout::index", ["as" => "dashboard.checkout.index"]);
 
     $routes->group('articles', function ($routes) {
         $routes->get("", "Dashboard\Articles::index", ["as" => "dashboard.articles.index"]);

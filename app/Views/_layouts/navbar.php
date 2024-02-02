@@ -48,6 +48,9 @@
                        aria-expanded="false">More</a>
                     <ul class="dropdown-menu">
                         <li>
+                            <a class="dropdown-item" href="<?= route_to("dashboard.checkout.index") ?>">
+                                Checkout Page
+                            </a>
                             <a class="dropdown-item" href="#"
                                onclick="Swal.fire('Under Construction', 'This page is still under construction, please wait :)', 'info')">
                                 Manage Reservations

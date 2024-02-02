@@ -27,7 +27,7 @@ $lang = session()->get("LANG") ? 'EN' : 'ID'
     <div id="editable_div__<?= $field_id ?>"
          onblur="editableDiv__onSaveButtonClick('<?= $field_id ?>', '<?= isset($field_multiple) && $field_multiple ? 'true' : 'false' ?>')"
          onclick="editableDiv__onEditButtonClick('<?= $field_id ?>')"
-         class="<?= isset($field_multiple) && $field_multiple ? "editable_div_multiple" : "editable_div" ?>"
+         class="<?= isset($field_multiple) && $field_multiple ? "editable_div_multiple" : "editable_div" ?> lh-1"
          data-id="<?= $field_id ?>" data-multiple='<?= isset($field_multiple) && $field_multiple ? 'true' : 'false' ?>'
          style="outline: none"
     >
