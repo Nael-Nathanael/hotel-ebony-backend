@@ -11,7 +11,7 @@
 
         <section class="p-4 shadow position-relative">
             <div class="bg-white border border-dark rounded px-2 py-1 shadow position-absolute top-0 start-0"
-                 style="transform: translate(-30%, -50%)">Template Room
+                 style="transform: translate(-30%, -50%)">Template
             </div>
             <div class="row g-5">
                 <div class="col-6">

@@ -13,7 +13,8 @@
     "breadcrumbs" => [
         call("MENU_FACILITIES", "Facilities") => route_to("dashboard.facilities.index"),
         "Manage Facility Photo: " . $facility->title
-    ]
+    ],
+    "help" => "<span class='text-danger'>Ukuran gambar yang direkomendasikan: 1920 x 1080 (Dimensi 16 / 9)</span>"
 ]); ?>
 
     <div class="container my-5">
@@ -56,9 +57,6 @@
                         class="btn btn-outline-primary w-100 h-100">
                     + Upload New Photo
                 </button>
-                <small class="text-secondary lh-1 d-block" style="font-size: 12px">
-                    *Ukuran gambar yang direkomendasikan: 1920 x 1080 (Dimensi 16 / 9)
-                </small>
             </form>
         </div>
     </div>
