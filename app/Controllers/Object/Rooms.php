@@ -31,6 +31,7 @@ class Rooms extends BaseController
                 "capacity" => $this->request->getPost("capacity"),
                 "size" => $this->request->getPost("size"),
                 "tnc" => $this->request->getPost("tnc"),
+                "tnc_id" => $this->request->getPost("tnc_id"),
             ]
         );
 
@@ -87,6 +88,7 @@ class Rooms extends BaseController
             "capacity" => $this->request->getPost("capacity"),
             "size" => $this->request->getPost("size"),
             "tnc" => $this->request->getPost("tnc"),
+            "tnc_id" => $this->request->getPost("tnc_id"),
         ];
 
         $model->save(

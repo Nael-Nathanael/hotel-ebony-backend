@@ -24,6 +24,7 @@ class RoomsModel extends Model
         'capacity',
         'size',
         'tnc',
+        'tnc_id',
         'deleted_at',
     ];
 

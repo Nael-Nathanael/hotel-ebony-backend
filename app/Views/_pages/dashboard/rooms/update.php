@@ -206,12 +206,25 @@
         </div>
 
         <div class="pb-3">
-            <h6>Room Terms and Conditions</h6>
+            <div class="row">
+                <div class="col-6">
+                    <h6>Room Terms and Conditions (EN)</h6>
 
-            <input type="hidden" name="tnc" id="tnc">
-            <div class="document-editor__toolbar border-0"></div>
-            <div class="editor border shadow-none bg-white" style="min-height: 150px">
-                <?= $room->tnc ?>
+                    <input type="hidden" name="tnc" id="tnc">
+                    <div class="document-editor__toolbar border-0"></div>
+                    <div class="editor border shadow-none bg-white" style="min-height: 150px">
+                        <?= $room->tnc ?>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <h6>Room Terms and Conditions (ID)</h6>
+
+                    <input type="hidden" name="tnc_id" id="tnc_id">
+                    <div class="document-editor__toolbar_id border-0"></div>
+                    <div class="editor_id border shadow-none bg-white" style="min-height: 150px">
+                        <?= $room->tnc_id ?>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -268,6 +281,49 @@
         })
 
     document.getElementById("tnc").value = `<?= $room->tnc ?>`
+
+
+    DecoupledDocumentEditor
+        .create(document.querySelector('.editor_id'), {
+            extraPlugins: [MyCustomUploadAdapterPlugin],
+            toolbar: {
+                items: [
+                    'bold',
+                    'italic',
+                    'underline',
+                ]
+            },
+            language: 'en',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:inline',
+                    'imageStyle:block',
+                    'imageStyle:side'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells',
+                    'tableCellProperties',
+                    'tableProperties'
+                ]
+            },
+            licenseKey: '',
+        })
+        .then(editor => {
+            editor.model.document.on('change', () => {
+                document.getElementById("tnc_id").value = editor.getData();
+            });
+
+            // Set a custom container for the toolbar.
+            document.querySelector('.document-editor__toolbar_id').appendChild(editor.ui.view.toolbar.element);
+            document.querySelector('.ck-toolbar').classList.add('ck-reset_all');
+        })
+
+    document.getElementById("tnc_id").value = `<?= $room->tnc_id ?>`
 </script>
 <?= $this->endSection(); ?>
 

@@ -44,6 +44,7 @@ class Articles extends BaseController
             ]
         );
 
+        sendCalmSuccessMessage("New Article Published!");
         return redirect()->to(previous_url());
     }
 
@@ -97,6 +98,7 @@ class Articles extends BaseController
 
         $articles->save($data);
 
+        sendCalmSuccessMessage("Article has been updated!");
         return redirect()->to(previous_url());
     }
 
@@ -107,6 +109,7 @@ class Articles extends BaseController
 
         $articles->delete($slug);
 
+        sendCalmSuccessMessage("Article has been deleted!");
         return redirect()->to(previous_url());
     }
 
