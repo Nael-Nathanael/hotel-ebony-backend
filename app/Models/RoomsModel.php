@@ -17,11 +17,13 @@ class RoomsModel extends Model
         'name',
         'type',
         'description',
+        'description_id',
         'price',
         'rate_code',
         'order_number',
         'capacity',
         'size',
+        'tnc',
         'deleted_at',
     ];
 

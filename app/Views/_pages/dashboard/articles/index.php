@@ -10,8 +10,8 @@
 
 <div class="container mb-3">
     <div class="w-100 text-end mb-3">
-        <a class="btn btn-outline-success btn-sm" href="<?= route_to("dashboard.articles.create") ?>">
-            Create New
+        <a class="btn btn-primary btn-sm" href="<?= route_to("dashboard.articles.create") ?>">
+            <i class="bi bi-plus"></i> Create New Article
         </a>
     </div>
 
@@ -43,8 +43,7 @@
                         Terakhir Diupdate
                     <?php endif ?>
                 </th>
-                <th class="text-center" width="1" data-sortable="false"></th>
-                <th class="text-center" width="1" data-sortable="false"></th>
+                <th class="text-center" width="1" data-sortable="false">Edit Artikel</th>
                 <th class="text-center" width="1" data-sortable="false">Delete</th>
             </tr>
             </thead>
@@ -53,9 +52,9 @@
                 <tr>
                     <td style="vertical-align: center"><?= $index + 1 ?></td>
                     <td style="vertical-align: center">
-                        <small class="fw-bold">EN</small> <?= $article->title ?><br>
+                        <small class="fw-bold">EN&nbsp;: </small> <?= $article->title ?><br>
 
-                        <small class="fw-bold">ID</small> <?= $article->title_id ?: $article->title ?>
+                        <small class="fw-bold">ID&nbsp;&nbsp;: </small> <?= $article->title_id ?: $article->title ?>
                     </td>
                     <td style="vertical-align: center">
                         <?= $article->created_at ?>
@@ -64,13 +63,11 @@
                         <?= $article->updated_at ?>
                     </td>
                     <td style="vertical-align: center" class="text-center">
-                    </td>
-                    <td style="vertical-align: center" class="text-center">
-                        <a class="btn btn-outline-primary btn-sm text-nowrap w-100 text-start"
+                        <a class="btn btn-outline-primary btn-sm text-nowrap w-100 text-start mb-1"
                            href="<?= route_to("dashboard.articles.update", $article->slug) ?>?lang=en">
                             <i class="bi bi-pen me-1"></i> English
                         </a>
-                        <a class="btn btn-outline-primary btn-sm text-nowrap w-100 text-start mb-1"
+                        <a class="btn btn-outline-primary btn-sm text-nowrap w-100 text-start"
                            href="<?= route_to("dashboard.articles.update", $article->slug) ?>?lang=id">
                             <i class="bi bi-pen me-1"></i> Indonesia
                         </a>

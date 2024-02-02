@@ -72,7 +72,9 @@
                 <?php
                 $hide_list = [
                     "facilities/create",
-                    "facilities/update"
+                    "facilities/update",
+                    "articles/create",
+                    "articles/update"
                 ];
 
                 $should_show_langswitcher = true;

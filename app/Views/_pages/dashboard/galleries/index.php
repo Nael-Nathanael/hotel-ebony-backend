@@ -14,64 +14,46 @@
             <i class="bi bi-plus"></i> Create New
         </a>
     </div>
-    <div class="table-responsive">
-        <table class="table table-hover" id="article_table">
-            <thead>
-            <tr>
-                <th style="width: 1px">No</th>
-                <th class="text-nowrap">Album (EN)</th>
-                <th class="text-nowrap w-100">Album (ID)</th>
-                <th class="text-nowrap text-center">Manage Photo</th>
-                <th class="text-nowrap text-center">Edit</th>
-                <th class="text-center text-center">Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($galleries as $index => $gallery): ?>
-                <tr>
-                    <td style="vertical-align: center"><?= $index + 1 ?></td>
-                    <td style="vertical-align: center" nowrap>
-                        <?= $gallery->title ?>
-                    </td>
-                    <td style="vertical-align: center" nowrap>
-                        <?= $gallery->title_id ?>
-                    </td>
-                    <td style="vertical-align: center" class="text-center">
-                        <a class="btn btn-outline-primary btn-sm"
-                           href="<?= route_to("dashboard.galleries.photos", $gallery->slug) ?>">
-                            Photo
-                        </a>
-                    </td>
-                    <td style="vertical-align: center" class="text-center">
-                        <a class="btn btn-outline-warning btn-sm"
-                           href="<?= route_to("dashboard.galleries.update", $gallery->slug) ?>">
-                            Edit
-                        </a>
-                    </td>
-                    <td style="vertical-align: center" class="text-center">
-                        <form action="<?= route_to("object.galleries.delete", $gallery->slug) ?>"
-                              method="post">
-                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="confirmBeforeSubmit(
+
+    <div class="row g-2">
+        <?php foreach ($galleries as $index => $gallery): ?>
+            <div class="col-4">
+                <div class="w-100 position-relative">
+                    <img src="<?= PLACEHOLDER_IMG ?>" alt="<?= $gallery->title ?>" class="w-100"
+                         style="aspect-ratio: 16 / 9">
+                    <p class="w-100 m-0 lh-1 mt-1 mb-2">
+                        <b>EN&nbsp;: </b><?= $gallery->title ?><br>
+                        <b>ID&nbsp;&nbsp;: </b><?= $gallery->title_id ?: $gallery->title ?>
+                    </p>
+
+                    <div class="position-absolute top-0 end-0">
+                        <div class="m-2 d-flex gap-2">
+                            <a class="btn btn-primary btn-sm"
+                               href="<?= route_to("dashboard.galleries.photos", $gallery->slug) ?>">
+                                <i class="bi bi-images me-1"></i> Edit
+                            </a>
+
+                            <a class="btn text-white btn-warning btn-sm text-nowrap"
+                               style=""
+                               href="<?= route_to("dashboard.galleries.update", $gallery->slug) ?>">
+                                <i class="bi bi-pen me-1"></i> Rename
+                            </a>
+
+                            <form action="<?= route_to("object.galleries.delete", $gallery->slug) ?>"
+                                  method="post">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmBeforeSubmit(
                                             this,
                                             'Hapus Album?',
                                             'Album yang telah dihapus tidak dapat dikembalikan'
                                         )">
-                                Delete
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
+                                    <i class="bi bi-trash me-1"></i> Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </div>
-<?= $this->endSection(); ?>
-
-<?= $this->section("javascript") ?>
-<script>
-    new DataTable('#article_table', {
-        ordering: false
-    });
-</script>
 <?= $this->endSection(); ?>

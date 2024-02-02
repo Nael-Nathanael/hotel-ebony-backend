@@ -26,9 +26,11 @@ class Rooms extends BaseController
                 "name" => $this->request->getPost("name"),
                 "type" => $this->request->getPost("type"),
                 "description" => $this->request->getPost("description"),
+                "description_id" => $this->request->getPost("description_id"),
                 "price" => $this->request->getPost("price"),
                 "capacity" => $this->request->getPost("capacity"),
                 "size" => $this->request->getPost("size"),
+                "tnc" => $this->request->getPost("tnc"),
             ]
         );
 
@@ -80,9 +82,11 @@ class Rooms extends BaseController
             "name" => $this->request->getPost("name"),
             "type" => $this->request->getPost("type"),
             "description" => $this->request->getPost("description"),
+            "description_id" => $this->request->getPost("description_id"),
             "price" => $this->request->getPost("price"),
             "capacity" => $this->request->getPost("capacity"),
             "size" => $this->request->getPost("size"),
+            "tnc" => $this->request->getPost("tnc"),
         ];
 
         $model->save(

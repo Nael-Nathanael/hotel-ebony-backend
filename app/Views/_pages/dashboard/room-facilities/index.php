@@ -10,7 +10,7 @@
 <div class="container pb-5">
     <div class="w-100 text-end mb-4">
         <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#createModal">
-            Create New
+            <i class="bi bi-plus"></i> Add New Room Facility
         </button>
     </div>
 
@@ -33,11 +33,17 @@
                         </form>
                     </div>
                     <div class="align-items-center d-flex position-relative">
-                        <img src="<?= $facility_option->icon ?? PLACEHOLDER_IMG ?>" width="40" height="40"
-                             onclick="document.getElementById('<?= $facility_option->slug . "_icon" ?>').click()"
-                             style="cursor: pointer; object-fit: contain" class="me-3"
-                             alt="<?= $facility_option->name ?>"
-                        >
+                        <div class="position-relative me-3" style="cursor: pointer;"
+                             onclick="document.getElementById('<?= $facility_option->slug . "_icon" ?>').click()">
+                            <img src="<?= $facility_option->icon ?? PLACEHOLDER_IMG ?>" width="40" height="40"
+                                 style="object-fit: contain; object-position: center"
+                                 alt="<?= $facility_option->name ?>"
+                            >
+                            <div class="position-absolute top-0 start-100 translate-middle bg-warning d-flex justify-content-center align-items-center text-white rounded-circle"
+                                 style="font-size: 8px; aspect-ratio: 1 / 1; width: 15px">
+                                <i class="bi bi-pen"></i>
+                            </div>
+                        </div>
 
                         <form action="<?= route_to('object.room-facilities.updateImg', $facility_option->slug) ?>"
                               method="post"
@@ -50,7 +56,8 @@
 
                         <div class="w-100">
                             <div class="form-group mb-2 position-relative">
-                                <div class="small fw-bolder w-100">EN
+                                <div class="small fw-bolder w-100 d-flex align-items-center gap-1">
+                                    <span style="width: 25px">EN</span>
                                     <input type="text" class="form-control w-100 form-control-sm"
                                            value="<?= $facility_option->name ?>"
                                            name="<?= $facility_option->slug ?>"
@@ -63,7 +70,8 @@
                             </div>
 
                             <div class="form-group position-relative">
-                                <div class="small fw-bolder w-100">ID
+                                <div class="small fw-bolder w-100 d-flex align-items-center gap-1">
+                                    <span style="width: 25px">ID</span>
                                     <input type="text" class="form-control w-100 form-control-sm"
                                            value="<?= $facility_option->name_id ?: $facility_option->name ?>"
                                            name="<?= $facility_option->slug ?>_lang_id"

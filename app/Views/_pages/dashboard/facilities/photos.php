@@ -16,7 +16,7 @@
     ]
 ]); ?>
 
-    <div class="container my-4">
+    <div class="container my-5">
         <div class="row g-4">
             <?php foreach ($photos as $photo): ?>
                 <div class="col-12 col-md-6 col-lg-4 col-xl-3">
@@ -56,6 +56,9 @@
                         class="btn btn-outline-primary w-100 h-100">
                     + Upload New Photo
                 </button>
+                <small class="text-secondary lh-1 d-block" style="font-size: 12px">
+                    *Ukuran gambar yang direkomendasikan: 1920 x 1080 (Dimensi 16 / 9)
+                </small>
             </form>
         </div>
     </div>

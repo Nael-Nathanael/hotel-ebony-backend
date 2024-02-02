@@ -10,7 +10,9 @@
     <div class="container my-3">
 
         <section class="p-4 shadow position-relative">
-            <div class="bg-white border border-dark rounded px-2 py-1 shadow position-absolute top-0 start-0" style="transform: translate(-30%, -50%)">Template Room</div>
+            <div class="bg-white border border-dark rounded px-2 py-1 shadow position-absolute top-0 start-0"
+                 style="transform: translate(-30%, -50%)">Template Room
+            </div>
             <div class="row g-5">
                 <div class="col-6">
                     <div class="w-100 border d-flex justify-content-center align-items-center"
@@ -60,7 +62,8 @@
                         <div class="px-2 py-1 text-white text-uppercase" style="background-color: #6e5e5e">
                             <?= summon_editable_div("(RESERVE)", "ROOM_RESERVE_BUTTON") ?>
                         </div>
-                        <div class="px-2 text-decoration-underline fw-bold font-josefin-sans text-uppercase" style="color: #6e5e5e">
+                        <div class="px-2 text-decoration-underline fw-bold font-josefin-sans text-uppercase"
+                             style="color: #6e5e5e">
                             <?= summon_editable_div("(Learn More)", "ROOM_LEARN_MORE_BUTTON") ?>
                         </div>
                     </div>
@@ -72,7 +75,7 @@
 
         <section class="p-4">
             <div class="w-100 text-end">
-                <a class="btn btn-outline-success btn-sm" href="<?= route_to("dashboard.rooms.create") ?>">
+                <a class="btn btn-primary btn-sm" href="<?= route_to("dashboard.rooms.create") ?>">
                     <i class="bi bi-plus"></i> <?= session()->get("LANG") ? "Tambahkan Rooms & Suites" : "Create Rooms & Suites" ?>
                 </a>
             </div>
@@ -117,7 +120,11 @@
                             <div class="col-6 justify-content-between d-flex flex-column">
                                 <div>
                                     <p class="fs-3 text-uppercase mb-0 font-josefin-sans"><?= $room->name ?></p>
-                                    <p class="font-josefin-sans"><?= $room->description ?></p>
+                                    <?php if (session()->get("LANG")): ?>
+                                        <p class="font-josefin-sans"><?= $room->description ?></p>
+                                    <?php else: ?>
+                                        <p class="font-josefin-sans"><?= $room->description_id ?: $room->description ?></p>
+                                    <?php endif ?>
 
                                     <table class="small">
                                         <tr>
