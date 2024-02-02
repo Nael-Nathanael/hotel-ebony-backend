@@ -23,7 +23,8 @@ class FacilitiesModel extends Model
         'thumbnailUrl',
         'imgUrl',
         'isShownOnHomepage',
-        'isWhiteText',
+        'content',
+        'content_id',
     ];
 
     // Dates

@@ -24,8 +24,8 @@
             ]
         ];
         ?>
-        <div class="position-relative border py-4 mt-3 mb-5">
-            <div class="row align-items-center gx-3 position-relative">
+        <div class="position-relative border p-4 mt-3 mb-5">
+            <div class="row align-items-center gx-3">
                 <div class="col-3 text-end font-marcellus fs-4 text-uppercase text-secondary">
                     <?php if (session()->get("LANG") == "EN_"): ?>
                         <?= $facility->label ?>

@@ -69,13 +69,30 @@
                 </li>
             </ul>
             <div class="d-flex align-items-center gap-2 flex-nowrap">
-                <form action="<?= route_to("session.lang") ?>" method="post" id="langsel">
-                    <select name="lang" id="lang" class="form-select form-select-sm"
-                            onchange="document.getElementById('langsel').submit()">
-                        <option value="EN_" <?= session()->get("LANG") == "EN_" ? 'selected' : '' ?>>EN</option>
-                        <option value="" <?= session()->get("LANG") != "EN_" ? 'selected' : '' ?>>ID</option>
-                    </select>
-                </form>
+                <?php
+                $hide_list = [
+                    "facilities/create",
+                    "facilities/update"
+                ];
+
+                $should_show_langswitcher = true;
+                foreach ($hide_list as $hide_url) {
+                    if (strpos(current_url(), $hide_url)) {
+                        $should_show_langswitcher = false;
+                        break;
+                    }
+                }
+                ?>
+
+                <?php if ($should_show_langswitcher): ?>
+                    <form action="<?= route_to("session.lang") ?>" method="post" id="langsel">
+                        <select name="lang" id="lang" class="form-select form-select-sm"
+                                onchange="document.getElementById('langsel').submit()">
+                            <option value="EN_" <?= session()->get("LANG") == "EN_" ? 'selected' : '' ?>>EN</option>
+                            <option value="" <?= session()->get("LANG") != "EN_" ? 'selected' : '' ?>>ID</option>
+                        </select>
+                    </form>
+                <?php endif ?>
                 <a href="<?= route_to("auth.logout") ?>" class="flex-shrink-0 btn btn-outline-danger btn-sm">
                     Log Out
                 </a>

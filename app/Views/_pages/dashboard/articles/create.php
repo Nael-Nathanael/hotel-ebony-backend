@@ -43,7 +43,6 @@
 <div class="container-fluid">
     <form action="<?= route_to("object.articles.create") ?>" method="post" id="articleForm"
           enctype="multipart/form-data">
-        <input type="hidden" name="content" id="content">
 
         <div class="row" style="min-height: 600px">
             <div class="col-lg-9 border-end">
@@ -53,6 +52,7 @@
                            required>
                     <label for="title">Title</label>
                 </div>
+                <input type="hidden" name="content" id="content">
                 <div class="row mb-3">
                     <div class="document-editor__toolbar border-0"></div>
                 </div>

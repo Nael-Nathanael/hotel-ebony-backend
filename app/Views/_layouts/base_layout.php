@@ -246,13 +246,19 @@
 
 <script>
     function bindSelectToPreview(id, callback) {
-        document.getElementById(id).addEventListener('change', (event) => {
+        const element = document.getElementById(id)
+        if (!element) return;
+
+        element.addEventListener('change', (event) => {
             callback(event.target.value)
         })
     }
 
     function bindInputToPreview(id) {
-        document.getElementById(id).addEventListener('keyup', (event) => {
+        const element = document.getElementById(id)
+        if (!element) return;
+
+        element.addEventListener('keyup', (event) => {
             for (let element of document.getElementsByClassName('preview_' + id)) {
                 element.innerText = event.target.value
             }
@@ -260,7 +266,10 @@
     }
 
     function bindInputImageToPreview(id) {
-        document.getElementById(id).addEventListener('change', function () {
+        const element = document.getElementById(id)
+        if (!element) return;
+
+        element.addEventListener('change', function () {
             const file = this.files[0];
             const reader = new FileReader();
 

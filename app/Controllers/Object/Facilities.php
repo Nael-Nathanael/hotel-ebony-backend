@@ -44,7 +44,8 @@ class Facilities extends BaseController
                 "thumbnailUrl" => $thumbnailUrl,
                 "imgUrl" => $imgUrl,
                 "isShownOnHomepage" => $this->request->getPost("isShownOnHomepage"),
-                "isWhiteText" => $this->request->getPost("isWhiteText")
+                "content" => $this->request->getPost("content"),
+                "content_id" => $this->request->getPost("content_id")
             ]
         );
 
@@ -65,7 +66,8 @@ class Facilities extends BaseController
             "isShownOnHomepage" => $this->request->getPost("isShownOnHomepage"),
             "description" => $this->request->getPost("description"),
             "description_id" => $this->request->getPost("description_id"),
-            "isWhiteText" => $this->request->getPost("isWhiteText")
+            "content" => $this->request->getPost("content"),
+            "content_id" => $this->request->getPost("content_id")
         ];
 
         // upload thumbnail image
@@ -74,14 +76,6 @@ class Facilities extends BaseController
             $path->move(UPLOAD_FOLDER_URL);
             $data['thumbnailUrl'] = base_url("/uploads/" . $path->getName());
         }
-
-        // upload image
-        if ($_FILES["img"]["name"]) {
-            $path = $this->request->getFile("img");
-            $path->move(UPLOAD_FOLDER_URL);
-            $data['imgUrl'] = base_url("/uploads/" . $path->getName());
-        }
-
         $model->save($data);
 
         sendCalmSuccessMessage("Fasilitas berhasil diperbarui!");
