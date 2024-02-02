@@ -39,6 +39,7 @@
                              style="object-fit: cover; aspect-ratio: 16 / 9; object-position: center"
                              src="<?= $facility->imgUrl ?>"
                         />
+                        <input type="file" name="img" id="img" class="form-control form-control-sm mb-0">
                     </div>
                     <div class="col-3 font-marcellus">
                         <div class="d-flex flex-column gap-4">
@@ -54,6 +55,7 @@
                     </div>
                     <div class="col-6 offset-3">
                         <label for="img">
+                            *Pilih satu gambar utama untuk ditampilkan sebagai cover <br>
                             *Gambar dapat diubah via menu "Edit Daftar Gambar" di halaman "Daftar Fasilitas" <br/>
                             *Gambar akan sama untuk tampilan bahasa inggris dan bahasa indonesia <br>
                             *Ukuran gambar yang direkomendasikan: 1920 x 1080 (Dimensi 16 / 9)

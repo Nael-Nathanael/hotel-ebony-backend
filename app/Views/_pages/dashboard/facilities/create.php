@@ -52,7 +52,7 @@
                 </div>
                 <div class="col-6 offset-3">
                     <label for="img">
-                        *Pilih satu gambar utama untuk ditampilkan <br>
+                        *Pilih satu gambar utama untuk ditampilkan sebagai cover <br>
                         *Gambar dapat ditambahkan via menu "Edit Daftar Gambar" di halaman "Daftar Fasilitas" <br/>
                         *Gambar akan sama untuk tampilan bahasa inggris dan bahasa indonesia <br>
                         *Ukuran gambar yang direkomendasikan: 1920 x 1080 (Dimensi 16 / 9)

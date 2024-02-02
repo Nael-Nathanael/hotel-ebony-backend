@@ -28,4 +28,14 @@ class Facilities extends BaseController
         bindFlashdata($data);
         return view("_pages/dashboard/facilities/update", $data);
     }
+
+    public function photos($slug): string
+    {
+        $model = model("FacilitiesModel");
+        $data['facility'] = $model->find($slug);
+        $model = model("FacilityPhotoModel");
+        $data['photos'] = $model->orderBy("createdAt", "ASC")->where("facility_id", $slug)->findAll();
+        bindFlashdata($data);
+        return view("_pages/dashboard/facilities/photos", $data);
+    }
 }

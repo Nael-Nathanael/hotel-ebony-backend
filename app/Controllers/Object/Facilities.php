@@ -76,6 +76,14 @@ class Facilities extends BaseController
             $path->move(UPLOAD_FOLDER_URL);
             $data['thumbnailUrl'] = base_url("/uploads/" . $path->getName());
         }
+
+        // upload image
+        if ($_FILES["img"]["name"]) {
+            $path = $this->request->getFile("img");
+            $path->move(UPLOAD_FOLDER_URL);
+            $data['imgUrl'] = base_url("/uploads/" . $path->getName());
+        }
+
         $model->save($data);
 
         sendCalmSuccessMessage("Fasilitas berhasil diperbarui!");
@@ -97,4 +105,37 @@ class Facilities extends BaseController
         $model = model("FacilitiesModel");
         return $this->response->setJSON($model->findAll());
     }
+
+    public function photos($facilityId): RedirectResponse
+    {
+        $model = model("FacilityPhotoModel");
+
+        if ($_FILES["img"]["name"]) {
+            $path = $this->request->getFile("img");
+            $path->move(UPLOAD_FOLDER_URL);
+            $imgUrl = base_url("/uploads/" . $path->getName());
+            $model->save([
+                "facility_id" => $facilityId,
+                "url" => $imgUrl
+            ]);
+        } else {
+            sendCalmErrorMessage("Foto gagal di-upload");
+            return redirect()->back();
+        }
+
+
+        sendCalmSuccessMessage("Foto berhasil diupload!");
+        return redirect()->back();
+    }
+
+    public function photoDelete($photoId): RedirectResponse
+    {
+        $model = model("FacilityPhotoModel");
+
+        $model->delete($photoId);
+
+        sendCalmSuccessMessage("Foto berhasil dihapus!");
+        return redirect()->back();
+    }
+
 }

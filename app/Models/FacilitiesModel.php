@@ -34,6 +34,13 @@ class FacilitiesModel extends Model
     public function findAll(int $limit = 0, int $offset = 0)
     {
         $this->orderBy("number ASC");
-        return parent::findAll($limit, $offset);
+        $result = parent::findAll($limit, $offset);
+        $photoModel = model("FacilityPhotoModel");
+
+        foreach ($result as $single) {
+            $single->images = $photoModel->where("facility_id", $single->id)->findAll();
+        }
+
+        return $result;
     }
 }

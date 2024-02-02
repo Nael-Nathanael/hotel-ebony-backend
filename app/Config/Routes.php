@@ -56,6 +56,7 @@ $routes->group('dashboard', function ($routes) {
         $routes->get("", "Dashboard\Facilities::index", ["as" => "dashboard.facilities.index"]);
         $routes->get("create", "Dashboard\Facilities::create", ["as" => "dashboard.facilities.create"]);
         $routes->get("update/(:segment)", "Dashboard\Facilities::update/$1", ["as" => "dashboard.facilities.update"]);
+        $routes->get("images/(:segment)", "Dashboard\Facilities::photos/$1", ["as" => "dashboard.facilities.images"]);
     });
 
     $routes->group('galleries', function ($routes) {
@@ -93,6 +94,8 @@ $routes->group("object", function ($routes) {
         $routes->post('delete/(:segment)', "Object\Facilities::delete/$1", ["as" => "object.facilities.delete"]);
         $routes->post('update/(:segment)', "Object\Facilities::update/$1", ["as" => "object.facilities.update"]);
         $routes->get('get', "Object\Facilities::get", ["as" => "object.facilities.get"]);
+        $routes->post("photos/(:segment)", "Object\Facilities::photos/$1", ["as" => "object.facilities.photos"]);
+        $routes->post("photos/delete/(:segment)", "Object\Facilities::photoDelete/$1", ["as" => "object.facilities.photos.delete"]);
     });
 
     $routes->group('galleries', function ($routes) {
