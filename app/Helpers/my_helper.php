@@ -62,3 +62,10 @@ if (!function_exists('call')) {
         return $temp ?: $defaultValue;
     }
 }
+
+if (!function_exists('callConfig')) {
+    function callConfig($id, $defaultValue): string
+    {
+        return $GLOBALS["config"]->findOrDefault($id, $defaultValue);
+    }
+}

@@ -155,6 +155,11 @@ $routes->group("object", function ($routes) {
         $routes->post('getFormatted', "Object\Lines::getFormatted", ["as" => "object.lines.getFormatted"]);
         $routes->post('getFormatted/EN_', "Object\Lines::getFormattedEn", ["as" => "object.lines.getFormattedEn"]);
     });
+
+    $routes->group('config', function ($routes) {
+        $routes->post('update', "Object\Config::update", ["as" => "object.config.update"]);
+        $routes->get('get/(:segment)', "Object\Config::getByKey/$1", ["as" => "object.config.getByKey"]);
+    });
 });
 
 $routes->options('(:any)', "Object\Articles::get", ["as" => "object.articles.get"]);

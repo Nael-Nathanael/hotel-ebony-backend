@@ -63,5 +63,6 @@ class BaseController extends Controller
         }
 
         $GLOBALS['lines'] = $lines;
+        $GLOBALS['config'] = model("Config");
     }
 }
