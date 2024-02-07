@@ -54,7 +54,7 @@ class ReservationsModel extends Model
         $result = parent::findAll($limit, $offset);
         $room_model = model("RoomsModel");
         foreach ($result as $res) {
-            $res->room = $room_model->find($res->room_slug);
+            $res->room = $room_model->withDeleted()->find($res->room_slug);
         }
 
         return $result;
