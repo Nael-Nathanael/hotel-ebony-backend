@@ -37,7 +37,7 @@ class RoomsModel extends Model
 
     public function findAll(int $limit = 0, int $offset = 0)
     {
-        $this->orderBy("order_number ASC");
+        $this->where("price != 0", "", false)->orderBy("order_number ASC");
         return parent::findAll($limit, $offset);
     }
 
@@ -51,7 +51,7 @@ class RoomsModel extends Model
         if ($slug) {
             $rooms = $this->where("slug", $slug)->findAll();
         } else {
-            $rooms = $this->findAll();
+            $rooms = $this->where("price != 0", "", false)->findAll();
         }
 
         foreach ($rooms as $room) {
@@ -89,7 +89,7 @@ class RoomsModel extends Model
         if (array_key_exists("slug", $filter)) {
             $this->where("slug", $filter["slug"]);
         }
-        $rooms = $this->findAll();
+        $rooms = $this->where("price != 0", "", false)->findAll();
 
         foreach ($rooms as $room) {
             $availabilities = $availabilityModel
