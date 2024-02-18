@@ -75,7 +75,9 @@
 
         <section class="p-4">
             <div class="w-100 text-end">
-                <a class="btn btn-primary btn-sm" href="<?= route_to("dashboard.rooms.create") ?>">
+                <a class="btn btn-primary btn-sm"
+                   onclick="swal.fire('Diatur oleh CakraSoft', 'Tambahkan Rooms & Suites via sistem CakraSoft', 'info')"
+                >
                     <i class="bi bi-plus"></i> <?= session()->get("LANG") ? "Tambahkan Rooms & Suites" : "Create Rooms & Suites" ?>
                 </a>
             </div>

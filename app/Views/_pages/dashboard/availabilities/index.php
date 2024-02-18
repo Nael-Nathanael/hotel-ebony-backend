@@ -4,11 +4,14 @@
 
 <?php $start = $_GET['s'] ?? date('Y-m-d'); ?>
 
+<?php $readonly = "readonly" ?>
+
 <?= view("_components/PageHero", [
     "breadcrumbs" => [
         "Room Availabilities"
     ],
-    "fluid" => true
+    "fluid" => true,
+    "help" => "Menu ini dalam mode <span class='fw-bold text-warning'>View Only</span>. Perubahan alotment atau availabilities bisa dilakukan di sistem CakraSoft."
 ]); ?>
 
 
@@ -58,15 +61,22 @@
                         }
                         ?>
                         <td>
-                            <div class="align-items-center d-flex position-relative">
-                                <label for="<?= $room->slug . "count" . $i ?>"
-                                       class="small position-absolute end-0 top-50 translate-middle-y me-2"></label>
+                            <?php if ($readonly): ?>
+                                <p class="text-center mb-0">
+                                    <?= $lookup->count ?: "No" ?> Room
+                                </p>
+                            <?php else: ?>
+                                <div class="align-items-center d-flex position-relative">
+                                    <label for="<?= $room->slug . "count" . $i ?>"
+                                           class="small position-absolute end-0 top-50 translate-middle-y me-2"></label>
 
-                                <input class="form-control form-control-sm" placeholder="0" type="number"
-                                       name="<?= $room->slug . "count" . $i ?>"
-                                       value="<?= $lookup->count ?>"
-                                       onchange="updateAvailability(this, '<?= date("Y-m-d", strtotime($start . " +$i days")) ?>', '<?= $room->slug ?>', 'count')">
-                            </div>
+                                    <input class="form-control form-control-sm" placeholder="0" type="number"
+                                           name="<?= $room->slug . "count" . $i ?>"
+                                           value="<?= $lookup->count ?>"
+                                           onchange="updateAvailability(this, '<?= date("Y-m-d", strtotime($start . " +$i days")) ?>', '<?= $room->slug ?>', 'count')"
+                                    >
+                                </div>
+                            <?php endif ?>
                         </td>
                     <?php endforeach; ?>
                 </tr>
@@ -91,16 +101,24 @@
                         }
                         ?>
                         <td>
-                            <div class="align-items-center d-flex position-relative">
-                                <label for="<?= $room->slug . "price" . $i ?>"
-                                       class="small position-absolute end-0 top-50 translate-middle-y me-2"></label>
+                            <?php if ($readonly): ?>
+                                <p class="text-center mb-0">
+                                    <?= $lookup->price ?: $room->price ?>
+                                </p>
+                            <?php else: ?>
+                                <div class="align-items-center d-flex position-relative">
+                                    <label for="<?= $room->slug . "price" . $i ?>"
+                                           class="small position-absolute end-0 top-50 translate-middle-y me-2"></label>
 
-                                <input class="form-control form-control-sm"
-                                       type="number"
-                                       name="<?= $room->slug . "price" . $i ?>"
-                                       onchange="updateAvailability(this, '<?= date("Y-m-d", strtotime($start . " +$i days")) ?>', '<?= $room->slug ?>', 'price')"
-                                       placeholder="<?= $room->price ?>" value="<?= $lookup->price ?>">
-                            </div>
+                                    <input class="form-control form-control-sm"
+                                           type="number"
+                                           name="<?= $room->slug . "price" . $i ?>"
+                                           value="<?= $lookup->price ?>"
+                                           placeholder="<?= $room->price ?>"
+                                           onchange="updateAvailability(this, '<?= date("Y-m-d", strtotime($start . " +$i days")) ?>', '<?= $room->slug ?>', 'price')"
+                                    >
+                                </div>
+                            <?php endif ?>
                         </td>
                     <?php endforeach; ?>
                 </tr>
@@ -125,15 +143,23 @@
                         }
                         ?>
                         <td>
-                            <div class="align-items-center d-flex position-relative">
-                                <label for="<?= $room->slug . "rate_code" . $i ?>"
-                                       class="small position-absolute end-0 top-50 translate-middle-y me-2"></label>
+                            <?php if ($readonly): ?>
+                                <p class="text-center mb-0">
+                                    <?= $lookup->rate_code ?: $room->rate_code ?: '-' ?>
+                                </p>
+                            <?php else: ?>
+                                <div class="align-items-center d-flex position-relative">
+                                    <label for="<?= $room->slug . "rate_code" . $i ?>"
+                                           class="small position-absolute end-0 top-50 translate-middle-y me-2"></label>
 
-                                <input class="form-control form-control-sm"
-                                       name="<?= $room->slug . "rate_code" . $i ?>"
-                                       onchange="updateAvailability(this, '<?= date("Y-m-d", strtotime($start . " +$i days")) ?>', '<?= $room->slug ?>', 'rate_code')"
-                                       placeholder="<?= $room->rate_code ?>" value="<?= $lookup->rate_code ?>">
-                            </div>
+                                    <input class="form-control form-control-sm"
+                                           name="<?= $room->slug . "rate_code" . $i ?>"
+                                           placeholder="<?= $room->rate_code ?>" value="<?= $lookup->rate_code ?>"
+
+                                           onchange="updateAvailability(this, '<?= date("Y-m-d", strtotime($start . " +$i days")) ?>', '<?= $room->slug ?>', 'rate_code')"
+                                    >
+                                </div>
+                            <?php endif ?>
                         </td>
                     <?php endforeach; ?>
                 </tr>

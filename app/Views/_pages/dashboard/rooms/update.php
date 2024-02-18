@@ -89,7 +89,7 @@
                     </div>
 
                     <div class="">
-                        <label>Bedding Options</label>
+                        <label>Bedding Options <sup class="text-warning">Kolom ini diatur sistem CakraSoft</sup></label>
                         <div class="d-flex align-items-center">
                             <div class="flex-grow-1">
                                 <?php
@@ -106,7 +106,7 @@
                                 <div class="input-group input-group-sm">
                                     <input type="number" name="king_bed_count" id="king_bed_count"
                                            class="form-control"
-                                           value="<?= $bed_count ?>" min="0" required>
+                                           value="<?= $bed_count ?>" min="0" required readonly>
                                     <span class="input-group-text">King Bed(s)</span>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                                 <div class="input-group input-group-sm">
                                     <input type="number" name="queen_bed_count" id="queen_bed_count"
                                            class="form-control"
-                                           value="<?= $bed_count ?>" min="0" required>
+                                           value="<?= $bed_count ?>" min="0" required readonly>
                                     <span class="input-group-text">Queen Bed(s)</span>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                                 <div class="input-group input-group-sm">
                                     <input type="number" name="twin_bed_count" id="twin_bed_count"
                                            class="form-control"
-                                           value="<?= $bed_count ?>" min="0" required>
+                                           value="<?= $bed_count ?>" min="0" required readonly>
                                     <span class="input-group-text">Twin Bed(s)</span>
                                 </div>
                             </div>
@@ -158,11 +158,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="price">Price</label>
+                        <label for="price">Price <sup class="text-warning">Kolom ini diatur sistem CakraSoft</sup></label>
                         <div class="input-group input-group-sm">
                             <span class="input-group-text">IDR </span>
                             <input type="number" name="price" id="price" class="form-control pb-0"
-                                   placeholder="Harga" value="<?= $room->price ?>" required>
+                                   placeholder="Harga" value="<?= $room->price ?>" required readonly>
                             <span class="input-group-text">/ night</span>
                         </div>
                     </div>
