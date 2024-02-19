@@ -25,6 +25,7 @@ class RoomsModel extends Model
         'size',
         'tnc',
         'tnc_id',
+        'min_alotment',
         'deleted_at',
     ];
 
@@ -105,9 +106,16 @@ class RoomsModel extends Model
                 $availabilities->where("date < '${filter['e']}'", null, false);
             }
 
+            $min_alotment = intval($room->min_alotment) ?? 0;
+            
             if (array_key_exists('c', $filter)) {
-                $availabilities->where("count >= '${filter['c']}'", null, false);
+                $requested_count = intval($filter['c']);
+                $lower_limit = $min_alotment + $requested_count;
+            } else {
+                $lower_limit = $min_alotment + 1;
             }
+
+            $availabilities->where("count >= $lower_limit", null, false);
 
             $room->availabilities = $availabilities->findAll();
 

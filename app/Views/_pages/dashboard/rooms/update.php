@@ -157,13 +157,28 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="price">Price <sup class="text-warning">Kolom ini diatur sistem CakraSoft</sup></label>
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-text">IDR </span>
-                            <input type="number" name="price" id="price" class="form-control pb-0"
-                                   placeholder="Harga" value="<?= $room->price ?>" required readonly>
-                            <span class="input-group-text">/ night</span>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="price">Price <sup class="text-warning">Kolom ini diatur sistem
+                                        CakraSoft</sup></label>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text">IDR </span>
+                                    <input type="number" name="price" id="price" class="form-control pb-0"
+                                           placeholder="Harga" value="<?= $room->price ?>" required readonly>
+                                    <span class="input-group-text">/ night</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="min_alotment">Min Alotment</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="number" name="min_alotment" id="min_alotment" class="form-control pb-0"
+                                           placeholder="2" value="<?= $room->min_alotment ?>" required>
+                                    <span class="input-group-text">Room</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -32,6 +32,7 @@ class Rooms extends BaseController
                 "size" => $this->request->getPost("size"),
                 "tnc" => $this->request->getPost("tnc"),
                 "tnc_id" => $this->request->getPost("tnc_id"),
+                "min_alotment" => $this->request->getPost("min_alotment"),
             ]
         );
 
@@ -89,6 +90,7 @@ class Rooms extends BaseController
             "size" => $this->request->getPost("size"),
             "tnc" => $this->request->getPost("tnc"),
             "tnc_id" => $this->request->getPost("tnc_id"),
+            "min_alotment" => $this->request->getPost("min_alotment"),
         ];
 
         $model->save(
