@@ -127,6 +127,7 @@ $routes->group("object", function ($routes) {
         $routes->get('get-new', "Object\Reservations::getNew", ["as" => "object.reservations.get-new"]);
         $routes->get('get/(:segment)', "Object\Reservations::getById/$1", ["as" => "object.reservations.get-by-id"]);
         $routes->post('ack', "Object\Reservations::ack", ["as" => "object.reservations.ack"]);
+        $routes->post('midtrans', "Object\Reservations::receiveMidtransNotification", ["as" => "object.reservations.midtrans"]);
     });
 
     $routes->group('room-facilities', function ($routes) {

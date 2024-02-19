@@ -3,10 +3,7 @@
 namespace App\Controllers\Object;
 
 use App\Controllers\BaseController;
-use CodeIgniter\HTTP\RedirectResponse;
 use CodeIgniter\HTTP\ResponseInterface;
-use DateTime;
-use Exception;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Midtrans\Transaction;
@@ -98,11 +95,13 @@ class Reservations extends BaseController
 
         // Access custom variable
         $midtrans_production_mode = getenv('MIDTRANS_MODE') == "PRODUCTION";
+        $transaction_notif_url = getenv('RECEIVE_TRANSACTION_URL');
         $server_key = getenv('MIDTRANS_SERVER_KEY');
         $afterpayment_redirect = getenv('AFTERPAYMENT_REDIRECT');
 
         Config::$serverKey = $server_key;
         Config::$isProduction = $midtrans_production_mode;
+        Config::$overrideNotifUrl = $transaction_notif_url;
 
         // Generate params for transaction
         $guest_name_exp = explode(" ", $instance->guest_name);
@@ -156,19 +155,27 @@ class Reservations extends BaseController
         );
     }
 
-    public function paymentCallback()
+    public function receiveMidtransNotification(): ResponseInterface
     {
-        // TODO: retrieve midtrans callback
-        // TODO: retrieve reservation_id from midtrans callback
-        $model = model("ReservationsModel");
+        $reservationModel = model("ReservationsModel");
 
-        // TODO: check status. if PAID:
-        $model->markPaid("x");
+        $midtrans_status = $this->request->getJSON();
+        if ($midtrans_status->transaction_status == "settlement" || $midtrans_status->transaction_status == "capture") {
+            $reservationModel->where("reservation_id", $midtrans_status->order_id)
+                ->set('paid_at', 'NOW()', false)
+                ->set('status', 'PAID')
+                ->update();
 
-        // TODO: also send email to buyer
+            return $this->response->setJSON([
+                "msg" => "ok, settlement"
+            ]);
+        }
+
+        // TODO: Send invoice to buyer
+        // TODO: Send invoice to Ebony
 
         return $this->response->setJSON([
-            "msg" => "ok"
+            "msg" => "ok, not settled yet"
         ]);
     }
 
