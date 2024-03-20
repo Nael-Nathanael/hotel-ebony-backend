@@ -4,6 +4,7 @@ namespace App\Controllers\Object;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use Config\Services;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Midtrans\Transaction;
@@ -166,13 +167,30 @@ class Reservations extends BaseController
                 ->set('status', 'PAID')
                 ->update();
 
+            // Send notification to Ebony
+            $email = Services::email();
+
+            $email->setTo('sales@ebony-batulicin.com');
+
+            $email->setSubject('New Web Reservation!');
+            $email_body = "
+                New Web Reservation Received
+                <br/>
+                <a target='_blank' href='https://www.ebony-batulicin.com/payment-status/$midtrans_status->order_id' rel='noreferrer'>
+                    Click here to open Booking Detail
+                </a>
+            ";
+
+            $email->setMessage($email_body);
+
+            $res = $email->send();
+
             return $this->response->setJSON([
-                "msg" => "ok, settlement"
+                "msg" => "ok, settlement. " . ($res ? 'Email Notification Sent' : 'Email Notification Not Sent')
             ]);
         }
 
         // TODO: Send invoice to buyer
-        // TODO: Send invoice to Ebony
 
         return $this->response->setJSON([
             "msg" => "ok, not settled yet"

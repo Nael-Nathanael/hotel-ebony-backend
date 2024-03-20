@@ -9,12 +9,12 @@ class Email extends BaseConfig
     /**
      * @var string
      */
-    public $fromEmail = "contact@altha.co.id";
+    public $fromEmail = "ebony@kitsuneya.my.id";
 
     /**
      * @var string
      */
-    public $fromName = "Altha Email Service";
+    public $fromName = "Ebony Web Reservation Email Service";
 
     /**e
      * @var string
@@ -47,21 +47,21 @@ class Email extends BaseConfig
      *
      * @var string
      */
-    public $SMTPHost = "smtp.gmail.com";
+    public $SMTPHost = "mail.kitsuneya.my.id";
 
     /**
      * SMTP Username
      *
      * @var string
      */
-    public $SMTPUser = "contact@altha.co.id";
+    public $SMTPUser = "ebony@kitsuneya.my.id";
 
     /**
      * SMTP Password
      *
      * @var string
      */
-    public $SMTPPass = "Altha2023";
+    public $SMTPPass = "nathanaelX1!1";
 
     /**
      * SMTP Port
